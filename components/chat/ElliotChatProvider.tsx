@@ -33,6 +33,11 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
   const [messages, setMessages] = useState<ChatMessage[]>([
     { id: id(), role: "elliot", text: GREETING, createdAt: Date.now() },
   ]);
+  // Tracks the live-mode backend's conversation id across turns, so
+  // multi-message context actually persists server-side instead of every
+  // message being treated as a new conversation. Stays null in demo mode
+  // (sendChatMessage never returns one there) with no effect on behavior.
+  const [conversationId, setConversationId] = useState<string | null>(null);
 
   const openChat = useCallback(() => setIsOpen(true), []);
   const closeChat = useCallback(() => setIsOpen(false), []);
@@ -54,13 +59,15 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
       setIsTyping(true);
 
       try {
-        const { text: reply } = await sendChatMessage({
+        const result = await sendChatMessage({
           history: messages,
           message: trimmed,
+          conversationId,
         });
+        setConversationId(result.conversationId);
         setMessages((prev) => [
           ...prev,
-          { id: id(), role: "elliot", text: reply, createdAt: Date.now() },
+          { id: id(), role: "elliot", text: result.text, createdAt: Date.now() },
         ]);
       } catch {
         setMessages((prev) => [
@@ -76,7 +83,7 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
         setIsTyping(false);
       }
     },
-    [messages]
+    [messages, conversationId]
   );
 
   const value = useMemo(
