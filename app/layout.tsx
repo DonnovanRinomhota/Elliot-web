@@ -31,7 +31,7 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.elliot.ai"),
+  metadataBase: new URL("https://elliot-kfprveful-elliot-1b82.vercel.app"),
   title: {
     default: "Elliot — Your AI employee",
     template: "%s · Elliot",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Elliot — Your AI employee",
     description:
       "Elliot handles customer conversations, qualifies leads, books appointments, follows up with prospects and automates repetitive business operations — 24/7.",
-    url: "https://www.elliot.ai",
+    url: "https://elliot-kfprveful-elliot-1b82.vercel.app",
     siteName: "Elliot",
     type: "website",
   },

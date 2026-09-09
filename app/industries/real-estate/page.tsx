@@ -19,7 +19,7 @@ const fullFlow = [
   { time: "5", label: "Scores the lead", detail: "HOT" },
   { time: "6", label: "Offers appointment times" },
   { time: "7", label: "Books viewing", detail: "Thu 17:00" },
-  { time: "8", label: "Updates CRM" },
+  { time: "8", label: "Updates CRM", detail: "Coming soon" },
   { time: "9", label: "Notifies agent" },
   { time: "10", label: "Follows up", detail: "Coming soon" },
 ];

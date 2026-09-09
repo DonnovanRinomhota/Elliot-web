@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/Card";
 
 const integrations = [
   { name: "Google Calendar", status: "available" },
-  { name: "Gmail", status: "soon" },
+  { name: "Gmail", status: "available" },
   { name: "Microsoft Outlook", status: "soon" },
   { name: "HubSpot", status: "soon" },
   { name: "Salesforce", status: "soon" },

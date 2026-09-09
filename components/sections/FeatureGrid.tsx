@@ -24,13 +24,13 @@ const features = [
   { title: "Customer support", detail: "Answers customer questions using your company knowledge.", Icon: IconSupport },
   { title: "Lead qualification", detail: "Captures information, qualifies prospects and scores leads.", Icon: IconTarget },
   { title: "Appointments", detail: "Books, reschedules and cancels appointments.", Icon: IconCalendar },
-  { title: "Email", badge: "Coming soon", detail: "Reads, categorizes and responds to business emails.", Icon: IconMail },
+  { title: "Email", detail: "Reads, categorizes and responds to business emails.", Icon: IconMail },
   { title: "Follow-ups", badge: "Coming soon", detail: "Automatically follows up with prospects over time.", Icon: IconFollowup },
   { title: "Knowledge", detail: "Retrieves information from company documents and sources.", Icon: IconKnowledge },
-  { title: "Business automation", detail: "Performs repetitive administrative tasks in the background.", Icon: IconAutomation },
+  { title: "Business automation", badge: "Coming soon", detail: "Performs repetitive administrative tasks in the background.", Icon: IconAutomation },
   { title: "Human handoff", detail: "Knows when a human needs to take over, and hands off cleanly.", Icon: IconHandoff },
   { title: "CRM", badge: "Coming soon", detail: "Creates and updates business records automatically.", Icon: IconDatabase },
-  { title: "Analytics", detail: "Shows what Elliot accomplished and its business impact.", Icon: IconAnalytics },
+  { title: "Analytics", badge: "Coming soon", detail: "Shows what Elliot accomplished and its business impact.", Icon: IconAnalytics },
 ];
 
 export default function FeatureGrid() {

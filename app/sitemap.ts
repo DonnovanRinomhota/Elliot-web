@@ -14,7 +14,7 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://www.elliot.ai";
+  const base = "https://elliot-kfprveful-elliot-1b82.vercel.app";
   return routes.map((route) => ({
     url: `${base}${route}`,
     lastModified: new Date(),
