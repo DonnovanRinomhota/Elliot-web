@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.elliot.ai/sitemap.xml
+Sitemap: https://elliot-kfprveful-elliot-1b82.vercel.app/sitemap.xml
