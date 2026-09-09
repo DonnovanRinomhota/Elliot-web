@@ -29,13 +29,12 @@ const ELLIOT_CHAT_WEBHOOK_URL =
   process.env.NEXT_PUBLIC_ELLIOT_CHAT_WEBHOOK_URL || "";
 const ELLIOT_DEMO_TENANT = process.env.NEXT_PUBLIC_ELLIOT_DEMO_TENANT || "";
 
-// Separate from the chat webhook -- this is for a future "demo request"
-// intake endpoint (CRM/leads system), which doesn't exist on the backend
-// yet. Was previously referenced below as an undefined variable (a real
-// bug -- would have thrown a ReferenceError/failed the build). Declared
-// here now so submitDemoRequest falls back to demo mode correctly until
-// a real endpoint exists.
-const ELLIOT_API_URL = process.env.NEXT_PUBLIC_ELLIOT_API_URL || "";
+// Separate from the chat webhook -- this is the n8n "Demo Request Intake"
+// production webhook URL (workflow 18). Same pattern as
+// NEXT_PUBLIC_ELLIOT_CHAT_WEBHOOK_URL: a full webhook URL, not a REST API
+// base + path, since n8n webhooks aren't a conventional REST API.
+const ELLIOT_DEMO_REQUEST_WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_ELLIOT_DEMO_REQUEST_WEBHOOK_URL || "";
 
 interface SendMessageParams {
   history: ChatMessage[];
@@ -99,13 +98,12 @@ interface DemoRequestPayload {
 }
 
 export async function submitDemoRequest(payload: DemoRequestPayload) {
-  if (ELLIOT_MODE === "demo" || !ELLIOT_API_URL) {
-    // No live CRM/email/calendar connection yet — log locally and resolve.
-    // Replace with a real integration when the backend is available.
+  if (ELLIOT_MODE === "demo" || !ELLIOT_DEMO_REQUEST_WEBHOOK_URL) {
+    // No live webhook configured yet -- log locally and resolve.
     return { ok: true as const, demo: true as const };
   }
 
-  const res = await fetch(`${ELLIOT_API_URL}/v1/leads/demo-request`, {
+  const res = await fetch(ELLIOT_DEMO_REQUEST_WEBHOOK_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -113,6 +111,12 @@ export async function submitDemoRequest(payload: DemoRequestPayload) {
 
   if (!res.ok) {
     throw new Error(`Elliot API error: ${res.status}`);
+  }
+
+  // Workflow 18 responds { success: true, id }.
+  const data = await res.json();
+  if (!data.success) {
+    throw new Error("Demo request submission failed");
   }
 
   return { ok: true as const, demo: false as const };
