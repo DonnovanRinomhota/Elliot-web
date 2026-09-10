@@ -41,13 +41,18 @@ The site ships in **demo mode** by default — the chat widget and the demo
 request form both work fully without any backend, using canned responses
 defined in `lib/demoResponses.ts`.
 
-To connect the real Elliot agent once it's ready:
+The real backend is a set of n8n workflows (see the `Elliot` repo), not a
+conventional REST API — each integration point is a single n8n webhook URL,
+set directly as an env var. To connect:
 
-1. Set `NEXT_PUBLIC_ELLIOT_MODE=live` in your environment.
-2. Set `NEXT_PUBLIC_ELLIOT_API_URL` to the SaaS API's base URL.
-3. Implement two endpoints on the SaaS side:
-   - `POST {url}/v1/website-chat` — `{ message, history, source }` → `{ reply }`
-   - `POST {url}/v1/leads/demo-request` — lead capture payload
+1. Set `NEXT_PUBLIC_ELLIOT_MODE=live`.
+2. Set `NEXT_PUBLIC_ELLIOT_CHAT_WEBHOOK_URL` to the production webhook URL
+   of `01 - Main AI Agent` in n8n.
+3. Set `NEXT_PUBLIC_ELLIOT_DEMO_TENANT` to the tenant slug that should power
+   the live chat demo on this site (e.g. a dedicated demo tenant, not a
+   real customer's).
+4. Set `NEXT_PUBLIC_ELLIOT_DEMO_REQUEST_WEBHOOK_URL` to the production
+   webhook URL of `18 - Demo Request Intake` in n8n.
 
 No other file needs to change. `services/elliotApi.ts` is the single
 abstraction point — nothing else in the UI calls `fetch` against the
