@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elliot widget test page</title>
+</head>
+<body>
+  <h1>Widget test page</h1>
+  <p>If the chat bubble appears in the bottom-right corner and a message
+     gets a reply with no red errors in the browser console, the widget's
+     CORS setup is confirmed working from a real, non-localhost origin.</p>
+
+  <!--
+    zebra-dev comes from db/seed/dev_seed.sql, not confirmed to exist in the
+    live database -- verify in Supabase's Table Editor (tenants table) or
+    swap this for a real tenant slug you know exists (e.g. one created via
+    /dashboard/onboarding) before relying on this test.
+  -->
+  <script
+    src="https://elliot-real-estate-five.vercel.app/widget.js"
+    data-tenant="zebra-dev"
+    async
+  ></script>
+</body>
+</html>
