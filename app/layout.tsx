@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,59 +6,44 @@ import { ElliotChatProvider } from "@/components/chat/ElliotChatProvider";
 import ElliotChatLauncher from "@/components/chat/ElliotChatLauncher";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
+import { SITE_URL } from "@/lib/site";
 
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
 
-const body = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
-  display: "swap",
-});
-
+// Fonts (IBM Plex Sans / Mono) are bundled via @fontsource in globals.css,
+// so there is no request to Google Fonts.
 export const metadata: Metadata = {
-  metadataBase: new URL("https://elliot-kfprveful-elliot-1b82.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Elliot — Your AI employee",
+    default: "Elliot: AI assistant for estate agencies",
     template: "%s · Elliot",
   },
   description:
-    "Elliot is an AI employee for your business. It answers customer questions, qualifies leads, books appointments, follows up with prospects and automates repetitive work — 24/7.",
+    "Elliot answers property enquiries on your website, qualifies buyers and renters, books viewings into your calendar and hands over to your team when it should. Built for estate agencies.",
   keywords: [
-    "AI employee",
-    "AI business assistant",
-    "AI sales assistant",
-    "AI customer service agent",
-    "AI automation",
+    "AI assistant for estate agents",
+    "real estate chatbot",
     "AI lead qualification",
-    "AI appointment booking",
+    "viewing booking automation",
+    "asystent AI nieruchomości",
   ],
+  alternates: {
+    canonical: "/",
+    languages: { en: "/", pl: "/pl" },
+  },
   openGraph: {
-    title: "Elliot — Your AI employee",
+    title: "Elliot: AI assistant for estate agencies",
     description:
-      "Elliot handles customer conversations, qualifies leads, books appointments, follows up with prospects and automates repetitive business operations — 24/7.",
-    url: "https://elliot-kfprveful-elliot-1b82.vercel.app",
+      "Answers enquiries, qualifies buyers and books viewings, around the clock. You approve what matters.",
+    url: SITE_URL,
     siteName: "Elliot",
     type: "website",
+    locale: "en_GB",
+    alternateLocale: ["pl_PL"],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Elliot — Your AI employee",
-    description:
-      "Elliot handles customer conversations, qualifies leads, books appointments and automates repetitive work — 24/7.",
+    card: "summary",
+    title: "Elliot: AI assistant for estate agencies",
+    description: "Answers enquiries, qualifies buyers and books viewings, around the clock.",
   },
   icons: {
     icon: "/favicon.svg",
@@ -72,11 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>

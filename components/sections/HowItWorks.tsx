@@ -35,8 +35,8 @@ export default function HowItWorks() {
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s.n} className="hover-lift group relative rounded-lg p-2 -m-2">
-              <p className="inline-block bg-gradient-to-r from-violet to-sky bg-clip-text font-mono text-sm font-semibold text-transparent">
+            <div key={s.n} className="group relative rounded-lg p-2 -m-2">
+              <p className="inline-block font-mono text-sm font-semibold text-brass-dark dark:text-brass-light">
                 {s.n}
               </p>
               <h3 className="mt-3 font-display text-xl text-fg transition-colors duration-300 group-hover:text-violet-700">

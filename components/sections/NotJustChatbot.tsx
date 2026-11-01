@@ -1,5 +1,3 @@
-import SectionHeading from "@/components/sections/SectionHeading";
-
 const elliotSteps = [
   "Understands",
   "Reasons",
@@ -13,29 +11,17 @@ const elliotSteps = [
 
 export default function NotJustChatbot() {
   return (
-    <section className="relative overflow-hidden border-b border-ink bg-ink py-24 text-paper">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-violet/25 blur-[110px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-sky/20 blur-[110px]"
-      />
-
-      <div className="container-content reveal relative">
-        <SectionHeading
-          eyebrow="The difference"
-          title={<span className="text-paper">Not just a chatbot.</span>}
-          description=""
-        />
+    <section className="border-b border-ink bg-ink py-24 text-white">
+      <div className="container-content">
+        <p className="mb-3 text-[13px] font-medium text-brass-light">The difference</p>
+        <h2 className="text-[1.9rem] leading-[1.2] text-white md:text-[2.25rem]">Not just a chatbot.</h2>
         <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-paper/60">
           Most chatbots answer questions. Elliot completes work.
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="hover-lift rounded-lg border border-white/10 bg-white/[0.03] p-8 hover:border-white/20 hover:bg-white/[0.05]">
-            <p className="eyebrow text-white/40">Chatbot</p>
+          <div className="rounded-lg border border-white/10 bg-white/[0.03] p-8">
+            <p className="text-[13px] font-medium text-white/50">Chatbot</p>
             <p className="mt-4 font-display text-2xl text-paper/80">Answers questions.</p>
             <p className="mt-3 text-sm leading-relaxed text-paper/50">
               A single turn: input, reply. Nothing is retrieved, decided, or
@@ -43,12 +29,12 @@ export default function NotJustChatbot() {
             </p>
           </div>
 
-          <div className="glow-ring hover-lift rounded-lg border border-violet/30 bg-gradient-to-br from-violet/[0.1] to-sky/[0.06] p-8">
-            <p className="eyebrow text-violet-400">Elliot</p>
+          <div className="rounded-lg border border-white/20 bg-white/[0.04] p-8">
+            <p className="text-[13px] font-medium text-brass-light">Elliot</p>
             <div className="mt-5 flex flex-wrap items-center gap-2">
               {elliotSteps.map((step, i) => (
                 <div key={step} className="flex items-center gap-2">
-                  <span className="cursor-default rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[13px] font-medium text-paper transition-all duration-300 hover:scale-105 hover:border-violet/50 hover:bg-gradient-to-r hover:from-violet hover:to-sky">
+                  <span className="cursor-default rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[13px] font-medium text-paper transition-all duration-300">
                     {step}
                   </span>
                   {i < elliotSteps.length - 1 && (

@@ -2,20 +2,62 @@
 
 import { FormEvent, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 import { submitDemoRequest } from "@/services/elliotApi";
+import type { Locale } from "@/lib/i18n";
 
-const industries = [
-  "Real Estate",
-  "Recruitment",
-  "Professional Services",
-  "Healthcare",
-  "E-commerce",
-  "Education",
-  "Financial Services",
-  "Other",
+// Option values stay in English so submissions look the same in n8n
+// whichever language the visitor used; only the labels are translated.
+const industries: { value: string; en: string; pl: string }[] = [
+  { value: "Real Estate", en: "Real estate", pl: "Nieruchomości" },
+  { value: "Property Management", en: "Property management", pl: "Zarządzanie nieruchomościami" },
+  { value: "Other", en: "Other", pl: "Inna" },
 ];
 
 const employeeRanges = ["1–10", "11–50", "51–200", "200+"];
+
+const T = {
+  en: {
+    name: "Name",
+    company: "Company",
+    email: "Email",
+    website: "Website",
+    industry: "Industry",
+    industryPh: "Select an industry",
+    employees: "Number of employees",
+    employeesPh: "Select a range",
+    automate: "What would you like Elliot to handle?",
+    automatePh: "e.g. answering property enquiries and booking viewings",
+    submit: "Book a demo",
+    sending: "Sending…",
+    error: "Something went wrong. Please try again in a few minutes, or leave a message in the chat.",
+    doneTitle: "Request received.",
+    doneText: "Donnovan will get back to you shortly to arrange your demo.",
+    privacyBefore: "We use these details only to reply to your request. See the ",
+    privacyLink: "privacy policy",
+    privacyHref: "/privacy",
+  },
+  pl: {
+    name: "Imię i nazwisko",
+    company: "Firma",
+    email: "E-mail",
+    website: "Strona internetowa",
+    industry: "Branża",
+    industryPh: "Wybierz branżę",
+    employees: "Liczba pracowników",
+    employeesPh: "Wybierz przedział",
+    automate: "Czym Elliot miałby się zajmować?",
+    automatePh: "np. odpowiadaniem na zapytania o oferty i umawianiem prezentacji",
+    submit: "Umów prezentację",
+    sending: "Wysyłanie…",
+    error: "Coś poszło nie tak. Spróbuj ponownie za kilka minut albo zostaw wiadomość na czacie.",
+    doneTitle: "Zgłoszenie przyjęte.",
+    doneText: "Donnovan wkrótce się odezwie, żeby ustalić termin prezentacji.",
+    privacyBefore: "Wykorzystamy te dane wyłącznie do odpowiedzi na Twoje zgłoszenie. Zobacz ",
+    privacyLink: "politykę prywatności",
+    privacyHref: "/pl/prywatnosc",
+  },
+};
 
 function Field({
   label,
@@ -37,9 +79,10 @@ function Field({
 }
 
 const inputClass =
-  "w-full rounded-md border border-surface-line bg-card px-3.5 py-2.5 text-base text-fg md:text-[14.5px] placeholder:text-slate-400 transition-all duration-200 hover:border-slate-200 focus:border-violet focus:shadow-glow focus:outline-none";
+  "w-full rounded-md border border-surface-line bg-card px-3.5 py-2.5 text-base text-fg md:text-[14.5px] placeholder:text-slate-400 transition-colors duration-150 hover:border-slate-400 focus:border-ink focus:outline-none dark:focus:border-brass-light";
 
-export default function DemoRequestForm() {
+export default function DemoRequestForm({ locale = "en" }: { locale?: Locale }) {
+  const t = T[locale];
   const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -65,50 +108,43 @@ export default function DemoRequestForm() {
 
   if (status === "sent") {
     return (
-      <div className="animate-fadeUp rounded-lg border border-pulse/30 bg-pulse-soft p-8 text-center shadow-card dark:bg-pulse/10">
-        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-pulse text-white">
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-        <p className="mt-4 font-display text-xl text-fg">Request received.</p>
-        <p className="mt-2 text-[14.5px] text-slate-600">
-          The team will follow up shortly to schedule your demo.
-        </p>
+      <div role="status" className="rounded-lg border border-surface-line bg-card p-8 text-center">
+        <p className="text-xl font-semibold text-fg">{t.doneTitle}</p>
+        <p className="mt-2 text-[14.5px] text-slate-600">{t.doneText}</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
-      <Field label="Name" htmlFor="name">
+      <Field label={t.name} htmlFor="name">
         <input id="name" name="name" required className={inputClass} placeholder="Jane Kowalski" />
       </Field>
-      <Field label="Company" htmlFor="company">
+      <Field label={t.company} htmlFor="company">
         <input id="company" name="company" required className={inputClass} placeholder="Acme Realty" />
       </Field>
-      <Field label="Email" htmlFor="email">
+      <Field label={t.email} htmlFor="email">
         <input id="email" name="email" type="email" required className={inputClass} placeholder="jane@acme.com" />
       </Field>
-      <Field label="Website" htmlFor="website">
+      <Field label={t.website} htmlFor="website">
         <input id="website" name="website" className={inputClass} placeholder="acme.com" />
       </Field>
-      <Field label="Industry" htmlFor="industry">
+      <Field label={t.industry} htmlFor="industry">
         <select id="industry" name="industry" required className={inputClass} defaultValue="">
           <option value="" disabled>
-            Select an industry
+            {t.industryPh}
           </option>
           {industries.map((i) => (
-            <option key={i} value={i}>
-              {i}
+            <option key={i.value} value={i.value}>
+              {i[locale]}
             </option>
           ))}
         </select>
       </Field>
-      <Field label="Number of employees" htmlFor="employees">
+      <Field label={t.employees} htmlFor="employees">
         <select id="employees" name="employees" required className={inputClass} defaultValue="">
           <option value="" disabled>
-            Select a range
+            {t.employeesPh}
           </option>
           {employeeRanges.map((r) => (
             <option key={r} value={r}>
@@ -118,26 +154,33 @@ export default function DemoRequestForm() {
         </select>
       </Field>
       <div className="sm:col-span-2">
-        <Field label="What would you like Elliot to automate?" htmlFor="automate">
+        <Field label={t.automate} htmlFor="automate">
           <textarea
             id="automate"
             name="automate"
             rows={4}
             className={inputClass}
-            placeholder="e.g. answering property enquiries and booking viewings"
+            placeholder={t.automatePh}
           />
         </Field>
       </div>
 
       <div className="sm:col-span-2">
         <Button type="submit" className="w-full sm:w-auto" disabled={status === "submitting"}>
-          {status === "submitting" ? "Sending…" : "Book a Demo"}
+          {status === "submitting" ? t.sending : t.submit}
         </Button>
         {status === "error" && (
-          <p className="mt-3 text-sm text-red-600">
-            Something went wrong — please try again, or email us directly.
+          <p role="alert" className="mt-3 text-sm text-alert">
+            {t.error}
           </p>
         )}
+        <p className="mt-4 text-[13px] text-slate-600">
+          {t.privacyBefore}
+          <Link href={t.privacyHref} className="underline underline-offset-2 hover:text-fg">
+            {t.privacyLink}
+          </Link>
+          .
+        </p>
       </div>
     </form>
   );

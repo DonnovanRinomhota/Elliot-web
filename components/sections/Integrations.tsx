@@ -4,12 +4,14 @@ import { Badge } from "@/components/ui/Card";
 const integrations = [
   { name: "Google Calendar", status: "available" },
   { name: "Gmail", status: "available" },
-  { name: "Microsoft Outlook", status: "soon" },
-  { name: "HubSpot", status: "soon" },
-  { name: "Salesforce", status: "soon" },
-  { name: "Slack", status: "soon" },
-  { name: "WhatsApp", status: "soon" },
-];
+  { name: "Website chat", status: "available" },
+  { name: "Any CRM (webhook, Zapier, Make)", status: "available" },
+  { name: "WhatsApp Business", status: "testing" },
+  { name: "Microsoft Outlook", status: "planned" },
+] as const;
+
+const label = { available: "Available", testing: "In testing", planned: "Planned" };
+const tone = { available: "pulse", testing: "amber", planned: "neutral" } as const;
 
 export default function Integrations() {
   return (
@@ -18,25 +20,17 @@ export default function Integrations() {
         <SectionHeading
           eyebrow="Integrations"
           title="Fits into the tools you already use."
-          description="Elliot connects to your calendar and business systems. More integrations are on the way."
+          description="Elliot connects to your calendar, email and CRM. Here is exactly where each one stands."
         />
 
-        <div className="reveal mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {integrations.map((i) => (
             <div
               key={i.name}
-              className={`hover-lift flex items-center justify-between rounded-md border border-surface-line bg-card px-4 py-3.5 shadow-card ${
-                i.status === "available"
-                  ? "hover:border-pulse/40 hover:shadow-glow"
-                  : "hover:border-violet/25 hover:shadow-card"
-              }`}
+              className="flex items-center justify-between gap-3 rounded-md border border-surface-line bg-card px-4 py-3.5"
             >
               <span className="text-[14px] text-fg">{i.name}</span>
-              {i.status === "available" ? (
-                <Badge tone="pulse">Available</Badge>
-              ) : (
-                <Badge tone="neutral">Coming soon</Badge>
-              )}
+              <Badge tone={tone[i.status]}>{label[i.status]}</Badge>
             </div>
           ))}
         </div>

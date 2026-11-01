@@ -18,7 +18,7 @@ export default function ElliotChat() {
     <div
       role="dialog"
       aria-label="Chat with Elliot"
-      className="fixed inset-x-0 bottom-0 z-50 flex h-[80vh] w-full flex-col overflow-hidden rounded-t-2xl border-t border-surface-line bg-surface shadow-cardHover animate-fadeUp sm:inset-x-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:max-h-[75vh] sm:w-[380px] sm:rounded-lg sm:border [animation-duration:280ms]"
+      className="fixed inset-x-0 bottom-0 z-50 flex h-[80vh] w-full flex-col overflow-hidden rounded-t-2xl border-t border-surface-line bg-surface animate-fadeUp sm:inset-x-auto sm:bottom-24 sm:right-5 sm:h-[560px] sm:max-h-[75vh] sm:w-[380px] sm:rounded-lg sm:border [animation-duration:280ms]"
     >
       <div className="flex items-center justify-between border-b border-ink-line bg-ink px-4 py-3.5 pt-[max(0.875rem,env(safe-area-inset-top))] sm:pt-3.5">
         <div className="flex items-center gap-2.5">
@@ -51,7 +51,7 @@ export default function ElliotChat() {
               <button
                 key={p}
                 onClick={() => sendMessage(p)}
-                className="rounded-md border border-surface-line bg-card px-3 py-2.5 text-left text-[14px] text-slate-700 transition-colors hover:border-violet/40 hover:text-violet-600 sm:py-2 sm:text-[13px]"
+                className="rounded-md border border-surface-line bg-card px-3 py-2.5 text-left text-[14px] text-slate-700 transition-colors hover:text-violet-600 sm:py-2 sm:text-[13px]"
               >
                 {p}
               </button>

@@ -2,22 +2,27 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { localeFromPath, twinPath, UI } from "@/lib/i18n";
 import Logo from "@/components/Logo";
 import { ButtonLink, Button } from "@/components/ui/Button";
 import { useElliotChat } from "@/components/chat/ElliotChatProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const links = [
-  { href: "/product", label: "Product" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/solutions", label: "Solutions" },
-  { href: "/industries", label: "Industries" },
-];
-
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { openChat } = useElliotChat();
+  const pathname = usePathname() || "/";
+  const locale = localeFromPath(pathname);
+  const t = UI[locale];
+  const links = t.nav;
+  const other = locale === "en" ? "pl" : "en";
+
+  // Keep <html lang> right on Polish pages (the root layout renders "en").
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -43,8 +48,8 @@ export default function Navbar() {
       }`}
     >
       <div className="container-content flex h-16 items-center justify-between">
-        <Link href="/" aria-label="Elliot home" className="group">
-          <Logo className="transition-transform duration-300 group-hover:scale-[1.03]" />
+        <Link href={t.home} aria-label="Elliot" className="group">
+          <Logo />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
@@ -52,7 +57,7 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="link-underline text-sm font-medium text-slate-700 transition-colors hover:text-violet-600"
+              className="text-sm font-medium text-slate-700 transition-colors hover:text-fg"
             >
               {l.label}
             </Link>
@@ -60,20 +65,36 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          <Link
+            href={twinPath(pathname, other)}
+            hrefLang={other}
+            aria-label={t.switchAria}
+            className="rounded-md px-2.5 py-2 text-sm text-slate-600 hover:bg-fg/[0.05] hover:text-fg"
+          >
+            {t.switchLabel}
+          </Link>
           <ThemeToggle />
           <Button variant="ghost" size="md" onClick={openChat}>
-            Talk to Elliot
+            {t.talk}
           </Button>
-          <ButtonLink href="/demo" variant="primary" size="md">
-            Book a Demo
+          <ButtonLink href={t.bookHref} variant="primary" size="md">
+            {t.book}
           </ButtonLink>
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
+          <Link
+            href={twinPath(pathname, other)}
+            hrefLang={other}
+            aria-label={t.switchAria}
+            className="rounded-md px-2 py-2 text-sm text-slate-600"
+          >
+            {other.toUpperCase()}
+          </Link>
           <ThemeToggle />
           <button
             className="flex h-11 w-11 items-center justify-center rounded-md border border-fg/10 active:scale-95 transition-transform"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t.menuClose : t.menuOpen}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
@@ -90,7 +111,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="animate-fadeUp border-t border-surface-line bg-surface px-6 py-4 md:hidden [animation-duration:250ms]">
+        <div className="border-t border-surface-line bg-surface px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {links.map((l) => (
               <Link
@@ -113,10 +134,10 @@ export default function Navbar() {
                 openChat();
               }}
             >
-              Talk to Elliot
+              {t.talk}
             </Button>
-            <ButtonLink href="/demo" variant="primary" size="lg" className="w-full">
-              Book a Demo
+            <ButtonLink href={t.bookHref} variant="primary" size="lg" className="w-full">
+              {t.book}
             </ButtonLink>
           </div>
         </div>

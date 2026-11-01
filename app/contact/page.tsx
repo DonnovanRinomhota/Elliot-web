@@ -5,6 +5,7 @@ import DemoRequestForm from "@/components/DemoRequestForm";
 export const metadata: Metadata = {
   title: "Book a Demo",
   description: "Tell us about your business and book time to see Elliot configured for your use case.",
+  alternates: { canonical: "/contact", languages: { en: "/contact", pl: "/pl/kontakt" } },
 };
 
 export default function ContactPage() {

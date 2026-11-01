@@ -33,18 +33,18 @@ export default function DashboardMockup() {
           <Badge tone="sky">Example data</Badge>
         </div>
 
-        <div className="hover-lift mt-14 overflow-hidden rounded-xl border border-surface-line bg-card shadow-cardHover hover:border-violet/20 hover:shadow-glowLg">
+        <div className="mt-14 overflow-hidden rounded-xl border border-surface-line bg-card">
           <div className="flex">
             <aside className="hidden w-52 shrink-0 border-r border-surface-line bg-surface p-4 sm:block">
-              <p className="px-2 text-xs font-mono uppercase tracking-wide text-slate-400">Elliot</p>
+              <p className="px-2 text-xs font-mono text-slate-400">Elliot</p>
               <nav className="mt-4 flex flex-col gap-1">
                 {nav.map((item, i) => (
                   <span
                     key={item}
                     className={`cursor-default rounded-md px-2.5 py-2 text-[13.5px] transition-colors duration-200 ${
                       i === 0
-                        ? "bg-gradient-to-r from-violet to-sky text-white shadow-sm"
-                        : "text-slate-600 hover:bg-violet-100/60 hover:text-violet-700"
+                        ? "bg-ink text-white"
+                        : "text-slate-600 hover:text-fg"
                     }`}
                   >
                     {item}
@@ -66,7 +66,7 @@ export default function DashboardMockup() {
                 {metrics.map((m) => (
                   <div
                     key={m.label}
-                    className="group rounded-lg border border-surface-line p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet/30 hover:shadow-glow"
+                    className="group rounded-lg border border-surface-line p-4 transition-all duration-300"
                   >
                     <p className="font-display text-2xl text-fg transition-colors duration-300 group-hover:text-violet-700">
                       {m.value}
@@ -77,7 +77,7 @@ export default function DashboardMockup() {
               </div>
 
               <div className="mt-6 rounded-lg border border-surface-line p-4">
-                <p className="text-xs font-mono uppercase tracking-wide text-slate-400">
+                <p className="text-xs font-mono text-slate-400">
                   Recent conversations
                 </p>
                 <div className="mt-3 space-y-2.5">

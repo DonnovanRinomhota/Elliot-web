@@ -9,7 +9,7 @@ export default function ElliotChatMessage({ message }: { message: ChatMessage })
         className={`max-w-[85%] rounded-lg px-4 py-2.5 text-[14px] leading-relaxed animate-fadeUp ${
           isElliot
             ? "bg-card border border-surface-line text-slate-900"
-            : "bg-ink text-paper"
+            : "bg-ink text-paper dark:bg-ink-line"
         }`}
       >
         {message.text}

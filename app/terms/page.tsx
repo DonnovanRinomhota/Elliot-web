@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/sections/PageHero";
+import LegalPage from "@/components/legal/LegalPage";
+import { TERMS } from "@/lib/content/legal";
 
-export const metadata: Metadata = { title: "Terms of Service" };
+export const metadata: Metadata = {
+  title: "Terms of use",
+  alternates: { canonical: "/terms", languages: { en: "/terms", pl: "/pl/regulamin" } },
+};
 
-export default function TermsPage() {
-  return (
-    <PageHero
-      eyebrow="Legal"
-      title="Terms of Service"
-      description="Placeholder — replace with your finalized terms of service before launch."
-    />
-  );
+export default function Page() {
+  return <LegalPage doc={TERMS.en} />;
 }

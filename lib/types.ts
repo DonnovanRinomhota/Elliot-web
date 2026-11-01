@@ -12,8 +12,3 @@ export interface TimelineEvent {
   label: string;
   detail?: string;
 }
-
-export interface PerformanceMetric {
-  value: string;
-  label: string;
-}

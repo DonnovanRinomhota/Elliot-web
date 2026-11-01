@@ -24,7 +24,7 @@ export default function Outcomes() {
           {outcomes.map((o, i) => (
             <span
               key={o}
-              className="hover-lift rounded-full border border-surface-line bg-card px-4 py-2 text-[14px] text-fg shadow-card transition-colors duration-200 hover:border-transparent hover:bg-gradient-to-r hover:from-violet hover:to-sky hover:text-white hover:shadow-glow"
+              className="rounded-full border border-surface-line bg-card px-4 py-2 text-[14px] text-fg"
               style={{ transitionDelay: `${i * 30}ms` }}
             >
               {o}

@@ -22,9 +22,9 @@ export default function Security() {
           {points.map((p) => (
             <div
               key={p.title}
-              className="glow-ring hover-lift rounded-lg border border-surface-line bg-card p-6 shadow-card hover:shadow-glow"
+              className="rounded-lg border border-surface-line bg-card p-6"
             >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-violet to-sky text-white">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-ink text-white">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path
                     d="M8 1.5L13.5 3.75V7.25C13.5 10.75 11.25 13.25 8 14.5C4.75 13.25 2.5 10.75 2.5 7.25V3.75L8 1.5Z"
