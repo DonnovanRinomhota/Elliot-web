@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/sections/PageHero";
+import LegalPage from "@/components/legal/LegalPage";
+import { PRIVACY } from "@/lib/content/legal";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = {
+  title: "Privacy policy",
+  alternates: { canonical: "/privacy", languages: { en: "/privacy", pl: "/pl/prywatnosc" } },
+};
 
-export default function PrivacyPage() {
-  return (
-    <PageHero
-      eyebrow="Legal"
-      title="Privacy Policy"
-      description="Placeholder — replace with your finalized privacy policy before launch."
-    />
-  );
+export default function Page() {
+  return <LegalPage doc={PRIVACY.en} />;
 }

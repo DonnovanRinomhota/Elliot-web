@@ -33,9 +33,9 @@ export default function TrainTestDeploy() {
           {stages.map((s, i) => (
             <div
               key={s.title}
-              className="hover-lift glow-ring rounded-lg border border-surface-line bg-card p-6 shadow-card hover:shadow-glow"
+              className="rounded-lg border border-surface-line bg-card p-6"
             >
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-violet to-sky font-mono text-xs text-white">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink font-mono text-xs text-white">
                 {`0${i + 1}`}
               </span>
               <h3 className="mt-4 font-display text-xl text-fg">{s.title}</h3>
@@ -44,7 +44,7 @@ export default function TrainTestDeploy() {
           ))}
         </div>
 
-        <div className="reveal mt-6 rounded-lg border border-ink bg-ink p-6 font-mono text-[12.5px] text-paper/80 shadow-glowLg">
+        <div className="reveal mt-6 rounded-lg border border-ink bg-ink p-6 font-mono text-[12.5px] text-paper/80">
           <p className="text-paper/40">test scenario</p>
           <p className="mt-2">customer_message: &quot;Can I reschedule my viewing to Friday?&quot;</p>
           <p className="mt-1 text-violet">tool_used: calendar.check_availability</p>

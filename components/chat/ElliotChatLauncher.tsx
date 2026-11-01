@@ -13,7 +13,7 @@ export default function ElliotChatLauncher() {
         onClick={toggleChat}
         aria-label={isOpen ? "Close Elliot chat" : "Open Elliot chat"}
         aria-expanded={isOpen}
-        className={`fixed bottom-5 right-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-violet to-sky text-white shadow-glowLg transition-all duration-300 hover:scale-105 hover:shadow-glowLg active:scale-95 ${
+        className={`fixed bottom-5 right-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-ink text-white transition-colors duration-150 hover:bg-ink-soft ${
           isOpen ? "hidden sm:flex" : "flex"
         }`}
         style={{ bottom: "max(1.25rem, calc(env(safe-area-inset-bottom) + 0.75rem))" }}

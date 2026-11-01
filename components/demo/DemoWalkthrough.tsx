@@ -43,7 +43,7 @@ export default function DemoWalkthrough() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <div className="glow-ring flex h-[460px] flex-col rounded-lg border border-surface-line bg-card shadow-cardHover transition-shadow duration-500 hover:shadow-glowLg">
+      <div className="flex h-[460px] flex-col rounded-lg border border-surface-line bg-card transition-shadow duration-500">
         <div className="flex items-center gap-2.5 border-b border-surface-line px-5 py-4">
           <span className="presence-dot" />
           <div>
@@ -58,7 +58,7 @@ export default function DemoWalkthrough() {
                 className={`max-w-[85%] rounded-lg px-4 py-2.5 text-[14px] leading-relaxed animate-fadeUp ${
                   s.message.role === "elliot"
                     ? "border border-surface-line bg-surface text-fg"
-                    : "bg-ink text-paper"
+                    : "bg-ink text-paper dark:bg-ink-line"
                 }`}
               >
                 {s.message.text}
@@ -77,7 +77,7 @@ export default function DemoWalkthrough() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-ink bg-ink p-6 font-mono text-[12.5px] shadow-glowLg">
+      <div className="rounded-lg border border-ink bg-ink p-6 font-mono text-[12.5px]">
         <div className="flex items-center justify-between border-b border-white/10 pb-3">
           <span className="text-paper/80">elliot · activity</span>
           <Badge tone="neutral">Live as you click</Badge>

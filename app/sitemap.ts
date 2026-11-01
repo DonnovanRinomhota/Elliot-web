@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 const routes = [
   "",
@@ -11,14 +12,18 @@ const routes = [
   "/contact",
   "/privacy",
   "/terms",
+  "/pl",
+  "/pl/nieruchomosci",
+  "/pl/kontakt",
+  "/pl/prywatnosc",
+  "/pl/regulamin",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://elliot-kfprveful-elliot-1b82.vercel.app";
   return routes.map((route) => ({
-    url: `${base}${route}`,
+    url: `${SITE_URL}${route}`,
     lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: route === "" ? 1 : 0.7,
+    changeFrequency: "monthly",
+    priority: route === "" || route === "/pl" ? 1 : 0.7,
   }));
 }

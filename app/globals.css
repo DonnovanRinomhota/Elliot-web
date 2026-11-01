@@ -1,36 +1,43 @@
+/* Bundled fonts (no Google Fonts request). Default files include Latin
+   Extended, so Polish characters render. */
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Page background */
-    --surface: 251 249 245;
-    --surface-dim: 242 239 231;
-    --surface-line: 230 225 213;
+    /* Page background: cool grey, not warm paper */
+    --surface: 245 246 248;
+    --surface-dim: 236 239 243;
+    --surface-line: 221 226 233;
     /* Elevated card surface (was literal white) */
     --card: 255 255 255;
     /* Primary heading/emphasis text (was literal ink) */
-    --fg: 18 20 27;
-    /* Body text hierarchy */
-    --slate-900: 18 20 27;
-    --slate-700: 58 62 75;
-    --slate-600: 91 95 107;
-    --slate-400: 146 151 163;
-    --slate-200: 203 205 212;
+    --fg: 19 34 58;
+    /* Body text hierarchy (navy-tinted greys) */
+    --slate-900: 19 34 58;
+    --slate-700: 52 64 84;
+    --slate-600: 84 96 116;
+    --slate-400: 125 139 163;
+    --slate-200: 201 209 222;
   }
 
   .dark {
-    --surface: 13 14 21;
-    --surface-dim: 20 22 32;
-    --surface-line: 40 43 61;
-    --card: 23 25 36;
-    --fg: 247 245 240;
-    --slate-900: 247 245 240;
-    --slate-700: 196 199 209;
-    --slate-600: 158 163 176;
-    --slate-400: 122 128 145;
-    --slate-200: 58 62 80;
+    --surface: 12 22 38;
+    --surface-dim: 17 29 49;
+    --surface-line: 38 54 80;
+    --card: 19 34 58;
+    --fg: 241 243 247;
+    --slate-900: 241 243 247;
+    --slate-700: 201 209 222;
+    --slate-600: 164 176 196;
+    --slate-400: 125 139 163;
+    --slate-200: 52 68 96;
   }
 
   html {
@@ -42,76 +49,54 @@
   }
 
   h1, h2, h3, h4 {
-    @apply font-display;
+    @apply font-display font-semibold;
+    letter-spacing: -0.015em;
   }
 
   ::selection {
-    @apply bg-violet-100 text-violet-700;
+    @apply bg-brass-soft text-ink;
   }
 
   :focus-visible {
-    outline: 2px solid #7C5CFC;
+    outline: 2px solid #9A7328;
     outline-offset: 2px;
     border-radius: 4px;
   }
 }
 
-@layer utilities {
+/* In the components layer so a max-w-* utility on the same element wins. */
+@layer components {
   .container-content {
     @apply mx-auto w-full max-w-content px-6 md:px-10;
   }
+}
 
+@layer utilities {
+
+  /* Small section label: sentence case, brass, no mono/all-caps. */
   .eyebrow {
-    @apply text-xs font-mono uppercase tracking-[0.14em] text-violet-600;
+    @apply text-[13px] font-medium text-brass-dark;
+  }
+  .dark .eyebrow {
+    @apply text-brass-light;
   }
 
+  /* Small static "online" marker. */
   .presence-dot {
-    @apply relative inline-flex h-2 w-2 rounded-full bg-pulse;
+    @apply relative inline-flex h-2 w-2 rounded-full bg-brass;
   }
 
-  .presence-dot::after {
-    content: "";
-    @apply absolute inset-0 rounded-full bg-pulse animate-pulseDot;
-  }
-
-  /* Gradient text for emphasis words in headlines */
+  /* Decorative effects from the first design, retired: the class names
+     stay so older markup is harmless, but they no longer do anything loud. */
   .text-gradient {
-    background: linear-gradient(135deg, #7C5CFC 0%, #2FD0F0 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: inherit;
   }
-
-  /* Lift + glow on hover — used on cards, feature tiles */
   .hover-lift {
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    transition: border-color 0.2s ease;
   }
-  .hover-lift:hover {
-    transform: translateY(-4px);
-  }
-
-  /* Animated gradient border ring, revealed on hover via opacity */
   .glow-ring {
     position: relative;
   }
-  .glow-ring::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, #7C5CFC, #2FD0F0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-  }
-  .glow-ring:hover::before {
-    opacity: 1;
-  }
-
   /* Animated underline for nav/text links */
   .link-underline {
     position: relative;
@@ -123,7 +108,7 @@
     bottom: -2px;
     height: 1.5px;
     width: 0%;
-    background: linear-gradient(90deg, #7C5CFC, #2FD0F0);
+    background: #9A7328;
     transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .link-underline:hover::after {
@@ -142,17 +127,10 @@
   }
 
   .mesh-bg {
-    background-image: theme("backgroundImage.mesh");
-    filter: blur(60px);
+    display: none;
   }
-
   .shimmer-text {
-    background: linear-gradient(90deg, #7C5CFC 0%, #2FD0F0 25%, #7C5CFC 50%, #2FD0F0 75%, #7C5CFC 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shimmer 4s linear infinite;
+    color: inherit;
   }
 }
 

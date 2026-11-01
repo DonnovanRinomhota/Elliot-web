@@ -10,9 +10,9 @@ export default function SectionHeading({
   align?: "left" | "center";
 }) {
   return (
-    <div className={`reveal max-w-2xl ${align === "center" ? "mx-auto text-center" : ""}`}>
+    <div className={`max-w-2xl ${align === "center" ? "mx-auto text-center" : ""}`}>
       {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-      <h2 className="font-display text-[2.1rem] leading-[1.15] tracking-tight text-fg md:text-[2.5rem]">
+      <h2 className="text-[1.9rem] leading-[1.2] text-fg md:text-[2.25rem]">
         {title}
       </h2>
       {description && (

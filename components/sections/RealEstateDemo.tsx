@@ -34,20 +34,20 @@ export default function RealEstateDemo() {
         </div>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <div className="hover-lift rounded-lg border border-surface-line bg-card p-6 shadow-card hover:border-violet/25 hover:shadow-glow">
-            <p className="text-xs font-mono uppercase tracking-wide text-slate-400">Conversation</p>
+          <div className="rounded-lg border border-surface-line bg-card p-6">
+            <p className="text-xs font-mono text-slate-400">Conversation</p>
             <div className="mt-4 space-y-3">
-              <div className="ml-auto max-w-[85%] rounded-lg bg-ink px-4 py-2.5 text-[14px] text-paper">
+              <div className="ml-auto max-w-[85%] rounded-lg bg-ink px-4 py-2.5 dark:bg-ink-line text-[14px] text-paper">
                 I&apos;m looking for a 2-bedroom apartment in Warsaw under €250,000.
               </div>
-              <div className="max-w-[90%] rounded-lg border border-surface-line bg-gradient-to-br from-violet-100 to-sky-100 px-4 py-2.5 text-[14px] text-fg">
+              <div className="max-w-[90%] rounded-lg border border-surface-line bg-surface-dim px-4 py-2.5 text-[14px] text-fg">
                 I found 3 matching listings. Before I share them — are you
                 looking to move in the next 1–3 months, or further out?
               </div>
-              <div className="ml-auto max-w-[85%] rounded-lg bg-ink px-4 py-2.5 text-[14px] text-paper">
+              <div className="ml-auto max-w-[85%] rounded-lg bg-ink px-4 py-2.5 dark:bg-ink-line text-[14px] text-paper">
                 Within a month, ideally.
               </div>
-              <div className="max-w-[90%] rounded-lg border border-surface-line bg-gradient-to-br from-violet-100 to-sky-100 px-4 py-2.5 text-[14px] text-fg">
+              <div className="max-w-[90%] rounded-lg border border-surface-line bg-surface-dim px-4 py-2.5 text-[14px] text-fg">
                 Got it — I&apos;ve marked this as a priority lead. I can offer
                 a viewing this Thursday at 5:00 PM for the closest match.
                 Want me to book it?

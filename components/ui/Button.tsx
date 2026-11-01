@@ -5,21 +5,19 @@ type Variant = "primary" | "secondary" | "ghost" | "invert" | "invertGhost";
 type Size = "md" | "lg";
 
 const base =
-  "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md font-body font-medium transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+  "relative inline-flex items-center justify-center gap-2 rounded-md font-body font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
+// Solid navy primary, outlined secondary. No gradients, shine or lift.
 const variants: Record<Variant, string> = {
   primary:
-    "bg-gradient-to-r from-violet to-sky bg-[length:200%_auto] bg-left text-white shadow-glow hover:bg-right hover:shadow-glowLg hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]",
+    "bg-ink text-white hover:bg-ink-soft dark:bg-brass-light dark:text-ink dark:hover:bg-brass-soft",
   secondary:
-    "bg-card/60 text-fg border border-fg/15 hover:border-violet/50 hover:text-violet-700 hover:-translate-y-0.5 hover:shadow-card active:translate-y-0 active:scale-[0.98]",
-  ghost: "bg-transparent text-fg hover:bg-fg/[0.04] hover:text-violet-700",
-  // For use on the permanently-dark sections (e.g. final CTA on bg-ink) —
-  // intentionally literal, not theme-aware, since those panels stay dark
-  // regardless of site theme.
-  invert:
-    "bg-paper text-ink shadow-cardHover hover:bg-white hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]",
+    "bg-card text-fg border border-surface-line hover:border-slate-400",
+  ghost: "bg-transparent text-fg hover:bg-fg/[0.05]",
+  // For the permanently-dark sections (e.g. final CTA on bg-ink).
+  invert: "bg-white text-ink hover:bg-paper-dim",
   invertGhost:
-    "bg-transparent text-paper border border-white/25 hover:border-white/50 hover:bg-white/[0.06] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]",
+    "bg-transparent text-white border border-white/30 hover:border-white/60 hover:bg-white/[0.06]",
 };
 
 const sizes: Record<Size, string> = {
@@ -33,15 +31,6 @@ type CommonProps = {
   className?: string;
 };
 
-function Shine() {
-  return (
-    <span
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-    />
-  );
-}
-
 export function Button({
   variant = "primary",
   size = "md",
@@ -54,8 +43,7 @@ export function Button({
       className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     >
-      {variant === "primary" && <Shine />}
-      <span className="relative">{children}</span>
+      {children}
     </button>
   );
 }
@@ -74,8 +62,7 @@ export function ButtonLink({
       className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     >
-      {variant === "primary" && <Shine />}
-      <span className="relative">{children}</span>
+      {children}
     </Link>
   );
 }

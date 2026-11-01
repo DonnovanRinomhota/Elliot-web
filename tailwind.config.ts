@@ -13,18 +13,25 @@ const config: Config = {
         // "always dark" console/product panels (activity timeline, final
         // CTA, dashboard sidebar). These stay dark in both light and dark
         // site themes, like a code editor panel.
+        // Palette (matches the Elliot dashboard): navy ink, cool greys, brass
+        // for highlights, signal red for urgency. The old accent names are
+        // kept so existing classes keep working, but now point at these:
+        //   violet / sky -> brass   (accents, icon tiles, eyebrows)
+        //   pulse        -> steel   (status dots, "live" markers)
+        //   amber        -> brass   (waiting / in testing)
+        //   coral        -> alert   (urgent)
+        // Literal, non-theme-reactive dark panels (console, final CTA).
         ink: {
-          DEFAULT: "#0D0E17",
-          soft: "#171A2B",
-          line: "#2A2E45",
+          DEFAULT: "#13223A",
+          soft: "#1C2F4D",
+          line: "#2D4163",
         },
         paper: {
-          DEFAULT: "#FBF9F5",
-          dim: "#F2EFE7",
-          line: "#E6E1D5",
+          DEFAULT: "#F5F6F8",
+          dim: "#ECEFF3",
+          line: "#DDE2E9",
         },
-        // Theme-aware — flip with the `dark` class. Used for ordinary page
-        // chrome: page background, card surfaces, body text hierarchy.
+        // Theme-aware -- flip with the `dark` class.
         surface: {
           DEFAULT: "rgb(var(--surface) / <alpha-value>)",
           dim: "rgb(var(--surface-dim) / <alpha-value>)",
@@ -39,34 +46,53 @@ const config: Config = {
           400: "rgb(var(--slate-400) / <alpha-value>)",
           200: "rgb(var(--slate-200) / <alpha-value>)",
         },
+        brass: {
+          DEFAULT: "#9A7328",
+          dark: "#7A5A1C",
+          light: "#C9A55E",
+          soft: "#F6EFE1",
+        },
+        alert: {
+          DEFAULT: "#B42318",
+          soft: "#FCEDEB",
+        },
         violet: {
-          DEFAULT: "#7C5CFC",
-          600: "#6342E8",
-          700: "#4F30C4",
-          100: "#EFEAFE",
+          DEFAULT: "#9A7328",
+          400: "#C9A55E",
+          600: "#7A5A1C",
+          700: "#5E4515",
+          100: "#F6EFE1",
         },
         sky: {
-          DEFAULT: "#2FD0F0",
-          600: "#12B4D6",
-          100: "#E4FBFF",
+          DEFAULT: "#7A5A1C",
+          600: "#5E4515",
+          100: "#F6EFE1",
         },
         pulse: {
-          DEFAULT: "#22E58F",
-          soft: "#E1FCEE",
+          DEFAULT: "#4C6A92",
+          soft: "#EDF0F5",
         },
         amber: {
-          DEFAULT: "#E7A33E",
-          soft: "#FCF1DF",
+          DEFAULT: "#9A7328",
+          700: "#7A5A1C",
+          soft: "#F6EFE1",
         },
         coral: {
-          DEFAULT: "#FF6B5B",
-          soft: "#FFEAE6",
+          DEFAULT: "#B42318",
+          600: "#912018",
+          soft: "#FCEDEB",
+        },
+        emerald: {
+          700: "#13223A",
+        },
+        red: {
+          600: "#B42318",
         },
       },
       fontFamily: {
-        display: ["var(--font-display)", "serif"],
-        body: ["var(--font-body)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        display: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
+        body: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
+        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
       },
       borderRadius: {
         sm: "6px",
@@ -75,16 +101,18 @@ const config: Config = {
         xl: "24px",
       },
       boxShadow: {
-        card: "0 1px 2px rgba(13,14,23,0.04), 0 8px 24px -12px rgba(13,14,23,0.12)",
-        cardHover: "0 4px 16px rgba(13,14,23,0.07), 0 20px 48px -16px rgba(13,14,23,0.2)",
-        glow: "0 0 0 1px rgba(124,92,252,0.16), 0 10px 34px -10px rgba(124,92,252,0.55)",
-        glowLg: "0 0 0 1px rgba(124,92,252,0.2), 0 24px 60px -16px rgba(124,92,252,0.45)",
-        coralGlow: "0 10px 28px -8px rgba(255,107,91,0.45)",
+        card: "0 1px 2px rgba(19,34,58,0.04)",
+        cardHover: "0 1px 2px rgba(19,34,58,0.04), 0 8px 24px -16px rgba(19,34,58,0.18)",
+        // Glows retired: kept as quiet borders so old class names stay harmless.
+        glow: "0 0 0 1px rgba(19,34,58,0.08)",
+        glowLg: "0 0 0 1px rgba(19,34,58,0.1)",
+        coralGlow: "none",
       },
       backgroundImage: {
-        "brand-gradient": "linear-gradient(135deg, #7C5CFC 0%, #2FD0F0 100%)",
-        "brand-gradient-soft": "linear-gradient(135deg, rgba(124,92,252,0.12) 0%, rgba(47,208,240,0.12) 100%)",
-        "mesh": "radial-gradient(ellipse 60% 50% at 20% 20%, rgba(124,92,252,0.35), transparent 60%), radial-gradient(ellipse 55% 45% at 85% 15%, rgba(47,208,240,0.3), transparent 60%), radial-gradient(ellipse 50% 50% at 60% 80%, rgba(255,107,91,0.18), transparent 60%)",
+        // Gradients retired in favour of flat colour.
+        "brand-gradient": "linear-gradient(#13223A, #13223A)",
+        "brand-gradient-soft": "linear-gradient(#ECEFF3, #ECEFF3)",
+        mesh: "none",
       },
       maxWidth: {
         content: "1200px",

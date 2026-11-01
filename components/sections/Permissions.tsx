@@ -1,15 +1,26 @@
 import SectionHeading from "@/components/sections/SectionHeading";
 import { Badge } from "@/components/ui/Card";
 
-const allowed = [
-  "Answer questions",
-  "Capture leads",
-  "Book appointments",
+const columns = [
+  {
+    title: "Elliot does this by itself",
+    tag: "Allowed",
+    tone: "pulse" as const,
+    items: ["Answer questions", "Capture and score leads", "Book and cancel viewings", "Send records to your CRM"],
+  },
+  {
+    title: "Waits for your approval",
+    tag: "Approval",
+    tone: "amber" as const,
+    items: ["Follow-up emails (unless you allow them)", "Replies to sensitive emails"],
+  },
+  {
+    title: "Handed to your team",
+    tag: "Handover",
+    tone: "neutral" as const,
+    items: ["Requests to speak to a person", "Questions outside its rules", "Hot leads ready to talk"],
+  },
 ];
-
-const approvalRequired = ["Sensitive email replies", "Important customer changes"];
-
-const comingSoon = ["Send follow-ups", "Update CRM"];
 
 export default function Permissions() {
   return (
@@ -17,61 +28,24 @@ export default function Permissions() {
       <div className="container-content">
         <SectionHeading
           eyebrow="Control"
-          title="Your business decides what Elliot can do."
-          description="Every capability is opt-in. Anything sensitive routes through an approval gate before it happens."
+          title="You decide what Elliot can do."
+          description="Each capability is switched on per agency. Anything sensitive waits for your approval first."
         />
 
-        <div className="reveal mt-14 grid gap-6 md:grid-cols-3">
-          <div className="hover-lift rounded-lg border border-surface-line bg-card p-6 shadow-card hover:border-pulse/30 hover:shadow-glow">
-            <p className="text-sm font-medium text-fg">Elliot can do this directly</p>
-            <ul className="mt-4 space-y-3">
-              {allowed.map((item) => (
-                <li
-                  key={item}
-                  className="group flex items-center justify-between rounded-md px-2 py-1.5 text-[14.5px] text-slate-700 transition-colors duration-200 hover:bg-pulse-soft/60"
-                >
-                  <span className="transition-transform duration-200 group-hover:translate-x-0.5">
-                    {item}
-                  </span>
-                  <Badge tone="pulse">Enabled</Badge>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="hover-lift rounded-lg border border-surface-line bg-card p-6 shadow-card hover:border-amber/30 hover:shadow-glow">
-            <p className="text-sm font-medium text-fg">Requires approval</p>
-            <ul className="mt-4 space-y-3">
-              {approvalRequired.map((item) => (
-                <li
-                  key={item}
-                  className="group flex items-center justify-between rounded-md px-2 py-1.5 text-[14.5px] text-slate-700 transition-colors duration-200 hover:bg-amber-soft/60"
-                >
-                  <span className="transition-transform duration-200 group-hover:translate-x-0.5">
-                    {item}
-                  </span>
-                  <Badge tone="amber">Approval gate</Badge>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="hover-lift rounded-lg border border-surface-line bg-card p-6 shadow-card hover:border-amber/30 hover:shadow-glow">
-            <p className="text-sm font-medium text-fg">Not yet available</p>
-            <ul className="mt-4 space-y-3">
-              {comingSoon.map((item) => (
-                <li
-                  key={item}
-                  className="group flex items-center justify-between rounded-md px-2 py-1.5 text-[14.5px] text-slate-700 transition-colors duration-200 hover:bg-amber-soft/60"
-                >
-                  <span className="transition-transform duration-200 group-hover:translate-x-0.5">
-                    {item}
-                  </span>
-                  <Badge tone="amber">Coming soon</Badge>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {columns.map((col) => (
+            <div key={col.title} className="rounded-lg border border-surface-line bg-card p-6">
+              <p className="text-sm font-semibold text-fg">{col.title}</p>
+              <ul className="mt-4 space-y-3">
+                {col.items.map((item) => (
+                  <li key={item} className="flex items-center justify-between gap-3 text-[14.5px] text-slate-700">
+                    <span>{item}</span>
+                    <Badge tone={col.tone}>{col.tag}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>

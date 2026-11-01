@@ -44,10 +44,10 @@ export default function IndustriesPage() {
               <Link
                 key={ind.name}
                 href={ind.href}
-                className="group hover-lift rounded-lg border border-surface-line bg-card p-6 shadow-card hover:border-violet/40 hover:shadow-glow"
+                className="group rounded-lg border border-surface-line bg-card p-6"
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-md bg-gradient-to-br from-violet to-sky text-white shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-md bg-ink text-white transition-transform duration-300">
                     <ind.Icon className="h-5 w-5" />
                   </span>
                   <Badge tone="pulse">Live</Badge>
@@ -62,7 +62,7 @@ export default function IndustriesPage() {
             ) : (
               <div
                 key={ind.name}
-                className="hover-lift rounded-lg border border-surface-line bg-surface-dim p-6 transition-colors duration-300 hover:border-violet/20"
+                className="rounded-lg border border-surface-line bg-surface-dim p-6 transition-colors duration-300"
               >
                 <div className="flex items-center justify-between">
                   <span className="flex h-11 w-11 items-center justify-center rounded-md bg-slate-200/60 text-slate-400">
