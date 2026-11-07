@@ -4,10 +4,12 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
-import { ChatMessage } from "@/lib/types";
+import { ChatMessage, VisitorDetails } from "@/lib/types";
 import { GREETING } from "@/lib/demoResponses";
 import { sendChatMessage } from "@/services/elliotApi";
 
@@ -19,9 +21,36 @@ interface ElliotChatContextValue {
   messages: ChatMessage[];
   isTyping: boolean;
   sendMessage: (text: string) => Promise<void>;
+  /** The visitor's details, once given. */
+  visitor: VisitorDetails | null;
+  /** True while the chat is waiting for the details form. */
+  needsDetails: boolean;
+  /** Message to show above the details form (e.g. from the backend). */
+  detailsNote: string | null;
+  submitDetails: (details: VisitorDetails) => void;
 }
 
 const ElliotChatContext = createContext<ElliotChatContextValue | null>(null);
+
+// Remembered in this browser, so a returning visitor isn't asked again.
+const VISITOR_KEY = "elliot_visitor";
+
+function loadVisitor(): VisitorDetails | null {
+  try {
+    const v = JSON.parse(localStorage.getItem(VISITOR_KEY) || "null");
+    return v && v.name && (v.email || v.phone) ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveVisitor(v: VisitorDetails) {
+  try {
+    localStorage.setItem(VISITOR_KEY, JSON.stringify(v));
+  } catch {
+    /* private mode: details still go with this visit's messages */
+  }
+}
 
 function id() {
   return Math.random().toString(36).slice(2, 10);
@@ -39,32 +68,40 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
   // (sendChatMessage never returns one there) with no effect on behavior.
   const [conversationId, setConversationId] = useState<string | null>(null);
 
+  // A name plus an email or phone is required before the chat starts. A
+  // message typed before that waits in `pending` and is sent once the form
+  // is filled in.
+  const [visitor, setVisitor] = useState<VisitorDetails | null>(null);
+  const [needsDetails, setNeedsDetails] = useState(false);
+  const [detailsNote, setDetailsNote] = useState<string | null>(null);
+  const pending = useRef<string | null>(null);
+
+  useEffect(() => {
+    setVisitor(loadVisitor());
+  }, []);
+
   const openChat = useCallback(() => setIsOpen(true), []);
   const closeChat = useCallback(() => setIsOpen(false), []);
   const toggleChat = useCallback(() => setIsOpen((v) => !v), []);
 
-  const sendMessage = useCallback(
-    async (text: string) => {
-      const trimmed = text.trim();
-      if (!trimmed) return;
-
-      const userMessage: ChatMessage = {
-        id: id(),
-        role: "user",
-        text: trimmed,
-        createdAt: Date.now(),
-      };
-
-      setMessages((prev) => [...prev, userMessage]);
+  const deliver = useCallback(
+    async (text: string, who: VisitorDetails) => {
       setIsTyping(true);
-
       try {
         const result = await sendChatMessage({
           history: messages,
-          message: trimmed,
+          message: text,
           conversationId,
+          contact: who,
         });
         setConversationId(result.conversationId);
+        if (result.needsContact) {
+          // The backend has no details for this chat: ask again, then resend.
+          pending.current = text;
+          setDetailsNote(result.text || null);
+          setNeedsDetails(true);
+          return;
+        }
         setMessages((prev) => [
           ...prev,
           { id: id(), role: "elliot", text: result.text, createdAt: Date.now() },
@@ -86,9 +123,55 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
     [messages, conversationId]
   );
 
+  const sendMessage = useCallback(
+    async (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed) return;
+
+      setMessages((prev) => [
+        ...prev,
+        { id: id(), role: "user", text: trimmed, createdAt: Date.now() },
+      ]);
+
+      if (!visitor) {
+        pending.current = trimmed;
+        setDetailsNote(null);
+        setNeedsDetails(true);
+        return;
+      }
+      await deliver(trimmed, visitor);
+    },
+    [visitor, deliver]
+  );
+
+  const submitDetails = useCallback(
+    (details: VisitorDetails) => {
+      setVisitor(details);
+      saveVisitor(details);
+      setNeedsDetails(false);
+      setDetailsNote(null);
+      const text = pending.current;
+      pending.current = null;
+      if (text) void deliver(text, details);
+    },
+    [deliver]
+  );
+
   const value = useMemo(
-    () => ({ isOpen, openChat, closeChat, toggleChat, messages, isTyping, sendMessage }),
-    [isOpen, openChat, closeChat, toggleChat, messages, isTyping, sendMessage]
+    () => ({
+      isOpen,
+      openChat,
+      closeChat,
+      toggleChat,
+      messages,
+      isTyping,
+      sendMessage,
+      visitor,
+      needsDetails: needsDetails || !visitor,
+      detailsNote,
+      submitDetails,
+    }),
+    [isOpen, openChat, closeChat, toggleChat, messages, isTyping, sendMessage, visitor, needsDetails, detailsNote, submitDetails]
   );
 
   return (

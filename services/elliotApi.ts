@@ -1,4 +1,4 @@
-import { ChatMessage } from "@/lib/types";
+import { ChatMessage, VisitorDetails } from "@/lib/types";
 import { getDemoReply } from "@/lib/demoResponses";
 
 /**
@@ -40,17 +40,22 @@ interface SendMessageParams {
   history: ChatMessage[];
   message: string;
   conversationId: string | null;
+  /** The visitor's name + email/phone. Elliot doesn't answer without them. */
+  contact: VisitorDetails;
 }
 
 interface SendMessageResult {
   text: string;
   conversationId: string | null;
+  /** The backend wants the visitor's details before it answers. */
+  needsContact?: boolean;
 }
 
 export async function sendChatMessage({
   history,
   message,
   conversationId,
+  contact,
 }: SendMessageParams): Promise<SendMessageResult> {
   if (ELLIOT_MODE === "demo" || !ELLIOT_CHAT_WEBHOOK_URL || !ELLIOT_DEMO_TENANT) {
     // Demo mode: predefined, deterministic responses. No network call.
@@ -60,11 +65,13 @@ export async function sendChatMessage({
 
   // Live mode: call the real Elliot agent backend (n8n Chat Webhook).
   // Contract confirmed against the actual backend workflow:
-  //   request:  { tenant_slug, message, conversation_id? }
-  //   response: { conversation_id, reply }
+  //   request:  { tenant_slug, message, conversation_id?, contact: {name,email,phone} }
+  //   response: { conversation_id, reply }, or { ..., needs_contact: true } when
+  //             the backend has no name + email/phone for this chat yet
   const body: Record<string, unknown> = {
     tenant_slug: ELLIOT_DEMO_TENANT,
     message,
+    contact,
   };
   if (conversationId) {
     body.conversation_id = conversationId;
@@ -84,6 +91,7 @@ export async function sendChatMessage({
   return {
     text: data.reply as string,
     conversationId: (data.conversation_id as string) || conversationId,
+    needsContact: data.needs_contact === true,
   };
 }
 
