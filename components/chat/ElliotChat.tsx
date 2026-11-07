@@ -4,15 +4,16 @@ import { useEffect, useRef } from "react";
 import { useElliotChat } from "@/components/chat/ElliotChatProvider";
 import ElliotChatMessage, { TypingIndicator } from "@/components/chat/ElliotChatMessage";
 import ElliotChatInput from "@/components/chat/ElliotChatInput";
+import ElliotChatDetailsForm from "@/components/chat/ElliotChatDetailsForm";
 import { SUGGESTED_PROMPTS } from "@/lib/demoResponses";
 
 export default function ElliotChat() {
-  const { messages, isTyping, sendMessage, closeChat } = useElliotChat();
+  const { messages, isTyping, sendMessage, closeChat, visitor, needsDetails, detailsNote, submitDetails } = useElliotChat();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, needsDetails]);
 
   return (
     <div
@@ -45,7 +46,12 @@ export default function ElliotChat() {
         ))}
         {isTyping && <TypingIndicator />}
 
-        {messages.length === 1 && (
+        {/* Name + email or phone before the chat starts (Elliot doesn't answer without them). */}
+        {needsDetails && !isTyping && (
+          <ElliotChatDetailsForm initial={visitor} note={detailsNote} onSubmit={submitDetails} />
+        )}
+
+        {messages.length === 1 && !needsDetails && (
           <div className="flex flex-col gap-2 pt-2">
             {SUGGESTED_PROMPTS.map((p) => (
               <button
@@ -60,9 +66,11 @@ export default function ElliotChat() {
         )}
       </div>
 
-      <div className="pb-[env(safe-area-inset-bottom)]">
-        <ElliotChatInput onSend={sendMessage} disabled={isTyping} />
-      </div>
+      {!needsDetails && (
+        <div className="pb-[env(safe-area-inset-bottom)]">
+          <ElliotChatInput onSend={sendMessage} disabled={isTyping} />
+        </div>
+      )}
     </div>
   );
 }

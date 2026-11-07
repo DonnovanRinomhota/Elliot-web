@@ -7,6 +7,13 @@ export interface ChatMessage {
   createdAt: number;
 }
 
+/** Who is chatting: a name plus an email or phone, asked for before the chat starts. */
+export interface VisitorDetails {
+  name: string;
+  email: string | null;
+  phone: string | null;
+}
+
 export interface TimelineEvent {
   time: string;
   label: string;
