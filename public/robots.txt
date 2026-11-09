@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elliot-web-jet.vercel.app/sitemap.xml
+Sitemap: https://getelliot.eu/sitemap.xml
