@@ -39,14 +39,20 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     alternateLocale: ["pl_PL"],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Elliot: Connect, Qualify, Book" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
+    images: ["/og.png"],
     title: "Elliot: AI assistant for estate agencies",
     description: "Answers enquiries, qualifies buyers and books viewings, around the clock.",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 
