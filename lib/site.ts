@@ -1,6 +1,6 @@
 // Single source for facts that appear on several pages. Change them here.
 
-export const SITE_URL = "https://elliot-web-jet.vercel.app";
+export const SITE_URL = "https://getelliot.eu";
 
 /** Who runs Elliot. A sole trader, so a person's name, not a company. */
 export const OWNER = {
