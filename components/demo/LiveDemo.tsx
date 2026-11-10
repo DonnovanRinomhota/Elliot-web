@@ -32,7 +32,7 @@ const T = {
     chatSub: "Sample agency · answered by Elliot",
     placeholder: "Ask about flats, prices, viewings…",
     greeting: (n: string) =>
-      `Hi ${n}! I'm the assistant of Demo Nieruchomości, a sample agency in Warsaw. Ask me about flats to buy or rent, and I can book you a viewing.`,
+      `Hi ${n}! I'm Elliot, the AI assistant of Demo Nieruchomości, a sample agency in Warsaw. Ask me about flats to buy or rent, and I can book you a viewing.`,
     prompts: ["2-room flats in Mokotów under 900,000 zł?", "I want to rent a studio near the metro", "Can I see the penthouse this week?"],
     error: "Sorry, I couldn't answer just now. Please try again in a moment.",
     sideTitle: "What the agency sees",
@@ -66,7 +66,7 @@ const T = {
     chatSub: "Przykładowe biuro · odpowiada Elliot",
     placeholder: "Zapytaj o mieszkania, ceny, prezentacje…",
     greeting: (n: string) =>
-      `Dzień dobry, ${n}! Jestem asystentem Demo Nieruchomości, przykładowego biura w Warszawie. Zapytaj o mieszkania na sprzedaż lub wynajem, a umówię prezentację.`,
+      `Dzień dobry, ${n}! Jestem Elliot, asystent AI Demo Nieruchomości, przykładowego biura w Warszawie. Zapytaj o mieszkania na sprzedaż lub wynajem, a umówię prezentację.`,
     prompts: ["Mieszkania 2-pokojowe na Mokotowie do 900 000 zł?", "Szukam kawalerki na wynajem blisko metra", "Czy mogę obejrzeć penthouse w tym tygodniu?"],
     error: "Przepraszam, nie mogę teraz odpowiedzieć. Spróbuj ponownie za chwilę.",
     sideTitle: "Co widzi biuro",
