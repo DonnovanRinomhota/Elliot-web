@@ -71,7 +71,7 @@ export const HOME: Record<Locale, Content> = {
     hero: {
       eyebrow: "AI assistant for estate agencies",
       title: "Answer every property enquiry. Book viewings around the clock.",
-      lead: "Elliot works on your website. It answers questions about your listings, asks buyers and renters the right questions, and books viewings straight into your Google Calendar. Your team sees every conversation and can step in at any time.",
+      lead: "Elliot works on your website, WhatsApp and email. It answers questions about your listings, asks buyers and renters the right questions, and books viewings straight into your Google Calendar. Your team sees every conversation and can step in at any time.",
       primary: "Talk to Elliot",
       secondary: "Book a demo",
       note: "The chat in the corner of this page is Elliot. Ask it anything.",
@@ -108,7 +108,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Books viewings",
-          text: "Offers free slots from your Google Calendar, books the one the client picks and sends a confirmation email. Cancellations are handled too.",
+          text: "Offers free slots from your Google Calendar, books the one the client picks and sends a confirmation email. Cancel a viewing in your dashboard and the calendar updates.",
           status: "live",
         },
         {
@@ -127,21 +127,21 @@ export const HOME: Record<Locale, Content> = {
           status: "live",
         },
         {
-          title: "WhatsApp",
-          text: "The same conversations on WhatsApp Business. Working, but still being tested before we offer it to clients.",
-          status: "testing",
+          title: "WhatsApp and email",
+          text: "The same conversations on your WhatsApp Business number and in your Gmail inbox, answered in seconds. Email replies stay in the client's thread.",
+          status: "live",
         },
       ],
       notYetTitle: "Not offered yet",
       notYet:
-        "Answering phone calls, moving a booked viewing to a new time (clients can cancel and book again), and Outlook or Microsoft 365 calendars.",
+        "Answering phone calls, letting clients move or cancel a viewing by message (your team does it in the dashboard), and Outlook or Microsoft 365 calendars.",
     },
     flow: {
       eyebrow: "How it works",
       title: "From first message to booked viewing.",
       lead: "One conversation, usually a few minutes long, with no back-and-forth emails for your team.",
       steps: [
-        { title: "A client gets in touch", text: "Through the chat on your website, at any hour." },
+        { title: "A client gets in touch", text: "Through your website chat, WhatsApp or email, at any hour." },
         { title: "Elliot answers", text: "From your own listings, prices and FAQs, which you can edit at any time." },
         { title: "It asks the right questions", text: "Budget, area, size, timing and financing, in a natural way." },
         { title: "It books the viewing", text: "In a free slot in your calendar, with a confirmation email to the client." },
@@ -178,9 +178,9 @@ export const HOME: Record<Locale, Content> = {
       items: [
         { name: "Your website", text: "A chat window added with one line of code.", status: "live" },
         { name: "Google Calendar", text: "Checks free slots and books viewings.", status: "live" },
-        { name: "Gmail", text: "Sends confirmations and follow-ups from your address.", status: "live" },
+        { name: "Gmail", text: "Answers enquiries in your inbox and sends confirmations and follow-ups from your address.", status: "live" },
         { name: "Your CRM", text: "New leads and bookings sent on, directly or through Zapier or Make.", status: "live" },
-        { name: "WhatsApp Business", text: "Conversations on WhatsApp.", status: "testing" },
+        { name: "WhatsApp Business", text: "Answers clients on your WhatsApp number, in seconds.", status: "live" },
         { name: "Outlook / Microsoft 365", text: "Calendar and email.", status: "planned" },
       ],
     },
@@ -217,7 +217,7 @@ export const HOME: Record<Locale, Content> = {
       vat: "Net prices. VAT is added where it applies.",
       includesTitle: "Included",
       includes: [
-        "Website chat, trained on your listings and FAQs",
+        "Website chat, WhatsApp and email replies, trained on your listings and FAQs",
         "Lead qualification and scoring",
         "Viewing booking with Google Calendar",
         "Follow-up emails with your approval rules",
@@ -240,7 +240,7 @@ export const HOME: Record<Locale, Content> = {
     hero: {
       eyebrow: "Asystent AI dla biur nieruchomości",
       title: "Odpowiedź na każde zapytanie. Prezentacje umawiane o każdej porze.",
-      lead: "Elliot działa na Twojej stronie internetowej. Odpowiada na pytania o oferty, zadaje kupującym i najemcom właściwe pytania i umawia prezentacje bezpośrednio w Twoim Kalendarzu Google. Twój zespół widzi każdą rozmowę i może w każdej chwili przejąć klienta.",
+      lead: "Elliot działa na Twojej stronie, w WhatsAppie i w e-mailu. Odpowiada na pytania o oferty, zadaje kupującym i najemcom właściwe pytania i umawia prezentacje bezpośrednio w Twoim Kalendarzu Google. Twój zespół widzi każdą rozmowę i może w każdej chwili przejąć klienta.",
       primary: "Porozmawiaj z Elliotem",
       secondary: "Umów prezentację",
       note: "Czat w rogu tej strony to Elliot. Zapytaj go o cokolwiek.",
@@ -277,7 +277,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Umawia prezentacje",
-          text: "Proponuje wolne terminy z Twojego Kalendarza Google, rezerwuje wybrany i wysyła e-mail z potwierdzeniem. Obsługuje też odwołania.",
+          text: "Proponuje wolne terminy z Twojego Kalendarza Google, rezerwuje wybrany i wysyła e-mail z potwierdzeniem. Odwołanie prezentacji w panelu od razu aktualizuje kalendarz.",
           status: "live",
         },
         {
@@ -296,21 +296,21 @@ export const HOME: Record<Locale, Content> = {
           status: "live",
         },
         {
-          title: "WhatsApp",
-          text: "Te same rozmowy w WhatsApp Business. Działa, ale testujemy to jeszcze, zanim zaoferujemy klientom.",
-          status: "testing",
+          title: "WhatsApp i e-mail",
+          text: "Te same rozmowy na Twoim numerze WhatsApp Business i w skrzynce Gmail, z odpowiedzią w kilka sekund. Odpowiedzi e-mail trafiają do tego samego wątku.",
+          status: "live",
         },
       ],
       notYetTitle: "Jeszcze niedostępne",
       notYet:
-        "Odbieranie telefonów, przenoszenie umówionej prezentacji na inny termin (klient może ją odwołać i umówić ponownie) oraz kalendarze Outlook i Microsoft 365.",
+        "Odbieranie telefonów, przenoszenie lub odwoływanie prezentacji przez klienta w wiadomości (robi to Twój zespół w panelu) oraz kalendarze Outlook i Microsoft 365.",
     },
     flow: {
       eyebrow: "Jak to działa",
       title: "Od pierwszej wiadomości do umówionej prezentacji.",
       lead: "Jedna rozmowa, zwykle kilkuminutowa, bez wymiany maili po stronie Twojego zespołu.",
       steps: [
-        { title: "Klient się odzywa", text: "Przez czat na Twojej stronie, o dowolnej porze." },
+        { title: "Klient się odzywa", text: "Przez czat na stronie, WhatsApp lub e-mail, o dowolnej porze." },
         { title: "Elliot odpowiada", text: "Na podstawie Twoich ofert, cen i najczęstszych pytań, które możesz zmieniać w każdej chwili." },
         { title: "Zadaje właściwe pytania", text: "O budżet, lokalizację, metraż, termin i finansowanie, w naturalny sposób." },
         { title: "Umawia prezentację", text: "W wolnym terminie w Twoim kalendarzu, z e-mailem potwierdzającym dla klienta." },
@@ -347,9 +347,9 @@ export const HOME: Record<Locale, Content> = {
       items: [
         { name: "Twoja strona", text: "Okno czatu dodawane jedną linijką kodu.", status: "live" },
         { name: "Kalendarz Google", text: "Sprawdza wolne terminy i umawia prezentacje.", status: "live" },
-        { name: "Gmail", text: "Wysyła potwierdzenia i przypomnienia z Twojego adresu.", status: "live" },
+        { name: "Gmail", text: "Odpowiada na zapytania w Twojej skrzynce i wysyła potwierdzenia oraz przypomnienia z Twojego adresu.", status: "live" },
         { name: "Twój CRM", text: "Nowi klienci i rezerwacje przekazywane bezpośrednio lub przez Zapier albo Make.", status: "live" },
-        { name: "WhatsApp Business", text: "Rozmowy na WhatsAppie.", status: "testing" },
+        { name: "WhatsApp Business", text: "Odpowiada klientom na Twoim numerze WhatsApp w kilka sekund.", status: "live" },
         { name: "Outlook / Microsoft 365", text: "Kalendarz i poczta.", status: "planned" },
       ],
     },
@@ -386,7 +386,7 @@ export const HOME: Record<Locale, Content> = {
       vat: "Ceny netto. VAT doliczany, jeśli ma zastosowanie.",
       includesTitle: "W cenie",
       includes: [
-        "Czat na stronie, nauczony Twoich ofert i najczęstszych pytań",
+        "Czat na stronie, odpowiedzi w WhatsAppie i e-mailu, nauczone Twoich ofert i najczęstszych pytań",
         "Kwalifikacja i ocena klientów",
         "Umawianie prezentacji z Kalendarzem Google",
         "E-maile z przypomnieniami według Twoich zasad zatwierdzania",

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s · Elliot",
   },
   description:
-    "Elliot answers property enquiries on your website, qualifies buyers and renters, books viewings into your calendar and hands over to your team when it should. Built for estate agencies.",
+    "Elliot answers property enquiries on your website, WhatsApp and email, qualifies buyers and renters, books viewings into your calendar and hands over to your team when it should. Built for estate agencies.",
   keywords: [
     "AI assistant for estate agents",
     "real estate chatbot",
