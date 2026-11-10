@@ -26,7 +26,7 @@ export default function ElliotChat() {
           <span className="presence-dot" />
           <div>
             <p className="text-sm font-medium text-paper">Elliot</p>
-            <p className="text-xs text-paper/60">AI employee · online</p>
+            <p className="text-xs text-paper/60">AI assistant · online</p>
           </div>
         </div>
         <button

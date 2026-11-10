@@ -27,7 +27,7 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
       {
         h: "What this policy covers",
         body: [
-          "This policy covers this website, including the demo request form and the Elliot chat on this site.",
+          "This policy covers this website, including the Elliot chat, the form to book an intro call or live demo, the form that opens the live demo agency, and any emails or WhatsApp messages you exchange with us.",
           "It does not cover Elliot when an estate agency uses it on its own website. In that case the agency decides how your data is used and is the controller; we process the data on the agency's behalf under a data processing agreement. Please read that agency's privacy policy.",
         ],
       },
@@ -35,7 +35,9 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         h: "What data we collect",
         body: [
           [
-            "Demo request form: your name, company, email address, website, industry, company size and the message you write.",
+            "Booking form (intro call or live demo): your name, email address, phone number if you give it, agency name, number of agents and listings, the CRM you use, your message and the time you choose.",
+            "Live demo form: your name, email address, phone number if you give it, and agency name.",
+            "Chat on the live demo page: the messages you send to the sample agency, and any viewing you book there (a demo booking, not a real one).",
             "Chat: the messages you type and anything you choose to include in them (for example your name, phone number, email address or what property you are looking for), plus a conversation identifier and the time of each message.",
             "Technical data: our hosting provider records your IP address, browser type and the pages you request, to keep the site running and secure.",
           ],
@@ -46,19 +48,20 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         h: "Why we use it and on what legal basis",
         body: [
           [
-            "To answer your demo request and arrange a demo, which are steps you ask us to take before a possible contract (Article 6(1)(b) GDPR).",
+            "To book the call or demo you ask for, send you the confirmation with the Google Meet link and a reminder the day before, and let you move or cancel it, which are steps you ask us to take before a possible contract (Article 6(1)(b) GDPR).",
+            "To open the live demo for you and follow up once afterwards to ask whether Elliot would suit your agency (our legitimate interest in answering business interest, Article 6(1)(f) GDPR). You can tell us not to.",
             "To answer your questions in the chat and, if you ask us to, get back to you (Article 6(1)(b) GDPR where you ask about our services, otherwise our legitimate interest in replying to enquiries, Article 6(1)(f) GDPR).",
             "To keep the website secure, prevent abuse and fix problems (our legitimate interest, Article 6(1)(f) GDPR).",
             "To establish, exercise or defend legal claims, if that is ever needed (our legitimate interest, Article 6(1)(f) GDPR).",
           ],
           "We do not send newsletters and we do not sell your data.",
-          "Giving us your data is voluntary, but without an email address we cannot reply to a demo request.",
+          "Giving us your data is voluntary, but without an email address we cannot book a call or open the live demo for you.",
         ],
       },
       {
         h: "AI-generated replies",
         body: [
-          "Replies in the chat are written by an AI model, based on information we have given it. They can occasionally be wrong or incomplete. If something matters to you, ask to speak to a person and we will get back to you.",
+          "The chat is Elliot, an AI assistant, and it says so. Its replies are written by an AI model based on information we have given it. They can occasionally be wrong or incomplete. If something matters to you, ask to speak to a person and we will get back to you.",
           "We do not make decisions about you based solely on automated processing that have legal or similarly significant effects on you.",
         ],
       },
@@ -68,10 +71,12 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
           "We use the following service providers to run the website and Elliot. They process data only on our instructions, under data processing agreements:",
           [
             "Vercel Inc. (website hosting)",
-            "n8n GmbH (workflow automation that receives form and chat submissions)",
+            "n8n GmbH (workflow automation that receives form and chat submissions; EU, Germany)",
             "Supabase Inc. (database where submissions and conversations are stored)",
             "Anthropic PBC (the AI model that writes the chat replies)",
-            "Google (email notifications and calendar, where used)",
+            "Resend (Plus Five Five, Inc.) (sending and receiving email)",
+            "Google (Google Calendar and Google Meet for booked calls)",
+            "Meta Platforms Ireland Ltd (WhatsApp, if you write to us there)",
           ],
           "We may also disclose data where the law requires it, for example to a court or public authority.",
         ],
@@ -86,7 +91,8 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         h: "How long we keep it",
         body: [
           [
-            "Demo requests and chat conversations: up to 12 months after our last contact with you. If we start working together, for as long as the contract lasts and then for as long as the law requires or claims could be brought.",
+            "Bookings, live demo sign-ups and chat conversations: up to 12 months after our last contact with you. If we start working together, for as long as the contract lasts and then for as long as the law requires or claims could be brought.",
+            "Viewings and conversations on the live demo page: deleted automatically after a few days.",
             "Technical logs: for the short period set by our hosting provider, usually no more than 30 days.",
           ],
           "After that, the data is deleted or anonymised.",
@@ -140,7 +146,7 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
       {
         h: "Czego dotyczy ta polityka",
         body: [
-          "Polityka dotyczy tej strony internetowej, w tym formularza zgłoszenia na prezentację i czatu z Elliotem na tej stronie.",
+          "Polityka dotyczy tej strony internetowej, w tym czatu z Elliotem, formularza rezerwacji rozmowy wstępnej lub prezentacji na żywo, formularza otwierającego demo przykładowego biura oraz wiadomości e-mail i WhatsApp, które z nami wymieniasz.",
           "Nie dotyczy Elliota używanego przez biuro nieruchomości na jego własnej stronie. Wtedy to biuro decyduje o wykorzystaniu Twoich danych i jest ich administratorem, a my przetwarzamy je w jego imieniu na podstawie umowy powierzenia. Zapoznaj się z polityką prywatności tego biura.",
         ],
       },
@@ -148,7 +154,9 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         h: "Jakie dane zbieramy",
         body: [
           [
-            "Formularz zgłoszenia: imię i nazwisko, firma, adres e-mail, strona internetowa, branża, wielkość firmy i treść wiadomości.",
+            "Formularz rezerwacji (rozmowa wstępna lub prezentacja na żywo): imię i nazwisko, adres e-mail, numer telefonu (jeśli go podasz), nazwa biura, liczba agentów i ofert, używany CRM, treść wiadomości i wybrany termin.",
+            "Formularz demo: imię i nazwisko, adres e-mail, numer telefonu (jeśli go podasz) i nazwa biura.",
+            "Czat na stronie demo: wiadomości wysłane do przykładowego biura i prezentacje tam zarezerwowane (rezerwacje demonstracyjne, nie prawdziwe).",
             "Czat: wiadomości, które wpisujesz, i wszystko, co zdecydujesz się w nich podać (np. imię, numer telefonu, adres e-mail, jakiej nieruchomości szukasz), a także identyfikator rozmowy i czas każdej wiadomości.",
             "Dane techniczne: nasz dostawca hostingu zapisuje adres IP, rodzaj przeglądarki i odwiedzane podstrony, aby strona działała i była bezpieczna.",
           ],
@@ -159,19 +167,20 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         h: "Cele i podstawy prawne",
         body: [
           [
-            "Odpowiedź na zgłoszenie i umówienie prezentacji, czyli działania podejmowane na Twoje żądanie przed ewentualnym zawarciem umowy (art. 6 ust. 1 lit. b RODO).",
+            "Rezerwacja rozmowy lub prezentacji, o którą prosisz, wysłanie potwierdzenia z linkiem Google Meet i przypomnienia dzień wcześniej oraz umożliwienie zmiany lub odwołania terminu, czyli działania podejmowane na Twoje żądanie przed ewentualnym zawarciem umowy (art. 6 ust. 1 lit. b RODO).",
+            "Udostępnienie demo i jednorazowy kontakt po nim z pytaniem, czy Elliot pasuje do Twojego biura (nasz prawnie uzasadniony interes w odpowiadaniu na zainteresowanie biznesowe, art. 6 ust. 1 lit. f RODO). Możesz nam powiedzieć, że sobie tego nie życzysz.",
             "Odpowiadanie na pytania na czacie i, jeśli o to poprosisz, kontakt zwrotny (art. 6 ust. 1 lit. b RODO, gdy pytasz o nasze usługi; w pozostałych przypadkach nasz prawnie uzasadniony interes w odpowiadaniu na zapytania, art. 6 ust. 1 lit. f RODO).",
             "Zapewnienie bezpieczeństwa strony, zapobieganie nadużyciom i usuwanie usterek (nasz prawnie uzasadniony interes, art. 6 ust. 1 lit. f RODO).",
             "Ustalenie, dochodzenie lub obrona roszczeń, jeśli kiedykolwiek będzie to potrzebne (nasz prawnie uzasadniony interes, art. 6 ust. 1 lit. f RODO).",
           ],
           "Nie wysyłamy newsletterów i nie sprzedajemy Twoich danych.",
-          "Podanie danych jest dobrowolne, ale bez adresu e-mail nie możemy odpowiedzieć na zgłoszenie.",
+          "Podanie danych jest dobrowolne, ale bez adresu e-mail nie możemy zarezerwować rozmowy ani udostępnić demo.",
         ],
       },
       {
         h: "Odpowiedzi generowane przez AI",
         body: [
-          "Odpowiedzi na czacie pisze model sztucznej inteligencji na podstawie informacji, które mu przekazaliśmy. Czasami mogą być błędne lub niepełne. Jeśli coś jest dla Ciebie ważne, poproś o kontakt z człowiekiem, a odezwiemy się.",
+          "Na czacie odpowiada Elliot, asystent AI, i informuje o tym. Odpowiedzi pisze model sztucznej inteligencji na podstawie informacji, które mu przekazaliśmy. Czasami mogą być błędne lub niepełne. Jeśli coś jest dla Ciebie ważne, poproś o kontakt z człowiekiem, a odezwiemy się.",
           "Nie podejmujemy wobec Ciebie decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu, które wywoływałyby skutki prawne lub w podobny sposób istotnie na Ciebie wpływały.",
         ],
       },
@@ -181,10 +190,12 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
           "Do prowadzenia strony i Elliota korzystamy z poniższych dostawców. Przetwarzają oni dane wyłącznie na nasze polecenie, na podstawie umów powierzenia przetwarzania:",
           [
             "Vercel Inc. (hosting strony)",
-            "n8n GmbH (automatyzacja, która odbiera zgłoszenia i wiadomości z czatu)",
+            "n8n GmbH (automatyzacja, która odbiera zgłoszenia i wiadomości z czatu; UE, Niemcy)",
             "Supabase Inc. (baza danych, w której przechowywane są zgłoszenia i rozmowy)",
             "Anthropic PBC (model AI, który pisze odpowiedzi na czacie)",
-            "Google (powiadomienia e-mail i kalendarz, jeśli są używane)",
+            "Resend (Plus Five Five, Inc.) (wysyłanie i odbieranie e-maili)",
+            "Google (Kalendarz Google i Google Meet dla umówionych rozmów)",
+            "Meta Platforms Ireland Ltd (WhatsApp, jeśli do nas tam napiszesz)",
           ],
           "Możemy też ujawnić dane, gdy wymaga tego prawo, np. sądowi lub organowi publicznemu.",
         ],
@@ -199,7 +210,8 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         h: "Jak długo przechowujemy dane",
         body: [
           [
-            "Zgłoszenia i rozmowy na czacie: do 12 miesięcy od naszego ostatniego kontaktu. Jeśli zaczniemy współpracę, przez czas trwania umowy, a potem tak długo, jak wymagają tego przepisy lub jak mogą być dochodzone roszczenia.",
+            "Rezerwacje, zgłoszenia do demo i rozmowy na czacie: do 12 miesięcy od naszego ostatniego kontaktu. Jeśli zaczniemy współpracę, przez czas trwania umowy, a potem tak długo, jak wymagają tego przepisy lub jak mogą być dochodzone roszczenia.",
+            "Prezentacje i rozmowy na stronie demo: usuwane automatycznie po kilku dniach.",
             "Logi techniczne: przez krótki okres ustalony przez dostawcę hostingu, zwykle nie dłużej niż 30 dni.",
           ],
           "Po tym czasie dane są usuwane lub anonimizowane.",
@@ -243,7 +255,7 @@ export const TERMS: { en: LegalDoc; pl: LegalDoc } = {
     title: "Terms of use",
     updatedLabel: "Last updated",
     updated: LEGAL_UPDATED.en,
-    intro: `These terms apply to your use of this website (${host}), including the Elliot chat and the demo request form. By using the website you agree to them.`,
+    intro: `These terms apply to your use of this website (${host}), including the Elliot chat, the booking form and the live demo. By using the website you agree to them.`,
     sections: [
       {
         h: "Who runs this website",
@@ -254,9 +266,9 @@ export const TERMS: { en: LegalDoc; pl: LegalDoc } = {
       {
         h: "What the website offers",
         body: [
-          "Free of charge, the website lets you read about Elliot, talk to the Elliot chat and send a demo request.",
+          "Free of charge, the website lets you read about Elliot, talk to the Elliot chat, book an intro call or live demo, and try the live demo agency.",
           "To use it you need an internet connection and an up-to-date web browser with JavaScript enabled. The demo form also needs a working email address.",
-          "You can stop using the website at any time. A chat conversation ends when you close it; a demo request is complete once it is sent.",
+          "You can stop using the website at any time. A chat conversation ends when you close it; a booking is complete once it is confirmed, and you can move or cancel it by replying to the confirmation.",
         ],
       },
       {
@@ -331,7 +343,7 @@ export const TERMS: { en: LegalDoc; pl: LegalDoc } = {
     title: "Regulamin",
     updatedLabel: "Ostatnia aktualizacja",
     updated: LEGAL_UPDATED.pl,
-    intro: `Regulamin określa zasady korzystania z tej strony internetowej (${host}), w tym z czatu Elliota i formularza zgłoszenia na prezentację. Korzystając ze strony, akceptujesz te zasady.`,
+    intro: `Regulamin określa zasady korzystania z tej strony internetowej (${host}), w tym z czatu Elliota, formularza rezerwacji i demo. Korzystając ze strony, akceptujesz te zasady.`,
     sections: [
       {
         h: "Kto prowadzi stronę",
@@ -342,9 +354,9 @@ export const TERMS: { en: LegalDoc; pl: LegalDoc } = {
       {
         h: "Co oferuje strona",
         body: [
-          "Strona bezpłatnie umożliwia zapoznanie się z informacjami o Elliocie, rozmowę na czacie z Elliotem i wysłanie zgłoszenia na prezentację.",
+          "Strona bezpłatnie umożliwia zapoznanie się z informacjami o Elliocie, rozmowę na czacie z Elliotem, rezerwację rozmowy wstępnej lub prezentacji na żywo oraz wypróbowanie demo przykładowego biura.",
           "Do korzystania ze strony potrzebne jest połączenie z internetem i aktualna przeglądarka z włączoną obsługą JavaScript. Do wysłania formularza potrzebny jest działający adres e-mail.",
-          "Możesz w każdej chwili przestać korzystać ze strony. Rozmowa na czacie kończy się po jego zamknięciu, a zgłoszenie jest zrealizowane z chwilą wysłania.",
+          "Możesz w każdej chwili przestać korzystać ze strony. Rozmowa na czacie kończy się po jego zamknięciu, a rezerwacja jest zrealizowana z chwilą potwierdzenia; termin można zmienić lub odwołać, odpowiadając na potwierdzenie.",
         ],
       },
       {

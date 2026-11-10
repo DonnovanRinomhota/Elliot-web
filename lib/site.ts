@@ -19,4 +19,4 @@ export const PRICING = {
 };
 
 /** Date shown on the Privacy Policy and Terms. Update when you edit them. */
-export const LEGAL_UPDATED = { en: "1 November 2026", pl: "1 listopada 2026" };
+export const LEGAL_UPDATED = { en: "10 November 2026", pl: "10 listopada 2026" };

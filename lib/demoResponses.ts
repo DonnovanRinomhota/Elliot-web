@@ -67,4 +67,4 @@ export const SUGGESTED_PROMPTS = [
 ];
 
 export const GREETING =
-  "Hi there! I'm Elliot. What would you like help with today?";
+  "Hi there! I'm Elliot, an AI assistant. What would you like help with today?";
