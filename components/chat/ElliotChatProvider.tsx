@@ -68,9 +68,8 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
   // (sendChatMessage never returns one there) with no effect on behavior.
   const [conversationId, setConversationId] = useState<string | null>(null);
 
-  // A name plus an email or phone is required before the chat starts. A
-  // message typed before that waits in `pending` and is sent once the form
-  // is filled in.
+  // Details are only asked for when the backend wants them (needs_contact).
+  // The message waits in `pending` and is sent once the form is filled in.
   const [visitor, setVisitor] = useState<VisitorDetails | null>(null);
   const [needsDetails, setNeedsDetails] = useState(false);
   const [detailsNote, setDetailsNote] = useState<string | null>(null);
@@ -85,7 +84,7 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
   const toggleChat = useCallback(() => setIsOpen((v) => !v), []);
 
   const deliver = useCallback(
-    async (text: string, who: VisitorDetails) => {
+    async (text: string, who: VisitorDetails | null) => {
       setIsTyping(true);
       try {
         const result = await sendChatMessage({
@@ -133,12 +132,10 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
         { id: id(), role: "user", text: trimmed, createdAt: Date.now() },
       ]);
 
-      if (!visitor) {
-        pending.current = trimmed;
-        setDetailsNote(null);
-        setNeedsDetails(true);
-        return;
-      }
+      // The site's own assistant answers straight away; it asks for contact
+      // details itself when someone wants to book a call. If the backend
+      // still wants details first (an agency account), it says so with
+      // needs_contact and the form appears.
       await deliver(trimmed, visitor);
     },
     [visitor, deliver]
@@ -167,7 +164,7 @@ export function ElliotChatProvider({ children }: { children: React.ReactNode }) 
       isTyping,
       sendMessage,
       visitor,
-      needsDetails: needsDetails || !visitor,
+      needsDetails,
       detailsNote,
       submitDetails,
     }),

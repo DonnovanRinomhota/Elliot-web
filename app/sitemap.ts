@@ -8,6 +8,7 @@ const routes = [
   "/solutions",
   "/industries",
   "/industries/real-estate",
+  "/book",
   "/demo",
   "/contact",
   "/privacy",
@@ -15,6 +16,8 @@ const routes = [
   "/pl",
   "/pl/nieruchomosci",
   "/pl/kontakt",
+  "/pl/rezerwacja",
+  "/pl/demo",
   "/pl/prywatnosc",
   "/pl/regulamin",
 ];

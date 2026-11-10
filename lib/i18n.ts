@@ -13,7 +13,8 @@ export const PAGE_TWINS: [en: string, pl: string][] = [
   ["/", "/pl"],
   ["/industries/real-estate", "/pl/nieruchomosci"],
   ["/contact", "/pl/kontakt"],
-  ["/demo", "/pl/kontakt"],
+  ["/book", "/pl/rezerwacja"],
+  ["/demo", "/pl/demo"],
   ["/privacy", "/pl/prywatnosc"],
   ["/terms", "/pl/regulamin"],
 ];
@@ -36,7 +37,7 @@ export const UI = {
     ],
     talk: "Talk to Elliot",
     book: "Book a demo",
-    bookHref: "/demo",
+    bookHref: "/book",
     home: "/",
     menuOpen: "Open menu",
     menuClose: "Close menu",
@@ -58,7 +59,8 @@ export const UI = {
         {
           title: "Get in touch",
           links: [
-            { href: "/demo", label: "Book a demo" },
+            { href: "/book", label: "Book a call" },
+            { href: "/demo", label: "Live demo" },
             { href: "/contact", label: "Contact form" },
           ],
         },
@@ -82,7 +84,7 @@ export const UI = {
     ],
     talk: "Porozmawiaj z Elliotem",
     book: "Umów prezentację",
-    bookHref: "/pl/kontakt",
+    bookHref: "/pl/rezerwacja",
     home: "/pl",
     menuOpen: "Otwórz menu",
     menuClose: "Zamknij menu",
@@ -103,7 +105,11 @@ export const UI = {
         },
         {
           title: "Kontakt",
-          links: [{ href: "/pl/kontakt", label: "Umów prezentację" }],
+          links: [
+            { href: "/pl/rezerwacja", label: "Umów rozmowę" },
+            { href: "/pl/demo", label: "Demo na żywo" },
+            { href: "/pl/kontakt", label: "Formularz kontaktowy" },
+          ],
         },
         {
           title: "Informacje prawne",

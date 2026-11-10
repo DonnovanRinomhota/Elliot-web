@@ -62,7 +62,7 @@ export const SUGGESTED_PROMPTS = [
   "What is Elliot?",
   "What can Elliot automate?",
   "How would Elliot work for my business?",
-  "Show me a demo",
+  "Book a live demo",
   "How much does Elliot cost?",
 ];
 

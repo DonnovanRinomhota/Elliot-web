@@ -3,8 +3,8 @@ import PageHero from "@/components/sections/PageHero";
 import DemoRequestForm from "@/components/DemoRequestForm";
 
 export const metadata: Metadata = {
-  title: "Book a Demo",
-  description: "Tell us about your business and book time to see Elliot configured for your use case.",
+  title: "Contact",
+  description: "Tell us about your agency and we'll get back to you. To pick a time straight away, use the booking page.",
   alternates: { canonical: "/contact", languages: { en: "/contact", pl: "/pl/kontakt" } },
 };
 
@@ -13,8 +13,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Book a demo."
-        description="Tell us a little about your business and we'll show you what Elliot could handle for you."
+        title="Write to us."
+        description="Tell us a little about your agency and we'll get back to you. Prefer to pick a time yourself? Book a call on the booking page."
       />
       <section className="border-b border-surface-line bg-surface pb-24">
         <div className="container-content max-w-2xl">
