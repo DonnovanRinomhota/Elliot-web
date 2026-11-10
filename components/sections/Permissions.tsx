@@ -6,7 +6,7 @@ const columns = [
     title: "Elliot does this by itself",
     tag: "Allowed",
     tone: "pulse" as const,
-    items: ["Answer questions", "Capture and score leads", "Book and cancel viewings", "Send records to your CRM"],
+    items: ["Answer questions", "Capture and score leads", "Book viewings", "Send records to your CRM"],
   },
   {
     title: "Waits for your approval",

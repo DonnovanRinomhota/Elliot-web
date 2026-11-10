@@ -6,7 +6,7 @@ const integrations = [
   { name: "Gmail", status: "available" },
   { name: "Website chat", status: "available" },
   { name: "Any CRM (webhook, Zapier, Make)", status: "available" },
-  { name: "WhatsApp Business", status: "testing" },
+  { name: "WhatsApp Business", status: "available" },
   { name: "Microsoft Outlook", status: "planned" },
 ] as const;
 
