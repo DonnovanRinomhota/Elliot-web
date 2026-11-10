@@ -108,7 +108,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Books viewings",
-          text: "Offers free slots from your Google Calendar, books the one the client picks and sends a confirmation email. Cancel a viewing in your dashboard and the calendar updates.",
+          text: "Offers free slots from your Google Calendar, books the one the client picks and sends a confirmation email. Reminds the client the day before; they can reply to confirm, move or cancel, and Elliot updates the calendar and tells the agent.",
           status: "live",
         },
         {
@@ -134,7 +134,7 @@ export const HOME: Record<Locale, Content> = {
       ],
       notYetTitle: "Not offered yet",
       notYet:
-        "Answering phone calls, letting clients move or cancel a viewing by message (your team does it in the dashboard), and Outlook or Microsoft 365 calendars.",
+        "Answering phone calls, and Outlook or Microsoft 365 calendars.",
     },
     flow: {
       eyebrow: "How it works",
@@ -277,7 +277,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Umawia prezentacje",
-          text: "Proponuje wolne terminy z Twojego Kalendarza Google, rezerwuje wybrany i wysyła e-mail z potwierdzeniem. Odwołanie prezentacji w panelu od razu aktualizuje kalendarz.",
+          text: "Proponuje wolne terminy z Twojego Kalendarza Google, rezerwuje wybrany i wysyła e-mail z potwierdzeniem. Dzień wcześniej przypomina klientowi o terminie; klient może odpisać, by potwierdzić, przenieść lub odwołać, a Elliot aktualizuje kalendarz i informuje agenta.",
           status: "live",
         },
         {
@@ -303,7 +303,7 @@ export const HOME: Record<Locale, Content> = {
       ],
       notYetTitle: "Jeszcze niedostępne",
       notYet:
-        "Odbieranie telefonów, przenoszenie lub odwoływanie prezentacji przez klienta w wiadomości (robi to Twój zespół w panelu) oraz kalendarze Outlook i Microsoft 365.",
+        "Odbieranie telefonów oraz kalendarze Outlook i Microsoft 365.",
     },
     flow: {
       eyebrow: "Jak to działa",

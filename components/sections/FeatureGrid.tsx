@@ -17,7 +17,7 @@ import {
 const features = [
   { title: "Customer questions", detail: "Answers questions from your own listings, fees and FAQs, and says so when it doesn't know.", Icon: IconSupport },
   { title: "Lead qualification", detail: "Asks the right questions and scores each lead hot, warm or cold.", Icon: IconTarget },
-  { title: "Appointments", detail: "Books viewings into Google Calendar; cancel one in the dashboard and the calendar updates.", Icon: IconCalendar },
+  { title: "Appointments", detail: "Books viewings into Google Calendar, reminds clients the day before, and lets them confirm, move or cancel by message.", Icon: IconCalendar },
   { title: "Email and WhatsApp", detail: "Answers enquiries in your Gmail inbox and on WhatsApp in seconds, in the same conversation.", Icon: IconMail },
   { title: "Follow-ups", detail: "Follows up with people who go quiet, within your approval rules.", Icon: IconFollowup },
   { title: "Knowledge base", detail: "Learns from documents you upload. Update them and Elliot uses the new version.", Icon: IconKnowledge },
