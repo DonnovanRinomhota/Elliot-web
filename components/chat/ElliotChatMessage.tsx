@@ -1,4 +1,42 @@
+import { Fragment, ReactNode } from "react";
 import { ChatMessage } from "@/lib/types";
+
+// Elliot's replies can contain line breaks, **bold**, [label](url) links and
+// bare links (property pages, Google Meet). Rendered as React elements, never
+// as HTML, so nothing in a message can inject markup.
+const TOKEN = /\*\*([^*\n]+)\*\*|\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s<>()]+[^\s<>().,;:!?'"])/g;
+
+function link(href: string, label: string, key: string) {
+  return (
+    <a key={key} href={href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 [overflow-wrap:anywhere]">
+      {label}
+    </a>
+  );
+}
+
+export function renderChatText(text: string): ReactNode {
+  return text.split("\n").map((line, i, lines) => {
+    const parts: ReactNode[] = [];
+    let last = 0;
+    let m: RegExpExecArray | null;
+    TOKEN.lastIndex = 0;
+    while ((m = TOKEN.exec(line))) {
+      if (m.index > last) parts.push(line.slice(last, m.index));
+      const key = `${i}-${m.index}`;
+      if (m[1]) parts.push(<strong key={key}>{m[1]}</strong>);
+      else if (m[2] && m[3]) parts.push(link(m[3], m[2], key));
+      else if (m[4]) parts.push(link(m[4], m[4], key));
+      last = m.index + m[0].length;
+    }
+    if (last < line.length) parts.push(line.slice(last));
+    return (
+      <Fragment key={i}>
+        {parts}
+        {i < lines.length - 1 && <br />}
+      </Fragment>
+    );
+  });
+}
 
 export default function ElliotChatMessage({ message }: { message: ChatMessage }) {
   const isElliot = message.role === "elliot";
@@ -12,7 +50,7 @@ export default function ElliotChatMessage({ message }: { message: ChatMessage })
             : "bg-ink text-paper dark:bg-ink-line"
         }`}
       >
-        {message.text}
+        {isElliot ? renderChatText(message.text) : message.text}
       </div>
     </div>
   );

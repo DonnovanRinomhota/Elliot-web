@@ -36,12 +36,27 @@ const ELLIOT_DEMO_TENANT = process.env.NEXT_PUBLIC_ELLIOT_DEMO_TENANT || "";
 const ELLIOT_DEMO_REQUEST_WEBHOOK_URL =
   process.env.NEXT_PUBLIC_ELLIOT_DEMO_REQUEST_WEBHOOK_URL || "";
 
+/**
+ * The other n8n webhooks live next to the chat webhook (same n8n, same
+ * "/webhook/" base), so they need no extra env vars:
+ *   GET  consultation-slots, POST book-consultation, POST demo-access (workflow 35).
+ */
+function webhookUrl(path: string): string {
+  const base = ELLIOT_CHAT_WEBHOOK_URL.replace(/\/chat\/?$/, "");
+  return base && base !== ELLIOT_CHAT_WEBHOOK_URL ? `${base}/${path}` : "";
+}
+
+/** True when the live backend is configured (bookings and the live demo need it). */
+export const LIVE_BACKEND = ELLIOT_MODE === "live" && !!ELLIOT_CHAT_WEBHOOK_URL;
+
 interface SendMessageParams {
+  /** Which account answers: defaults to the site's own assistant (NEXT_PUBLIC_ELLIOT_DEMO_TENANT). */
+  tenantSlug?: string;
   history: ChatMessage[];
   message: string;
   conversationId: string | null;
-  /** The visitor's name + email/phone. Elliot doesn't answer without them. */
-  contact: VisitorDetails;
+  /** The visitor's name + email/phone, when known. */
+  contact: VisitorDetails | null;
 }
 
 interface SendMessageResult {
@@ -52,12 +67,14 @@ interface SendMessageResult {
 }
 
 export async function sendChatMessage({
+  tenantSlug,
   history,
   message,
   conversationId,
   contact,
 }: SendMessageParams): Promise<SendMessageResult> {
-  if (ELLIOT_MODE === "demo" || !ELLIOT_CHAT_WEBHOOK_URL || !ELLIOT_DEMO_TENANT) {
+  const tenant = tenantSlug || ELLIOT_DEMO_TENANT;
+  if (ELLIOT_MODE === "demo" || !ELLIOT_CHAT_WEBHOOK_URL || !tenant) {
     // Demo mode: predefined, deterministic responses. No network call.
     const text = await getDemoReply(message, history);
     return { text, conversationId: null };
@@ -69,10 +86,10 @@ export async function sendChatMessage({
   //   response: { conversation_id, reply }, or { ..., needs_contact: true } when
   //             the backend has no name + email/phone for this chat yet
   const body: Record<string, unknown> = {
-    tenant_slug: ELLIOT_DEMO_TENANT,
+    tenant_slug: tenant,
     message,
-    contact,
   };
+  if (contact) body.contact = contact;
   if (conversationId) {
     body.conversation_id = conversationId;
   }
@@ -128,4 +145,92 @@ export async function submitDemoRequest(payload: DemoRequestPayload) {
   }
 
   return { ok: true as const, demo: false as const };
+}
+
+// ── Consultation booking (getelliot.eu/book) and the live demo (getelliot.eu/demo) ──
+
+export type CallType = "intro" | "demo";
+
+export interface Slot {
+  starts_at: string;
+  ends_at: string;
+}
+
+async function readJson(res: Response) {
+  try {
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+/** Free times for a call, from the owner's Google Calendar (workflow 35 → 11). */
+export async function getConsultationSlots(type: CallType): Promise<{ slots: Slot[]; timezone: string }> {
+  const url = webhookUrl("consultation-slots");
+  if (!LIVE_BACKEND || !url) throw new Error("not_configured");
+  const res = await fetch(`${url}?type=${type}`, { cache: "no-store" });
+  const data = await readJson(res);
+  if (!res.ok || !data?.success) throw new Error(data?.error || `HTTP ${res.status}`);
+  return { slots: data.slots || [], timezone: data.timezone || "Europe/Warsaw" };
+}
+
+export interface BookingPayload {
+  type: CallType;
+  starts_at: string;
+  name: string;
+  email: string;
+  phone?: string;
+  agency: string;
+  agents?: string;
+  listings?: string;
+  crm?: string;
+  message?: string;
+  lang: "en" | "pl";
+  /** Honeypot: always empty for people. */
+  website?: string;
+}
+
+export type BookingResult =
+  | { ok: true; starts_at: string; ends_at: string; meet_link: string | null; confirmation_sent_to: string | null }
+  | { ok: false; taken: boolean; error: string };
+
+/** Books the call: Google Meet, calendar event, dashboard, confirmation email (workflow 35 → 12). */
+export async function bookConsultation(payload: BookingPayload): Promise<BookingResult> {
+  const url = webhookUrl("book-consultation");
+  if (!LIVE_BACKEND || !url) return { ok: false, taken: false, error: "not_configured" };
+  let res: Response;
+  try {
+    res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  } catch {
+    return { ok: false, taken: false, error: "network" };
+  }
+  const data = await readJson(res);
+  if (res.ok && data?.success) {
+    return { ok: true, starts_at: data.starts_at, ends_at: data.ends_at, meet_link: data.meet_link || null, confirmation_sent_to: data.confirmation_sent_to || null };
+  }
+  return { ok: false, taken: res.status === 409, error: data?.error || `HTTP ${res.status}` };
+}
+
+export interface DemoAccessPayload {
+  name: string;
+  email: string;
+  phone?: string;
+  agency: string;
+  lang: "en" | "pl";
+  website?: string;
+}
+
+/** Unlocks the live demo: saves the visitor as a lead, returns the demo agency to chat with. */
+export async function requestDemoAccess(payload: DemoAccessPayload): Promise<{ ok: true; tenantSlug: string } | { ok: false; error: string }> {
+  const url = webhookUrl("demo-access");
+  if (!LIVE_BACKEND || !url) return { ok: false, error: "not_configured" };
+  let res: Response;
+  try {
+    res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  } catch {
+    return { ok: false, error: "network" };
+  }
+  const data = await readJson(res);
+  if (res.ok && data?.success && data.tenant_slug) return { ok: true, tenantSlug: data.tenant_slug };
+  return { ok: false, error: data?.error || `HTTP ${res.status}` };
 }

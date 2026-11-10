@@ -17,7 +17,7 @@ export default function FinalCTA() {
           own listings so you can try it yourself.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <ButtonLink href="/demo" variant="invert" size="lg">
+          <ButtonLink href="/book" variant="invert" size="lg">
             Book a demo
           </ButtonLink>
           <Button variant="invertGhost" size="lg" onClick={openChat}>

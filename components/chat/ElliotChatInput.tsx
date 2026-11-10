@@ -5,9 +5,14 @@ import { useState, FormEvent } from "react";
 export default function ElliotChatInput({
   onSend,
   disabled,
+  placeholder = "Ask Elliot anything…",
+  inputId = "elliot-chat-input",
 }: {
   onSend: (text: string) => void;
   disabled?: boolean;
+  placeholder?: string;
+  /** Unique per chat on the page (the live demo has its own). */
+  inputId?: string;
 }) {
   const [value, setValue] = useState("");
 
@@ -23,14 +28,14 @@ export default function ElliotChatInput({
       onSubmit={handleSubmit}
       className="flex items-center gap-2 border-t border-surface-line bg-card p-3"
     >
-      <label htmlFor="elliot-chat-input" className="sr-only">
+      <label htmlFor={inputId} className="sr-only">
         Message Elliot
       </label>
       <input
-        id="elliot-chat-input"
+        id={inputId}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Ask Elliot anything…"
+        placeholder={placeholder}
         className="flex-1 rounded-md border border-surface-line bg-surface px-3 py-2.5 text-base text-fg placeholder:text-slate-400 focus:border-violet focus:outline-none md:text-sm"
         autoComplete="off"
       />
