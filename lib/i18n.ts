@@ -1,5 +1,6 @@
 // Minimal two-language setup: English at "/", Polish under "/pl".
-// No i18n library: the Polish site is a few pages, so plain objects are enough.
+// No i18n library: plain objects are enough. Every page exists in both
+// languages (PAGE_TWINS); app/sitemap.ts is built from the same list.
 
 export type Locale = "en" | "pl";
 
@@ -11,6 +12,8 @@ export function localeFromPath(pathname: string | null | undefined): Locale {
 /** Pages that exist in both languages, so the language switch lands on the twin. */
 export const PAGE_TWINS: [en: string, pl: string][] = [
   ["/", "/pl"],
+  ["/product", "/pl/produkt"],
+  ["/how-it-works", "/pl/jak-to-dziala"],
   ["/industries/real-estate", "/pl/nieruchomosci"],
   ["/contact", "/pl/kontakt"],
   ["/book", "/pl/rezerwacja"],
@@ -77,8 +80,8 @@ export const UI = {
   },
   pl: {
     nav: [
-      { href: "/pl#co-robi", label: "Co robi Elliot" },
-      { href: "/pl#jak-dziala", label: "Jak to działa" },
+      { href: "/pl/produkt", label: "Produkt" },
+      { href: "/pl/jak-to-dziala", label: "Jak to działa" },
       { href: "/pl/nieruchomosci", label: "Nieruchomości" },
       { href: "/pl#cennik", label: "Cennik" },
     ],
@@ -97,8 +100,8 @@ export const UI = {
         {
           title: "Produkt",
           links: [
-            { href: "/pl#co-robi", label: "Co robi Elliot" },
-            { href: "/pl#jak-dziala", label: "Jak to działa" },
+            { href: "/pl/produkt", label: "Przegląd" },
+            { href: "/pl/jak-to-dziala", label: "Jak to działa" },
             { href: "/pl/nieruchomosci", label: "Nieruchomości" },
             { href: "/pl#cennik", label: "Cennik" },
           ],

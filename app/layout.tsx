@@ -7,6 +7,7 @@ import ElliotChatLauncher from "@/components/chat/ElliotChatLauncher";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
 import { SITE_URL } from "@/lib/site";
+import { withStatus } from "@/lib/capabilities";
 
 
 // Fonts (IBM Plex Sans / Mono) are bundled via @fontsource in globals.css,
@@ -17,8 +18,10 @@ export const metadata: Metadata = {
     default: "Elliot: AI assistant for estate agencies",
     template: "%s · Elliot",
   },
-  description:
-    "Elliot answers property enquiries on your website, WhatsApp and email, qualifies buyers and renters, books viewings into your calendar and hands over to your team when it should. Built for estate agencies.",
+  description: withStatus(
+    "Elliot answers property enquiries on your website, by email and on WhatsApp[[whatsapp]], qualifies buyers and renters, books viewings into your calendar and hands over to your team when it should. Built for estate agencies.",
+    "en",
+  ),
   keywords: [
     "AI assistant for estate agents",
     "real estate chatbot",

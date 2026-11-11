@@ -20,8 +20,8 @@ npm run build      # production build (run before merging)
 | English | Polish | What it is |
 |---|---|---|
 | `/` | `/pl` | Home: what Elliot does, how it works, tools, pricing |
-| `/product` | (home sections) | Capabilities, control, integrations, data and trust |
-| `/how-it-works` | (home sections) | Set-up steps and the dashboard |
+| `/product` | `/pl/produkt` | Capabilities, control, integrations, data and trust |
+| `/how-it-works` | `/pl/jak-to-dziala` | Set-up steps and the dashboard |
 | `/industries/real-estate` | `/pl/nieruchomosci` | Elliot for estate agencies |
 | `/book` | `/pl/rezerwacja` | Book a 15-minute intro call or 30-minute demo (Google Meet) |
 | `/demo` | `/pl/demo` | Live demo: a sample agency to chat with |
@@ -33,10 +33,19 @@ npm run build      # production build (run before merging)
 
 ## Where the words live
 
-- `lib/content/home.ts`: homepage copy, both languages. Each capability has a
-  status (`live`, `testing`, `planned`): mark something `live` only when an
-  agency can use it today.
-- `components/sections/*`: the product and how-it-works sections (English).
+- **`lib/capabilities.ts`: how far each feature is** (`live`, `testing`,
+  `planned`). This is the only place a status is written; every page in both
+  languages reads it. Mark something `live` only when a real agency can use
+  it today. Code that exists but hasn't run for a real agency is `testing`.
+  When WhatsApp or ASARI goes live, change one word here and the tags and
+  every "(in testing)" / "(w testach)" on the site follow.
+- `lib/content/home.ts`: homepage copy, both languages.
+- `lib/content/product.ts`: product and how-it-works copy, both languages.
+- In the copy, an item names its capability (`cap: "whatsapp"`), and a
+  sentence marks one as `WhatsApp[[whatsapp]]`.
+- Every page exists in both languages. English and Polish must have the same
+  items in the same order with the same capabilities: if they drift,
+  `npm run build` fails and says where.
 - `lib/content/legal.ts`: privacy policy and terms, both languages. Change
   `LEGAL_UPDATED` in `lib/site.ts` whenever you edit them.
 - `lib/site.ts`: owner, pricing (`from €199 / month`, setup `from €500`) and

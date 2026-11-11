@@ -1,36 +1,41 @@
 import SectionHeading from "@/components/sections/SectionHeading";
 import { Badge } from "@/components/ui/Card";
+import { PRODUCT } from "@/lib/content/product";
+import type { Locale } from "@/lib/i18n";
 
+// The real dashboard's menu. It is in English in both language versions of
+// the site, because the dashboard itself is in English.
 const nav = [
-  "Dashboard",
-  "Conversations",
+  "Overview",
+  "Inbox",
+  "Escalations",
+  "Approvals",
   "Leads",
   "Appointments",
-  "Knowledge",
-  "Automations",
-  "Integrations",
-  "Analytics",
+  "Conversations",
+  "Follow-ups",
+  "Listings",
+  "Knowledge base",
+  "Team",
   "Settings",
 ];
 
-const metrics = [
-  { label: "Conversations", value: "1,284" },
-  { label: "New leads", value: "187" },
-  { label: "Qualified leads", value: "73" },
-  { label: "Appointments", value: "41" },
-];
+const values = ["214", "37", "12", "9"];
+const scores = ["HOT", "WARM", "COLD"] as const;
 
-export default function DashboardMockup() {
+export default function DashboardMockup({ locale = "en" }: { locale?: Locale }) {
+  const t = PRODUCT[locale].dashboard;
+  const metrics = t.metrics.map((label, i) => ({ label, value: values[i] }));
   return (
     <section className="border-b border-surface-line bg-surface-dim py-24">
       <div className="container-content reveal">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading
-            eyebrow="Control center"
-            title="Everything Elliot does, in one place."
-            description="Your team stays in full view of every conversation, lead and appointment Elliot handles."
+            eyebrow={t.eyebrow}
+            title={t.title}
+            description={t.description}
           />
-          <Badge tone="sky">Example data</Badge>
+          <Badge tone="sky">{t.badge}</Badge>
         </div>
 
         <div className="mt-14 overflow-hidden rounded-xl border border-surface-line bg-card">
@@ -55,10 +60,10 @@ export default function DashboardMockup() {
 
             <div className="flex-1 p-6 md:p-8">
               <div className="flex items-center justify-between">
-                <p className="font-display text-lg text-fg">Dashboard</p>
+                <p className="font-display text-lg text-fg">Overview</p>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-surface-line px-2.5 py-1 text-xs font-mono text-slate-500">
                   <span className="h-1.5 w-1.5 rounded-full bg-pulse animate-pulseDot" />
-                  Elliot active
+                  {t.active}
                 </span>
               </div>
 
@@ -78,14 +83,10 @@ export default function DashboardMockup() {
 
               <div className="mt-6 rounded-lg border border-surface-line p-4">
                 <p className="text-xs font-mono text-slate-400">
-                  Recent conversations
+                  {t.recent}
                 </p>
                 <div className="mt-3 space-y-2.5">
-                  {[
-                    ["Anna K.", "2-bed apartment enquiry", "HOT"],
-                    ["Marek W.", "Rescheduled viewing", "WARM"],
-                    ["Prospect #4021", "Pricing question", "COLD"],
-                  ].map(([name, note, score]) => (
+                  {t.rows.map(({ name, note }, i) => [name, note, scores[i]] as const).map(([name, note, score]) => (
                     <div
                       key={name}
                       className="flex items-center justify-between rounded-md px-2 py-2.5 -mx-2 border-b border-surface-line transition-colors duration-200 last:border-0 hover:bg-surface-dim"
@@ -105,7 +106,7 @@ export default function DashboardMockup() {
           </div>
         </div>
         <p className="mt-3 text-center text-xs text-slate-400">
-          Illustrative product mockup · example / demo data
+          {t.caption}
         </p>
       </div>
     </section>

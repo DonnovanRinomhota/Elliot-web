@@ -1,37 +1,26 @@
 import SectionHeading from "@/components/sections/SectionHeading";
-import { Badge } from "@/components/ui/Card";
+import { StatusTag } from "@/components/ui/StatusTag";
+import { PRODUCT } from "@/lib/content/product";
+import { STATUS_LABEL, statusOf } from "@/lib/capabilities";
+import type { Locale } from "@/lib/i18n";
 
-const integrations = [
-  { name: "Website chat", status: "available" },
-  { name: "WhatsApp Business", status: "available" },
-  { name: "Email: Gmail, Outlook or any inbox", status: "available" },
-  { name: "Google Calendar (each agent's own)", status: "available" },
-  { name: "ASARI CRM (listings)", status: "available" },
-  { name: "Any CRM (webhook, Zapier, Make)", status: "available" },
-  { name: "Outlook / Microsoft 365 calendar", status: "planned" },
-] as const;
-
-const label = { available: "Available", testing: "In testing", planned: "Planned" };
-const tone = { available: "pulse", testing: "amber", planned: "neutral" } as const;
-
-export default function Integrations() {
+// Where each connection stands comes from lib/capabilities.ts, the same
+// source the homepage uses.
+export default function Integrations({ locale = "en" }: { locale?: Locale }) {
+  const t = PRODUCT[locale].integrations;
   return (
     <section className="border-b border-surface-line bg-surface-dim py-24">
       <div className="container-content">
-        <SectionHeading
-          eyebrow="Integrations"
-          title="Fits into the tools you already use."
-          description="Elliot connects to your website, WhatsApp, inbox, calendars and CRM. Here is exactly where each one stands."
-        />
+        <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {integrations.map((i) => (
+          {t.items.map((i) => (
             <div
               key={i.name}
               className="flex items-center justify-between gap-3 rounded-md border border-surface-line bg-card px-4 py-3.5"
             >
               <span className="text-[14px] text-fg">{i.name}</span>
-              <Badge tone={tone[i.status]}>{label[i.status]}</Badge>
+              <StatusTag status={statusOf(i.cap)} label={STATUS_LABEL[locale][statusOf(i.cap)]} />
             </div>
           ))}
         </div>

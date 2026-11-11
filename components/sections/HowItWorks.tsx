@@ -1,36 +1,17 @@
 import SectionHeading from "@/components/sections/SectionHeading";
+import { PRODUCT } from "@/lib/content/product";
+import type { Locale } from "@/lib/i18n";
 
-const steps = [
-  {
-    n: "01",
-    title: "Connect",
-    detail: "Your website chat, WhatsApp number, email inbox, your agents' calendars and, if you use it, ASARI.",
-  },
-  {
-    n: "02",
-    title: "Teach",
-    detail: "Your listings, fees, areas and the questions clients ask most.",
-  },
-  {
-    n: "03",
-    title: "Set the rules",
-    detail: "What Elliot does on its own, what waits for approval, who gets which leads and when to hand over.",
-  },
-  {
-    n: "04",
-    title: "Go live",
-    detail: "After you've tried it yourself, Elliot starts answering your clients.",
-  },
-];
-
-export default function HowItWorks() {
+export default function HowItWorks({ locale = "en" }: { locale?: Locale }) {
+  const t = PRODUCT[locale].steps;
+  const steps = t.items.map((item, i) => ({ ...item, n: `0${i + 1}` }));
   return (
     <section className="border-b border-surface-line bg-surface py-24">
       <div className="container-content reveal">
         <SectionHeading
-          eyebrow="How it works"
-          title="Four steps, done with you."
-          description="Elliot works 24/7 once deployed — no shifts, no onboarding delays."
+          eyebrow={t.eyebrow}
+          title={t.title}
+          description={t.description}
         />
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

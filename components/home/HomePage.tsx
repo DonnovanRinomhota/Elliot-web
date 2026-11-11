@@ -2,7 +2,9 @@
 
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { useElliotChat } from "@/components/chat/ElliotChatProvider";
-import { HOME, type Status } from "@/lib/content/home";
+import { HOME } from "@/lib/content/home";
+import { STATUS_LABEL, statusOf } from "@/lib/capabilities";
+import { StatusTag } from "@/components/ui/StatusTag";
 import { UI, type Locale } from "@/lib/i18n";
 import { PRICING } from "@/lib/site";
 
@@ -11,20 +13,6 @@ const IDS = {
   en: { does: "what-it-does", flow: "how-it-works", control: "control", tools: "tools", pricing: "pricing" },
   pl: { does: "co-robi", flow: "jak-dziala", control: "kontrola", tools: "narzedzia", pricing: "cennik" },
 };
-
-export function StatusTag({ status, label }: { status: Status; label: string }) {
-  const tone =
-    status === "live"
-      ? "bg-ink text-white dark:bg-white/10"
-      : status === "testing"
-        ? "bg-brass-soft text-brass-dark dark:bg-brass/20 dark:text-brass-light"
-        : "border border-surface-line text-slate-600";
-  return (
-    <span className={`inline-flex shrink-0 items-center rounded px-2 py-0.5 text-xs font-medium ${tone}`}>
-      {label}
-    </span>
-  );
-}
 
 function Heading({ eyebrow, title, lead }: { eyebrow: string; title: string; lead?: string }) {
   return (
@@ -46,6 +34,7 @@ function fillLast(n: number): string {
 
 export default function HomePage({ locale }: { locale: Locale }) {
   const t = HOME[locale];
+  const statusLabel = STATUS_LABEL[locale];
   const ui = UI[locale];
   const ids = IDS[locale];
   const { openChat } = useElliotChat();
@@ -111,16 +100,25 @@ export default function HomePage({ locale }: { locale: Locale }) {
               <div key={item.title} className="bg-card p-6">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-[17px] text-fg">{item.title}</h3>
-                  <StatusTag status={item.status} label={t.statusLabel[item.status]} />
+                  <StatusTag status={statusOf(item.cap)} label={statusLabel[statusOf(item.cap)]} />
                 </div>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600">{item.text}</p>
+                {/* A part of this item that is at a different stage. */}
+                {item.also && (
+                  <p className="mt-4 flex items-center justify-between gap-3 border-t border-surface-line pt-3 text-[13.5px] leading-snug text-slate-600">
+                    <span>{item.also.text}</span>
+                    {statusOf(item.also.cap) !== statusOf(item.cap) && (
+                      <StatusTag status={statusOf(item.also.cap)} label={statusLabel[statusOf(item.also.cap)]} />
+                    )}
+                  </p>
+                )}
               </div>
             ))}
             {/* Fills the rest of the last row, whatever the number of items. */}
             <div className={`bg-surface p-6 ${fillLast(t.does.items.length)}`}>
               <div className="flex items-start justify-between gap-3">
                 <h3 className="text-[17px] text-fg">{t.does.notYetTitle}</h3>
-                <StatusTag status="planned" label={t.statusLabel.planned} />
+                <StatusTag status="planned" label={statusLabel.planned} />
               </div>
               <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600">{t.does.notYet}</p>
             </div>
@@ -168,7 +166,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
               <li key={tool.name} className="flex flex-wrap items-center gap-x-6 gap-y-1 px-5 py-4">
                 <span className="w-full text-[15px] font-semibold text-fg sm:w-56">{tool.name}</span>
                 <span className="flex-1 text-[14.5px] text-slate-600">{tool.text}</span>
-                <StatusTag status={tool.status} label={t.statusLabel[tool.status]} />
+                <StatusTag status={statusOf(tool.cap)} label={statusLabel[statusOf(tool.cap)]} />
               </li>
             ))}
           </ul>

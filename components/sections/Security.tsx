@@ -1,26 +1,20 @@
 import SectionHeading from "@/components/sections/SectionHeading";
+import { PRODUCT } from "@/lib/content/product";
+import type { Locale } from "@/lib/i18n";
 
-const points = [
-  { title: "Your data, kept apart", detail: "Each agency's data is separated from every other agency's by the database itself, not just by the app." },
-  { title: "Clients know it's an AI", detail: "Elliot says it's an AI assistant from the first message and passes clients to a person whenever they ask." },
-  { title: "Files stay private", detail: "Documents clients email, like ID scans or payslips, are stored privately and only your team can open them." },
-  { title: "Everything on record", detail: "Every message, booking and hand-over is saved, so you can check what Elliot said and did." },
-  { title: "You see every visit", detail: "If the Elliot team opens your dashboard to help, you see when and what they looked at." },
-  { title: "GDPR", detail: "A data processing agreement with every agency, and data handled under the GDPR." },
-];
-
-export default function Security() {
+export default function Security({ locale = "en" }: { locale?: Locale }) {
+  const t = PRODUCT[locale].security;
   return (
     <section className="border-b border-surface-line bg-surface py-24">
       <div className="container-content">
         <SectionHeading
-          eyebrow="Data and trust"
-          title="Your clients' details, handled carefully."
-          description="Agencies hold sensitive information. Elliot is built so it stays yours."
+          eyebrow={t.eyebrow}
+          title={t.title}
+          description={t.description}
         />
 
         <div className="reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {points.map((p) => (
+          {t.points.map((p) => (
             <div
               key={p.title}
               className="rounded-lg border border-surface-line bg-card p-6"
