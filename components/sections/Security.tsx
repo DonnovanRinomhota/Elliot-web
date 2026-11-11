@@ -1,11 +1,12 @@
 import SectionHeading from "@/components/sections/SectionHeading";
 
 const points = [
-  { title: "Tenant isolation", detail: "Every business's data is kept separate at the database layer." },
-  { title: "Row-Level Security", detail: "Database-enforced access rules, not just application logic." },
-  { title: "Audit logging", detail: "Every action Elliot takes is recorded and reviewable." },
-  { title: "Approval gates", detail: "Sensitive actions wait for human sign-off before they happen." },
-  { title: "Human escalation", detail: "Elliot hands off complex or high-stakes situations by design." },
+  { title: "Your data, kept apart", detail: "Each agency's data is separated from every other agency's by the database itself, not just by the app." },
+  { title: "Clients know it's an AI", detail: "Elliot says it's an AI assistant from the first message and passes clients to a person whenever they ask." },
+  { title: "Files stay private", detail: "Documents clients email, like ID scans or payslips, are stored privately and only your team can open them." },
+  { title: "Everything on record", detail: "Every message, booking and hand-over is saved, so you can check what Elliot said and did." },
+  { title: "You see every visit", detail: "If the Elliot team opens your dashboard to help, you see when and what they looked at." },
+  { title: "GDPR", detail: "A data processing agreement with every agency, and data handled under the GDPR." },
 ];
 
 export default function Security() {
@@ -13,9 +14,9 @@ export default function Security() {
     <section className="border-b border-surface-line bg-surface py-24">
       <div className="container-content">
         <SectionHeading
-          eyebrow="Security & trust"
-          title="Built with tenant isolation from day one."
-          description="Elliot is architected so one business's data and configuration never touches another's."
+          eyebrow="Data and trust"
+          title="Your clients' details, handled carefully."
+          description="Agencies hold sensitive information. Elliot is built so it stays yours."
         />
 
         <div className="reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

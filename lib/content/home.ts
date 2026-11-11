@@ -71,7 +71,7 @@ export const HOME: Record<Locale, Content> = {
     hero: {
       eyebrow: "AI assistant for estate agencies",
       title: "Answer every property enquiry. Book viewings around the clock.",
-      lead: "Elliot works on your website, WhatsApp and email. It answers questions about your listings, asks buyers and renters the right questions, and books viewings straight into your Google Calendar. Your team sees every conversation and can step in at any time.",
+      lead: "Elliot works on your website, WhatsApp and email. It answers questions about your listings, asks buyers and renters the right questions, books viewings straight into your agents' Google Calendars, and turns sellers' valuation requests into visits. Your team sees every conversation and can step in at any time.",
       primary: "Talk to Elliot",
       secondary: "Book a demo",
       note: "The chat in the corner of this page is Elliot. Ask it anything.",
@@ -108,7 +108,12 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Books viewings",
-          text: "Offers free slots from your Google Calendar, books the one the client picks and sends a confirmation email. Reminds the client the day before; they can reply to confirm, move or cancel, and Elliot updates the calendar and tells the agent.",
+          text: "Offers free slots from your agents' own Google Calendars, books the one the client picks with an agent who's free, and sends a confirmation email. Reminds the client the day before; they can reply to confirm, move or cancel, and Elliot updates the calendar and tells the agent.",
+          status: "live",
+        },
+        {
+          title: "Wins sellers and landlords",
+          text: "When someone wants to sell or let, or asks what their property is worth, Elliot never guesses a price. It asks about the property, alerts an agent and books a free valuation visit.",
           status: "live",
         },
         {
@@ -118,7 +123,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Follows up",
-          text: "Drafts follow-up emails for people who go quiet. You approve them before they go out, or let routine ones send automatically.",
+          text: "Follows up by email or WhatsApp with people who go quiet. You approve each message before it goes out, or let them send automatically.",
           status: "live",
         },
         {
@@ -128,7 +133,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "WhatsApp and email",
-          text: "The same conversations on your WhatsApp Business number and in your Gmail inbox, answered in seconds. Email replies stay in the client's thread.",
+          text: "The same conversations on your WhatsApp Business number and in your email inbox (Gmail, Outlook or any other), answered in seconds in the client's thread. It reads the PDFs and photos clients attach.",
           status: "live",
         },
       ],
@@ -144,7 +149,7 @@ export const HOME: Record<Locale, Content> = {
         { title: "A client gets in touch", text: "Through your website chat, WhatsApp or email, at any hour." },
         { title: "Elliot answers", text: "From your own listings, prices and FAQs, which you can edit at any time." },
         { title: "It asks the right questions", text: "Budget, area, size, timing and financing, in a natural way." },
-        { title: "It books the viewing", text: "In a free slot in your calendar, with a confirmation email to the client." },
+        { title: "It books the viewing", text: "With an agent who's free, in their calendar, with a confirmation email to the client." },
         { title: "Your team takes over", text: "The lead, the full conversation and the booking are waiting in your dashboard." },
       ],
     },
@@ -155,7 +160,7 @@ export const HOME: Record<Locale, Content> = {
       items: [
         {
           title: "Approval when it matters",
-          text: "Choose which emails Elliot can send by itself and which wait for you to approve them.",
+          text: "Follow-ups wait for your approval unless you let them send. You can pause Elliot on any conversation and reply yourself.",
         },
         {
           title: "A person when it's needed",
@@ -177,11 +182,12 @@ export const HOME: Record<Locale, Content> = {
       lead: "No new system for your team to learn. Elliot connects to the tools you use.",
       items: [
         { name: "Your website", text: "A chat window added with one line of code.", status: "live" },
-        { name: "Google Calendar", text: "Checks free slots and books viewings.", status: "live" },
-        { name: "Gmail", text: "Answers enquiries in your inbox and sends confirmations and follow-ups from your address.", status: "live" },
-        { name: "Your CRM", text: "New leads and bookings sent on, directly or through Zapier or Make.", status: "live" },
         { name: "WhatsApp Business", text: "Answers clients on your WhatsApp number, in seconds.", status: "live" },
-        { name: "Outlook / Microsoft 365", text: "Calendar and email.", status: "planned" },
+        { name: "Google Calendar", text: "Each agent's own calendar: free slots, viewings and valuation visits.", status: "live" },
+        { name: "Your email", text: "Gmail, Outlook or any inbox: enquiries answered in your name, portal enquiries included.", status: "live" },
+        { name: "ASARI CRM", text: "Your listings copied into Elliot every hour.", status: "live" },
+        { name: "Your CRM", text: "New leads and bookings sent on, directly or through Zapier or Make.", status: "live" },
+        { name: "Outlook calendar", text: "Booking into Outlook and Microsoft 365 calendars.", status: "planned" },
       ],
     },
     promises: {
@@ -193,8 +199,8 @@ export const HOME: Record<Locale, Content> = {
           text: "Evening and weekend enquiries get an answer while the client is still interested.",
         },
         {
-          title: "Nothing important sent without you",
-          text: "Your approval rules apply to every email. You can change them whenever you like.",
+          title: "You can step in any time",
+          text: "Every conversation is in your dashboard. Take one over and Elliot pauses while your team replies.",
         },
         {
           title: "Set up for your agency",
@@ -219,8 +225,9 @@ export const HOME: Record<Locale, Content> = {
       includes: [
         "Website chat, WhatsApp and email replies, trained on your listings and FAQs",
         "Lead qualification and scoring",
-        "Viewing booking with Google Calendar",
-        "Follow-up emails with your approval rules",
+        "Viewings and valuation visits in your agents' Google Calendars",
+        "Follow-ups by email and WhatsApp, with your approval rules",
+        "Your listings from ASARI or a spreadsheet",
         "Dashboard with every lead, booking and conversation",
         "CRM connection",
         "Monthly review and adjustments",
@@ -240,7 +247,7 @@ export const HOME: Record<Locale, Content> = {
     hero: {
       eyebrow: "Asystent AI dla biur nieruchomości",
       title: "Odpowiedź na każde zapytanie. Prezentacje umawiane o każdej porze.",
-      lead: "Elliot działa na Twojej stronie, w WhatsAppie i w e-mailu. Odpowiada na pytania o oferty, zadaje kupującym i najemcom właściwe pytania i umawia prezentacje bezpośrednio w Twoim Kalendarzu Google. Twój zespół widzi każdą rozmowę i może w każdej chwili przejąć klienta.",
+      lead: "Elliot działa na Twojej stronie, w WhatsAppie i w e-mailu. Odpowiada na pytania o oferty, zadaje kupującym i najemcom właściwe pytania, umawia prezentacje bezpośrednio w Kalendarzach Google Twoich agentów, a zapytania o wycenę od sprzedających zamienia w spotkania. Twój zespół widzi każdą rozmowę i może w każdej chwili przejąć klienta.",
       primary: "Porozmawiaj z Elliotem",
       secondary: "Umów prezentację",
       note: "Czat w rogu tej strony to Elliot. Zapytaj go o cokolwiek.",
@@ -277,7 +284,12 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Umawia prezentacje",
-          text: "Proponuje wolne terminy z Twojego Kalendarza Google, rezerwuje wybrany i wysyła e-mail z potwierdzeniem. Dzień wcześniej przypomina klientowi o terminie; klient może odpisać, by potwierdzić, przenieść lub odwołać, a Elliot aktualizuje kalendarz i informuje agenta.",
+          text: "Proponuje wolne terminy z Kalendarzy Google Twoich agentów, rezerwuje wybrany u wolnego agenta i wysyła e-mail z potwierdzeniem. Dzień wcześniej przypomina klientowi o terminie; klient może odpisać, by potwierdzić, przenieść lub odwołać, a Elliot aktualizuje kalendarz i informuje agenta.",
+          status: "live",
+        },
+        {
+          title: "Pozyskuje sprzedających i wynajmujących",
+          text: "Gdy ktoś chce sprzedać lub wynająć nieruchomość albo pyta, ile jest warta, Elliot nigdy nie zgaduje ceny. Pyta o nieruchomość, powiadamia agenta i umawia bezpłatną wizytę w celu wyceny.",
           status: "live",
         },
         {
@@ -287,7 +299,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "Przypomina się klientom",
-          text: "Przygotowuje e-maile do osób, które przestały odpowiadać. Zatwierdzasz je przed wysłaniem albo pozwalasz, by rutynowe wychodziły same.",
+          text: "Przypomina się e-mailem lub na WhatsAppie osobom, które przestały odpowiadać. Zatwierdzasz każdą wiadomość przed wysłaniem albo pozwalasz, by wychodziły same.",
           status: "live",
         },
         {
@@ -297,7 +309,7 @@ export const HOME: Record<Locale, Content> = {
         },
         {
           title: "WhatsApp i e-mail",
-          text: "Te same rozmowy na Twoim numerze WhatsApp Business i w skrzynce Gmail, z odpowiedzią w kilka sekund. Odpowiedzi e-mail trafiają do tego samego wątku.",
+          text: "Te same rozmowy na Twoim numerze WhatsApp Business i w Twojej skrzynce e-mail (Gmail, Outlook lub dowolna inna), z odpowiedzią w kilka sekund w tym samym wątku. Czyta też pliki PDF i zdjęcia, które załączają klienci.",
           status: "live",
         },
       ],
@@ -313,7 +325,7 @@ export const HOME: Record<Locale, Content> = {
         { title: "Klient się odzywa", text: "Przez czat na stronie, WhatsApp lub e-mail, o dowolnej porze." },
         { title: "Elliot odpowiada", text: "Na podstawie Twoich ofert, cen i najczęstszych pytań, które możesz zmieniać w każdej chwili." },
         { title: "Zadaje właściwe pytania", text: "O budżet, lokalizację, metraż, termin i finansowanie, w naturalny sposób." },
-        { title: "Umawia prezentację", text: "W wolnym terminie w Twoim kalendarzu, z e-mailem potwierdzającym dla klienta." },
+        { title: "Umawia prezentację", text: "U wolnego agenta, w jego kalendarzu, z e-mailem potwierdzającym dla klienta." },
         { title: "Twój zespół przejmuje", text: "Klient, cała rozmowa i rezerwacja czekają w Twoim panelu." },
       ],
     },
@@ -324,7 +336,7 @@ export const HOME: Record<Locale, Content> = {
       items: [
         {
           title: "Zgoda tam, gdzie to ważne",
-          text: "Wybierasz, które e-maile Elliot może wysyłać sam, a które czekają na Twoje zatwierdzenie.",
+          text: "Przypomnienia czekają na Twoje zatwierdzenie, chyba że pozwolisz im wychodzić same. W każdej rozmowie możesz wstrzymać Elliota i odpowiedzieć sam.",
         },
         {
           title: "Człowiek, gdy jest potrzebny",
@@ -346,11 +358,12 @@ export const HOME: Record<Locale, Content> = {
       lead: "Twój zespół nie musi uczyć się nowego systemu. Elliot łączy się z narzędziami, których używasz.",
       items: [
         { name: "Twoja strona", text: "Okno czatu dodawane jedną linijką kodu.", status: "live" },
-        { name: "Kalendarz Google", text: "Sprawdza wolne terminy i umawia prezentacje.", status: "live" },
-        { name: "Gmail", text: "Odpowiada na zapytania w Twojej skrzynce i wysyła potwierdzenia oraz przypomnienia z Twojego adresu.", status: "live" },
-        { name: "Twój CRM", text: "Nowi klienci i rezerwacje przekazywane bezpośrednio lub przez Zapier albo Make.", status: "live" },
         { name: "WhatsApp Business", text: "Odpowiada klientom na Twoim numerze WhatsApp w kilka sekund.", status: "live" },
-        { name: "Outlook / Microsoft 365", text: "Kalendarz i poczta.", status: "planned" },
+        { name: "Kalendarz Google", text: "Kalendarz każdego agenta: wolne terminy, prezentacje i wizyty w celu wyceny.", status: "live" },
+        { name: "Twoja poczta", text: "Gmail, Outlook lub dowolna skrzynka: odpowiedzi w Twoim imieniu, także na zapytania z portali.", status: "live" },
+        { name: "ASARI CRM", text: "Twoje oferty kopiowane do Elliota co godzinę.", status: "live" },
+        { name: "Twój CRM", text: "Nowi klienci i rezerwacje przekazywane bezpośrednio lub przez Zapier albo Make.", status: "live" },
+        { name: "Kalendarz Outlook", text: "Rezerwacje w kalendarzach Outlook i Microsoft 365.", status: "planned" },
       ],
     },
     promises: {
@@ -362,8 +375,8 @@ export const HOME: Record<Locale, Content> = {
           text: "Zapytania wieczorem i w weekend dostają odpowiedź, póki klient jest jeszcze zainteresowany.",
         },
         {
-          title: "Nic ważnego bez Twojej wiedzy",
-          text: "Twoje zasady zatwierdzania obowiązują dla każdego e-maila. Możesz je zmienić w dowolnym momencie.",
+          title: "Możesz wkroczyć w każdej chwili",
+          text: "Każda rozmowa jest w Twoim panelu. Przejmij ją, a Elliot zatrzyma się, gdy odpowiada Twój zespół.",
         },
         {
           title: "Skonfigurowany pod Twoje biuro",
@@ -388,8 +401,9 @@ export const HOME: Record<Locale, Content> = {
       includes: [
         "Czat na stronie, odpowiedzi w WhatsAppie i e-mailu, nauczone Twoich ofert i najczęstszych pytań",
         "Kwalifikacja i ocena klientów",
-        "Umawianie prezentacji z Kalendarzem Google",
-        "E-maile z przypomnieniami według Twoich zasad zatwierdzania",
+        "Prezentacje i wizyty w celu wyceny w Kalendarzach Google Twoich agentów",
+        "Przypomnienia e-mailem i na WhatsAppie, według Twoich zasad zatwierdzania",
+        "Twoje oferty z ASARI lub z arkusza",
         "Panel z każdym klientem, rezerwacją i rozmową",
         "Połączenie z CRM",
         "Comiesięczny przegląd i poprawki",

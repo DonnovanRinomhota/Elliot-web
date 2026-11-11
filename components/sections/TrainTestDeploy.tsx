@@ -11,7 +11,7 @@ const stages = [
   },
   {
     title: "Deploy",
-    detail: "Publish Elliot to your website, and future channels as they roll out.",
+    detail: "Switch Elliot on for your website chat, WhatsApp and email.",
   },
   {
     title: "Analyze",

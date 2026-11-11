@@ -2,12 +2,13 @@ import SectionHeading from "@/components/sections/SectionHeading";
 import { Badge } from "@/components/ui/Card";
 
 const integrations = [
-  { name: "Google Calendar", status: "available" },
-  { name: "Gmail", status: "available" },
   { name: "Website chat", status: "available" },
-  { name: "Any CRM (webhook, Zapier, Make)", status: "available" },
   { name: "WhatsApp Business", status: "available" },
-  { name: "Microsoft Outlook", status: "planned" },
+  { name: "Email: Gmail, Outlook or any inbox", status: "available" },
+  { name: "Google Calendar (each agent's own)", status: "available" },
+  { name: "ASARI CRM (listings)", status: "available" },
+  { name: "Any CRM (webhook, Zapier, Make)", status: "available" },
+  { name: "Outlook / Microsoft 365 calendar", status: "planned" },
 ] as const;
 
 const label = { available: "Available", testing: "In testing", planned: "Planned" };
@@ -20,7 +21,7 @@ export default function Integrations() {
         <SectionHeading
           eyebrow="Integrations"
           title="Fits into the tools you already use."
-          description="Elliot connects to your calendar, email and CRM. Here is exactly where each one stands."
+          description="Elliot connects to your website, WhatsApp, inbox, calendars and CRM. Here is exactly where each one stands."
         />
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

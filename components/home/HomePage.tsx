@@ -36,6 +36,14 @@ function Heading({ eyebrow, title, lead }: { eyebrow: string; title: string; lea
   );
 }
 
+// "Not offered yet" takes the cells left in the last row (2 columns on
+// tablets, 3 on desktops). Literal class names so Tailwind keeps them.
+function fillLast(n: number): string {
+  const sm = n % 2 === 0 ? "sm:col-span-2" : "sm:col-span-1";
+  const lg = ["lg:col-span-3", "lg:col-span-2", "lg:col-span-1"][n % 3];
+  return `${sm} ${lg}`;
+}
+
 export default function HomePage({ locale }: { locale: Locale }) {
   const t = HOME[locale];
   const ui = UI[locale];
@@ -108,7 +116,8 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600">{item.text}</p>
               </div>
             ))}
-            <div className="bg-surface p-6 lg:col-span-2">
+            {/* Fills the rest of the last row, whatever the number of items. */}
+            <div className={`bg-surface p-6 ${fillLast(t.does.items.length)}`}>
               <div className="flex items-start justify-between gap-3">
                 <h3 className="text-[17px] text-fg">{t.does.notYetTitle}</h3>
                 <StatusTag status="planned" label={t.statusLabel.planned} />
