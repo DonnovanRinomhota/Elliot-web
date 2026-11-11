@@ -1,30 +1,17 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { PAGE_TWINS } from "@/lib/i18n";
 
-const routes = [
-  "",
-  "/product",
-  "/how-it-works",
-  "/industries/real-estate",
-  "/book",
-  "/demo",
-  "/contact",
-  "/privacy",
-  "/terms",
-  "/pl",
-  "/pl/nieruchomosci",
-  "/pl/kontakt",
-  "/pl/rezerwacja",
-  "/pl/demo",
-  "/pl/prywatnosc",
-  "/pl/regulamin",
-];
-
+// Every page exists in both languages; the list lives in lib/i18n.ts.
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
-    url: `${SITE_URL}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: route === "" || route === "/pl" ? 1 : 0.7,
-  }));
+  return PAGE_TWINS.flatMap(([en, pl]) => {
+    const languages = { en: `${SITE_URL}${en === "/" ? "" : en}`, pl: `${SITE_URL}${pl}` };
+    return [languages.en, languages.pl].map((url) => ({
+      url,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: en === "/" ? 1 : 0.7,
+      alternates: { languages },
+    }));
+  });
 }
