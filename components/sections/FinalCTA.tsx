@@ -10,7 +10,7 @@ export default function FinalCTA() {
     <section className="bg-ink py-20 text-white">
       <div className="container-content text-center">
         <h2 className="text-[1.9rem] leading-[1.2] md:text-[2.4rem]">
-          See Elliot working for your business.
+          See Elliot working for your agency.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/70">
           Book a short demo and we&apos;ll set Elliot up with a few of your

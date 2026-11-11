@@ -1,85 +1,62 @@
-# Elliot — Public Website
+# getelliot.eu
 
-The public-facing marketing website for **Elliot**, an AI employee platform
-for businesses. This is a standalone repository — it does not contain the
-Elliot SaaS application, its database, its automation logic, or its
-authentication. It talks to that system (once available) through a single
-integration layer.
+The public website for **Elliot**, the AI front office for estate agencies.
+English at `/`, Polish at `/pl`. The product itself (dashboard, workflows,
+database) is in the [Elliot](https://github.com/DonnovanRinomhota/Elliot) repo.
 
-## Stack
+Next.js 14 (App Router) · TypeScript · Tailwind CSS · hosted on Vercel.
 
-Next.js 14 (App Router) · TypeScript · Tailwind CSS
-
-## Getting started
+## Run it
 
 ```bash
 npm install
 cp .env.example .env.local
-npm run dev
+npm run dev        # http://localhost:3000
+npm run build      # production build (run before merging)
 ```
 
-Visit `http://localhost:3000`.
+## Pages
 
-## Project structure
+| English | Polish | What it is |
+|---|---|---|
+| `/` | `/pl` | Home: what Elliot does, how it works, tools, pricing |
+| `/product` | (home sections) | Capabilities, control, integrations, data and trust |
+| `/how-it-works` | (home sections) | Set-up steps and the dashboard |
+| `/industries/real-estate` | `/pl/nieruchomosci` | Elliot for estate agencies |
+| `/book` | `/pl/rezerwacja` | Book a 15-minute intro call or 30-minute demo (Google Meet) |
+| `/demo` | `/pl/demo` | Live demo: a sample agency to chat with |
+| `/contact` | `/pl/kontakt` | Contact form |
+| `/privacy`, `/terms` | `/pl/prywatnosc`, `/pl/regulamin` | Legal |
 
-```
-app/                     Routes (App Router)
-components/
-  ui/                    Design system primitives (Button, Card, Badge...)
-  sections/               Marketing page sections
-  chat/                   ElliotChat widget (provider, message, input, launcher)
-  product/                Dashboard/timeline product visualizations
-  demo/                   Interactive /demo walkthrough
-lib/                      Types + demo response logic
-services/
-  elliotApi.ts            The ONLY place that talks to the real Elliot backend
-```
+`/solutions` and `/industries` redirect to `/product` and
+`/industries/real-estate` (`next.config.mjs`).
 
-## Connecting to the real Elliot backend
+## Where the words live
 
-The site ships in **demo mode** by default — the chat widget and the demo
-request form both work fully without any backend, using canned responses
-defined in `lib/demoResponses.ts`.
+- `lib/content/home.ts`: homepage copy, both languages. Each capability has a
+  status (`live`, `testing`, `planned`): mark something `live` only when an
+  agency can use it today.
+- `components/sections/*`: the product and how-it-works sections (English).
+- `lib/content/legal.ts`: privacy policy and terms, both languages. Change
+  `LEGAL_UPDATED` in `lib/site.ts` whenever you edit them.
+- `lib/site.ts`: owner, pricing (`from €199 / month`, setup `from €500`) and
+  other facts used on several pages.
+- `lib/i18n.ts`: menus, footer and which English and Polish pages are twins.
 
-The real backend is a set of n8n workflows (see the `Elliot` repo), not a
-conventional REST API — each integration point is a single n8n webhook URL,
-set directly as an env var. To connect:
+## Connection to Elliot
 
-1. Set `NEXT_PUBLIC_ELLIOT_MODE=live`.
-2. Set `NEXT_PUBLIC_ELLIOT_CHAT_WEBHOOK_URL` to the production webhook URL
-   of `01 - Main AI Agent` in n8n.
-3. Set `NEXT_PUBLIC_ELLIOT_DEMO_TENANT` to the tenant slug that should power
-   the live chat demo on this site (e.g. a dedicated demo tenant, not a
-   real customer's).
-4. Set `NEXT_PUBLIC_ELLIOT_DEMO_REQUEST_WEBHOOK_URL` to the production
-   webhook URL of `18 - Demo Request Intake` in n8n.
+`services/elliotApi.ts` is the only file that calls the backend (n8n
+webhooks). Environment variables (Vercel → Settings → Environment Variables):
 
-No other file needs to change. `services/elliotApi.ts` is the single
-abstraction point — nothing else in the UI calls `fetch` against the
-backend directly.
+| Variable | Value |
+|---|---|
+| `NEXT_PUBLIC_ELLIOT_MODE` | `live` (or `demo` for canned replies with no backend) |
+| `NEXT_PUBLIC_ELLIOT_CHAT_WEBHOOK_URL` | Workflow 01's production URL (`…/webhook/chat`) |
+| `NEXT_PUBLIC_ELLIOT_DEMO_TENANT` | The sales account's slug: the chat in the corner is Elliot selling itself |
+| `NEXT_PUBLIC_ELLIOT_DEMO_REQUEST_WEBHOOK_URL` | Workflow 18's production URL (contact form) |
 
-## What's implemented vs. planned
-
-The site only marks a capability "Available" if it's actually live in the
-product today (see `components/sections/Integrations.tsx` and
-`FeatureGrid.tsx`). Everything else is labeled "Coming soon." Update these
-as the SaaS product ships new functionality — don't change the marketing
-copy to imply availability ahead of the real backend.
-
-## Scripts
-
-```bash
-npm run dev      # local development
-npm run build    # production build
-npm run start    # run the production build
-npm run lint     # ESLint
-```
-
-## Notes
-
-- The Elliot logo is a placeholder (`components/Logo.tsx`). Swap the SVG
-  inside that one component once the final brand mark is ready — it's
-  referenced everywhere else (nav, footer, favicon) through this component.
-- All dashboard metrics, activity timelines, and performance numbers shown
-  on the site are clearly labeled example/demo data — never real customer
-  data.
+Call booking and demo access use webhooks next to the chat one
+(`consultation-slots`, `book-consultation`, `demo-access`, workflow 35), so
+they need no extra variables. What the chat assistant knows comes from
+`docs/sales-knowledge/elliot-for-agencies.md` in the Elliot repo, uploaded on
+the sales account's Knowledge page.

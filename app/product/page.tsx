@@ -5,12 +5,13 @@ import NotJustChatbot from "@/components/sections/NotJustChatbot";
 import HumanHandoff from "@/components/sections/HumanHandoff";
 import Permissions from "@/components/sections/Permissions";
 import Integrations from "@/components/sections/Integrations";
+import Security from "@/components/sections/Security";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Product",
   description:
-    "Elliot is an AI employee platform — understanding, reasoning, retrieving knowledge, using tools, taking action and knowing when to escalate to a human.",
+    "Elliot answers estate agencies' enquiries on the website, WhatsApp and email, qualifies buyers, renters and sellers, and books viewings and valuations with your agents.",
 };
 
 export default function ProductPage() {
@@ -18,14 +19,15 @@ export default function ProductPage() {
     <>
       <PageHero
         eyebrow="Product"
-        title="An AI employee, not a script."
-        description="Elliot is built around a full reasoning loop — understanding what's being asked, retrieving the right knowledge, using tools, taking action, and knowing when to bring in a person."
+        title="Your agency's front office, always on."
+        description="Elliot answers buyers, renters, sellers and landlords on your website, WhatsApp and email, books viewings and valuations with your agents, and brings in a person when it matters."
       />
       <FeatureGrid />
       <NotJustChatbot />
       <HumanHandoff />
       <Permissions />
       <Integrations />
+      <Security />
       <FinalCTA />
     </>
   );

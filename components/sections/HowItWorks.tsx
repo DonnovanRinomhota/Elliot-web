@@ -4,22 +4,22 @@ const steps = [
   {
     n: "01",
     title: "Connect",
-    detail: "Connect Elliot to your business systems and communication channels.",
+    detail: "Your website chat, WhatsApp number, email inbox, your agents' calendars and, if you use it, ASARI.",
   },
   {
     n: "02",
     title: "Teach",
-    detail: "Give Elliot your company knowledge, documents, policies and instructions.",
+    detail: "Your listings, fees, areas and the questions clients ask most.",
   },
   {
     n: "03",
-    title: "Configure",
-    detail: "Define what Elliot can do, what needs approval, and when it should escalate.",
+    title: "Set the rules",
+    detail: "What Elliot does on its own, what waits for approval, who gets which leads and when to hand over.",
   },
   {
     n: "04",
-    title: "Deploy",
-    detail: "Deploy Elliot to your website and supported business channels.",
+    title: "Go live",
+    detail: "After you've tried it yourself, Elliot starts answering your clients.",
   },
 ];
 
@@ -29,7 +29,7 @@ export default function HowItWorks() {
       <div className="container-content reveal">
         <SectionHeading
           eyebrow="How it works"
-          title="From job description to working AI employee."
+          title="Four steps, done with you."
           description="Elliot works 24/7 once deployed — no shifts, no onboarding delays."
         />
 

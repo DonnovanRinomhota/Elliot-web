@@ -45,7 +45,7 @@ export default function NotJustChatbot() {
             </div>
             <p className="mt-6 text-sm leading-relaxed text-paper/60">
               A full loop, every time — from understanding what&apos;s being asked
-              to acting on it in your business systems and knowing when to
+              to acting on it in your calendar, CRM and dashboard, and knowing when to
               bring a person in.
             </p>
           </div>

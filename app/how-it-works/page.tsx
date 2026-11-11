@@ -8,7 +8,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export const metadata: Metadata = {
   title: "How It Works",
   description:
-    "Connect, teach, configure and deploy Elliot — then train, test, deploy and analyze on an ongoing basis.",
+    "How Elliot is set up for an estate agency: connect your channels and calendars, teach it your listings, set the rules, and go live.",
 };
 
 export default function HowItWorksPage() {
@@ -16,8 +16,8 @@ export default function HowItWorksPage() {
     <>
       <PageHero
         eyebrow="How it works"
-        title="From job description to working AI employee."
-        description="Setting Elliot up looks less like installing software and more like onboarding a new hire — except Elliot is ready to work in days, not weeks."
+        title="From first call to answering your clients."
+        description="Setting Elliot up is closer to onboarding a new colleague than installing software. Donnovan does it with you, and Elliot is usually ready within days."
       />
       <HowItWorks />
       <TrainTestDeploy />

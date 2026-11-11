@@ -6,19 +6,19 @@ const columns = [
     title: "Elliot does this by itself",
     tag: "Allowed",
     tone: "pulse" as const,
-    items: ["Answer questions", "Capture and score leads", "Book viewings", "Send records to your CRM"],
+    items: ["Answer on chat, WhatsApp and email", "Capture and score leads", "Book viewings and valuations", "Send records to your CRM"],
   },
   {
     title: "Waits for your approval",
     tag: "Approval",
     tone: "amber" as const,
-    items: ["Follow-up emails (unless you allow them)", "Replies to sensitive emails"],
+    items: ["Follow-up emails (unless you allow them)", "Follow-up WhatsApp messages (unless you allow them)"],
   },
   {
     title: "Handed to your team",
     tag: "Handover",
     tone: "neutral" as const,
-    items: ["Requests to speak to a person", "Questions outside its rules", "Hot leads ready to talk"],
+    items: ["Requests to speak to a person", "Questions outside its rules", "Hot leads and sellers ready to talk"],
   },
 ];
 
