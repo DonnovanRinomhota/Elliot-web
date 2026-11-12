@@ -36,7 +36,7 @@ export const UI = {
       { href: "/product", label: "Product" },
       { href: "/how-it-works", label: "How it works" },
       { href: "/industries/real-estate", label: "Real estate" },
-      { href: "/#pricing", label: "Pricing" },
+      { href: "/contact", label: "Contact" },
     ],
     talk: "Talk to Elliot",
     book: "Request a demo",
@@ -57,7 +57,6 @@ export const UI = {
             { href: "/product", label: "Overview" },
             { href: "/how-it-works", label: "How it works" },
             { href: "/industries/real-estate", label: "Real estate" },
-            { href: "/#pricing", label: "Pricing" },
           ],
         },
         {
@@ -84,7 +83,7 @@ export const UI = {
       { href: "/pl/produkt", label: "Produkt" },
       { href: "/pl/jak-to-dziala", label: "Jak to działa" },
       { href: "/pl/nieruchomosci", label: "Nieruchomości" },
-      { href: "/pl#cennik", label: "Cennik" },
+      { href: "/pl/kontakt", label: "Kontakt" },
     ],
     talk: "Porozmawiaj z Elliotem",
     book: "Umów prezentację",
@@ -105,7 +104,6 @@ export const UI = {
             { href: "/pl/produkt", label: "Przegląd" },
             { href: "/pl/jak-to-dziala", label: "Jak to działa" },
             { href: "/pl/nieruchomosci", label: "Nieruchomości" },
-            { href: "/pl#cennik", label: "Cennik" },
           ],
         },
         {

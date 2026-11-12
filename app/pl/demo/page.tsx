@@ -17,7 +17,7 @@ export default function Page() {
         title="Zobacz Elliota w akcji."
         description="Wciel się w klienta przykładowego biura z Warszawy. Zapytaj o mieszkania, porównaj oferty i umów prezentację, tak jak zrobiliby to Twoi klienci."
       />
-      <section className="bg-night pb-24 pt-4">
+      <section className="section-light pb-24 pt-14">
         <div className="container-content">
           <LiveDemo locale="pl" />
           <div className="mt-14 panel rounded-[24px] p-8 text-center">

@@ -6,7 +6,7 @@ export default function HowItWorks({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].steps;
   const steps = t.items.map((item, i) => ({ ...item, n: `0${i + 1}` }));
   return (
-    <section className="bg-night py-24 md:py-32">
+    <section className="section-light py-24 md:py-32">
       <div className="container-content reveal">
         <SectionHeading
           eyebrow={t.eyebrow}

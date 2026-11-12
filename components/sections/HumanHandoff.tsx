@@ -6,7 +6,7 @@ import type { Locale } from "@/lib/i18n";
 export default function HumanHandoff({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].handoff;
   return (
-    <section className="bg-deep py-24 md:py-32">
+    <section className="section-sky py-24 md:py-32">
       <div className="container-content reveal grid gap-14 lg:grid-cols-2 lg:items-center">
         <div>
           <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />

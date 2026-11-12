@@ -90,10 +90,10 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
     <>
       <PageHero eyebrow={t.eyebrow} title={t.title} description={t.lead} />
 
-      <section className="bg-deep py-24 md:py-28">
+      <section className="section-sky py-24 md:py-28">
         <div className="container-content grid gap-6 lg:grid-cols-2 lg:items-start">
           <figure className="panel rounded-[24px]">
-            <figcaption className="border-b border-white/[0.07] px-6 py-4 text-sm text-slate-600">
+            <figcaption className="border-b border-fg/[0.07] px-6 py-4 text-sm text-slate-600">
               {t.convoLabel}
             </figcaption>
             <div className="space-y-3 p-5">
@@ -103,7 +103,7 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
                   className={
                     m.from === "client"
                       ? "ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-[#2f6bff] px-4 py-2.5 text-[14px] leading-relaxed text-white"
-                      : "panel-inner max-w-[90%] rounded-2xl rounded-bl-md px-4 py-2.5 text-[14px] leading-relaxed text-white/90"
+                      : "panel-inner max-w-[90%] rounded-2xl rounded-bl-md px-4 py-2.5 text-[14px] leading-relaxed text-slate-700"
                   }
                 >
                   {m.text}
@@ -118,14 +118,14 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="bg-night py-24 md:py-28">
+      <section className="section-light py-24 md:py-28">
         <div className="container-content">
-          <h2 className="text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white md:text-[3rem]">{t.gainsTitle}</h2>
+          <h2 className="text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.035em] text-fg md:text-[3rem]">{t.gainsTitle}</h2>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.gains.map((g, i) => (
               <div key={g.title} className="glass rounded-[24px] p-7">
                 <span className="text-gold text-[2.2rem] font-semibold leading-none">0{i + 1}</span>
-                <h3 className="mt-5 text-[17px] font-semibold text-white">{g.title}</h3>
+                <h3 className="mt-5 text-[17px] font-semibold text-fg">{g.title}</h3>
                 <p className="mt-2 text-[14.5px] leading-relaxed text-slate-600">{g.text}</p>
               </div>
             ))}
@@ -137,8 +137,8 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
         <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,#071631_0%,#14325c_60%,#2b4f82_100%)]" />
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(700px_380px_at_50%_100%,rgba(196,222,255,0.35),transparent_70%)]" />
         <div className="container-content relative max-w-3xl text-center">
-          <h2 className="text-[2.3rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white md:text-[3.4rem]">{t.ctaTitle}</h2>
-          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-white/75">{t.ctaLead}</p>
+          <h2 className="text-[2.3rem] font-semibold leading-[1.08] tracking-[-0.035em] text-fg md:text-[3.4rem]">{t.ctaTitle}</h2>
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-slate-700">{t.ctaLead}</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <ButtonLink href={ui.bookHref} size="lg" arrow>
               {t.primary}

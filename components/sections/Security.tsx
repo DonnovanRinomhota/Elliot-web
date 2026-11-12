@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/i18n";
 export default function Security({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].security;
   return (
-    <section className="bg-night py-24 md:py-32">
+    <section className="section-light py-24 md:py-32">
       <div className="container-content">
         <SectionHeading
           eyebrow={t.eyebrow}
@@ -19,7 +19,7 @@ export default function Security({ locale = "en" }: { locale?: Locale }) {
               key={p.title}
               className="panel rounded-[24px] p-6"
             >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-ink text-white">
+              <span className="inline-flex h-9 w-9 items-center justify-center gold-tile rounded-xl border border-[#d9a56c]/25 bg-[#d9a56c]/[0.08] text-[#e8c08e]">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path
                     d="M8 1.5L13.5 3.75V7.25C13.5 10.75 11.25 13.25 8 14.5C4.75 13.25 2.5 10.75 2.5 7.25V3.75L8 1.5Z"

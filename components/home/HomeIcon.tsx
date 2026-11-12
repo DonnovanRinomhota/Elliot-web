@@ -155,7 +155,7 @@ export function IconTile({ name, size = "md" }: { name: IconName; size?: "sm" | 
     );
   }
   return (
-    <span className={`inline-flex shrink-0 items-center justify-center border border-[#d9a56c]/25 bg-[#d9a56c]/[0.08] text-[#e8c08e] ${box}`}>
+    <span className={`inline-flex shrink-0 items-center justify-center gold-tile border border-[#d9a56c]/25 bg-[#d9a56c]/[0.08] text-[#e8c08e] ${box}`}>
       <HomeIcon name={name} className={icon} />
     </span>
   );
