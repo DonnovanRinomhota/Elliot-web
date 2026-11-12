@@ -42,7 +42,8 @@ type Content = {
     lead: string;
     primary: string;
     secondary: string;
-    cards: { title: string; text: string; icon: IconName }[];
+    /** Describes the hero picture for screen readers. */
+    sceneAlt: string;
     strip: { title: string; text: string; icon: IconName }[];
   };
   does: {
@@ -88,20 +89,6 @@ type Content = {
     title: string;
     items: { title: string; text: string }[];
   };
-  pricing: {
-    eyebrow: string;
-    title: string;
-    lead: string;
-    planName: string;
-    perMonth: string;
-    from: string;
-    setup: string;
-    vat: string;
-    includesTitle: string;
-    includes: string[];
-    cta: string;
-    footnote: string;
-  };
   cta: { title: string; lead: string; primary: string; secondary: string };
 };
 
@@ -113,11 +100,7 @@ const RAW: Record<Locale, Content> = {
       lead: "Elliot helps estate agencies respond to enquiries, qualify prospects and book viewings, around the clock.",
       primary: "Request a demo",
       secondary: "See how it works",
-      cards: [
-        { title: "Instant responses", text: "24/7 reply to every enquiry.", icon: "chat" },
-        { title: "Book viewings", text: "Automatically schedule appointments.", icon: "calendar" },
-        { title: "Qualify leads", text: "Focus on the right prospects.", icon: "people" },
-      ],
+      sceneAlt: "A laptop showing Elliot's dashboard overview: conversations this week, chats handled by Elliot, leads received and viewings booked.",
       strip: [
         { title: "Always on", text: "Never miss an opportunity again.", icon: "bolt" },
         { title: "Qualify leads", text: "Focus on the right opportunities.", icon: "people" },
@@ -277,29 +260,6 @@ const RAW: Record<Locale, Content> = {
         },
       ],
     },
-    pricing: {
-      eyebrow: "Pricing",
-      title: "One simple plan.",
-      lead: "A one-off setup, then a monthly fee. The exact price depends on how many enquiries you get and which tools Elliot connects to. We confirm it in writing before anything starts.",
-      planName: "Elliot for estate agencies",
-      perMonth: "/ month",
-      from: "from",
-      setup: "Setup from",
-      vat: "Net prices. VAT is added where it applies.",
-      includesTitle: "Included",
-      includes: [
-        "Website chat, email and WhatsApp[[whatsapp]] replies, trained on your listings and FAQs",
-        "Lead qualification and scoring",
-        "Viewings and valuation visits in your agents' Google Calendars",
-        "Follow-ups by email and WhatsApp[[whatsappFollowUps]], with your approval rules",
-        "Your listings from a spreadsheet or ASARI[[asari]]",
-        "Dashboard with every lead, booking and conversation",
-        "CRM connection",
-        "Monthly review and adjustments",
-      ],
-      cta: "Request a demo",
-      footnote: "Not sure it fits? Ask Elliot in the chat. It knows what it can and can't do.",
-    },
     cta: {
       title: "See Elliot working for your agency.",
       lead: "A short call where we set Elliot up with a few of your listings and you try it yourself.",
@@ -315,11 +275,7 @@ const RAW: Record<Locale, Content> = {
       lead: "Elliot pomaga biurom nieruchomości odpowiadać na zapytania, kwalifikować klientów i umawiać prezentacje, przez całą dobę.",
       primary: "Umów prezentację",
       secondary: "Zobacz, jak to działa",
-      cards: [
-        { title: "Natychmiastowe odpowiedzi", text: "Odpowiedź na każde zapytanie, 24/7.", icon: "chat" },
-        { title: "Umawianie prezentacji", text: "Terminy same trafiają do kalendarza.", icon: "calendar" },
-        { title: "Kwalifikacja klientów", text: "Skup się na właściwych osobach.", icon: "people" },
-      ],
+      sceneAlt: "Laptop z panelem Elliota: rozmowy w tym tygodniu, rozmowy obsłużone przez Elliota, nowi klienci i umówione prezentacje.",
       strip: [
         { title: "Zawsze włączony", text: "Żadna okazja już nie przepadnie.", icon: "bolt" },
         { title: "Kwalifikuje klientów", text: "Skup się na właściwych okazjach.", icon: "people" },
@@ -478,29 +434,6 @@ const RAW: Record<Locale, Content> = {
           text: "Współpracujesz bezpośrednio z Donnovanem, który konfiguruje Elliota, sprawdza, jak sobie radzi, i razem z Tobą go dopracowuje.",
         },
       ],
-    },
-    pricing: {
-      eyebrow: "Cennik",
-      title: "Jeden prosty plan.",
-      lead: "Jednorazowe wdrożenie, potem stała opłata miesięczna. Dokładna cena zależy od liczby zapytań i narzędzi, z którymi Elliot ma się łączyć. Potwierdzamy ją na piśmie, zanim cokolwiek się zacznie.",
-      planName: "Elliot dla biur nieruchomości",
-      perMonth: "/ miesiąc",
-      from: "od",
-      setup: "Wdrożenie od",
-      vat: "Ceny netto. VAT doliczany, jeśli ma zastosowanie.",
-      includesTitle: "W cenie",
-      includes: [
-        "Czat na stronie, odpowiedzi w e-mailu i WhatsAppie[[whatsapp]], nauczone Twoich ofert i najczęstszych pytań",
-        "Kwalifikacja i ocena klientów",
-        "Prezentacje i wizyty w celu wyceny w Kalendarzach Google Twoich agentów",
-        "Przypomnienia e-mailem i na WhatsAppie[[whatsappFollowUps]], według Twoich zasad zatwierdzania",
-        "Twoje oferty z arkusza lub z ASARI[[asari]]",
-        "Panel z każdym klientem, rezerwacją i rozmową",
-        "Połączenie z CRM",
-        "Comiesięczny przegląd i poprawki",
-      ],
-      cta: "Umów prezentację",
-      footnote: "Nie wiesz, czy to dla Ciebie? Zapytaj Elliota na czacie. Wie, co potrafi, a czego nie.",
     },
     cta: {
       title: "Zobacz Elliota w pracy dla Twojego biura.",

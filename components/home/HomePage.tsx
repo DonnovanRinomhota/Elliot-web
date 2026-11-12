@@ -4,23 +4,22 @@ import { Button, ButtonLink } from "@/components/ui/Button";
 import { useElliotChat } from "@/components/chat/ElliotChatProvider";
 import { HOME } from "@/lib/content/home";
 import { UI, type Locale } from "@/lib/i18n";
-import { PRICING } from "@/lib/site";
 import Hero from "@/components/home/Hero";
 import { HomeIcon, IconTile } from "@/components/home/HomeIcon";
 import { ElliotMark } from "@/components/ElliotLogoArt";
 import ToolsGraphic from "@/components/sections/ToolsGraphic";
 
-// Section ids are localized so the Polish nav can link to "#cennik" etc.
+// Section ids are localized (Polish page, Polish anchors).
 const IDS = {
-  en: { does: "what-it-does", flow: "how-it-works", control: "control", tools: "tools", pricing: "pricing" },
-  pl: { does: "co-robi", flow: "jak-dziala", control: "kontrola", tools: "narzedzia", pricing: "cennik" },
+  en: { does: "what-it-does", flow: "how-it-works", control: "control", tools: "tools" },
+  pl: { does: "co-robi", flow: "jak-dziala", control: "kontrola", tools: "narzedzia" },
 };
 
 function Heading({ eyebrow, title, lead, center = true }: { eyebrow: string; title: string; lead?: string; center?: boolean }) {
   return (
     <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-xl"}>
       <p className={`eyebrow ${center ? "eyebrow-center text-slate-600" : ""}`}>{eyebrow}</p>
-      <h2 className="mt-5 text-[2.3rem] font-semibold leading-[1.06] tracking-[-0.035em] text-white md:text-[3.4rem]">{title}</h2>
+      <h2 className="mt-5 text-[2.3rem] font-semibold leading-[1.06] tracking-[-0.035em] text-fg md:text-[3.4rem]">{title}</h2>
       {lead && <p className={`mt-5 text-[17px] leading-relaxed text-slate-600 ${center ? "mx-auto max-w-2xl" : ""}`}>{lead}</p>}
     </div>
   );
@@ -45,7 +44,7 @@ function FlowVisual({ step, v }: { step: number; v: Flow["visual"] }) {
         {v.channels.map((c, i) => (
           <div key={c} className="panel-inner flex items-center gap-3 rounded-xl px-3 py-2.5">
             <IconTile name={icons[i]} size="sm" />
-            <span className="flex-1 text-[14px] text-white">{c}</span>
+            <span className="flex-1 text-[14px] text-fg">{c}</span>
             <span className="h-2 w-2 rounded-full bg-[#4ade80] shadow-[0_0_10px_2px_rgba(74,222,128,0.6)]" />
           </div>
         ))}
@@ -60,7 +59,7 @@ function FlowVisual({ step, v }: { step: number; v: Flow["visual"] }) {
           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#0b1426] ring-1 ring-[#d9a56c]/50">
             <ElliotMark size={14} />
           </span>
-          <p className="panel-inner max-w-[85%] rounded-2xl rounded-bl-md px-3.5 py-2.5 text-white/90">{v.elliotReply}</p>
+          <p className="panel-inner max-w-[85%] rounded-2xl rounded-bl-md px-3.5 py-2.5 text-slate-700">{v.elliotReply}</p>
         </div>
       </div>
     );
@@ -69,8 +68,8 @@ function FlowVisual({ step, v }: { step: number; v: Flow["visual"] }) {
     return (
       <div className="grid w-full max-w-[280px] grid-cols-2 gap-2.5">
         {v.questions.map((q) => (
-          <span key={q} className="panel-inner flex items-center gap-2 rounded-xl px-3 py-2.5 text-[13.5px] text-white">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d9a56c]/15 text-[#e8c08e]">
+          <span key={q} className="panel-inner flex items-center gap-2 rounded-xl px-3 py-2.5 text-[13.5px] text-fg">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full gold-tile bg-[#d9a56c]/15 text-[#e8c08e]">
               <Check className="h-3 w-3" />
             </span>
             {q}
@@ -85,11 +84,11 @@ function FlowVisual({ step, v }: { step: number; v: Flow["visual"] }) {
         <div className="flex items-center gap-3">
           <IconTile name="googleCalendar" size="sm" />
           <span>
-            <span className="block text-[20px] font-semibold leading-none text-white">{v.slot}</span>
+            <span className="block text-[20px] font-semibold leading-none text-fg">{v.slot}</span>
             <span className="mt-1 block text-[12.5px] text-slate-600">{v.slotDay}</span>
           </span>
         </div>
-        <p className="mt-3 flex items-center gap-2 border-t border-white/[0.07] pt-3 text-[13px] text-[#4ade80]">
+        <p className="mt-3 flex items-center gap-2 border-t border-fg/[0.07] pt-3 text-[13px] text-[#4ade80]">
           <Check /> {v.booked}
         </p>
       </div>
@@ -99,7 +98,7 @@ function FlowVisual({ step, v }: { step: number; v: Flow["visual"] }) {
     <div className="panel-inner w-full max-w-[290px] rounded-2xl p-4">
       <div className="flex items-center gap-2">
         <span className="rounded-full bg-[#f07167]/15 px-2 py-0.5 text-[11.5px] font-semibold text-[#f79a92]">{v.hot}</span>
-        <span className="truncate text-[13.5px] text-white">{v.handover}</span>
+        <span className="truncate text-[13.5px] text-fg">{v.handover}</span>
       </div>
       <div className="mt-3 flex items-center gap-2">
         {["SA", "OK", "JK"].map((a, i) => (
@@ -121,25 +120,24 @@ export default function HomePage({ locale }: { locale: Locale }) {
   const ui = UI[locale];
   const ids = IDS[locale];
   const { openChat } = useElliotChat();
-  const price = (n: number) => `${PRICING.currency}${n}`;
 
   return (
     <>
       <Hero t={t.hero} bookHref={ui.bookHref} howHref={`#${ids.flow}`} />
 
       {/* What Elliot does */}
-      <section id={ids.does} className="bg-night scroll-mt-24 py-24 md:py-32">
+      <section id={ids.does} className="section-light scroll-mt-24 py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.does.eyebrow} title={t.does.title} lead={t.does.lead} />
           <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {t.does.items.map((item) => (
               <article key={item.title} className="panel flex flex-col rounded-[24px] p-7 transition-colors hover:border-white/15">
                 <IconTile name={item.icon} />
-                <h3 className="mt-6 text-[19px] font-semibold tracking-[-0.01em] text-white">{item.title}</h3>
+                <h3 className="mt-6 text-[19px] font-semibold tracking-[-0.01em] text-fg">{item.title}</h3>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600">{item.text}</p>
                 {item.also && (
-                  <p className="mt-auto flex items-center gap-2 pt-5 text-[13.5px] text-white/80">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d9a56c]/15 text-[#e8c08e]">
+                  <p className="mt-auto flex items-center gap-2 pt-5 text-[13.5px] text-slate-700">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full gold-tile bg-[#d9a56c]/15 text-[#e8c08e]">
                       <Check className="h-3 w-3" />
                     </span>
                     {item.also.text}
@@ -152,18 +150,18 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* First message to booked viewing */}
-      <section id={ids.flow} className="bg-deep scroll-mt-24 py-24 md:py-32">
+      <section id={ids.flow} className="section-sky scroll-mt-24 py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.flow.eyebrow} title={t.flow.title} lead={t.flow.lead} />
           <ol className="mt-16 grid gap-4 md:grid-cols-6">
             {t.flow.steps.map((s, i) => (
               <li key={s.title} className={`panel flex flex-col overflow-hidden rounded-[24px] ${i < 3 ? "md:col-span-2" : "md:col-span-3"}`}>
-                <div className="flex h-56 items-center justify-center border-b border-white/[0.06] bg-[radial-gradient(400px_200px_at_50%_0%,rgba(110,155,255,0.10),transparent_70%)] px-6">
+                <div className="flex h-56 items-center justify-center border-b border-fg/[0.06] bg-[radial-gradient(400px_200px_at_50%_0%,rgba(110,155,255,0.10),transparent_70%)] px-6">
                   <FlowVisual step={i} v={t.flow.visual} />
                 </div>
                 <div className="p-7">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-[13px] text-white/80">{i + 1}</span>
-                  <h3 className="mt-5 text-[19px] font-semibold tracking-[-0.01em] text-white">{s.title}</h3>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-[13px] text-slate-700">{i + 1}</span>
+                  <h3 className="mt-5 text-[19px] font-semibold tracking-[-0.01em] text-fg">{s.title}</h3>
                   <p className="mt-2.5 text-[14.5px] leading-relaxed text-slate-600">{s.text}</p>
                 </div>
               </li>
@@ -173,7 +171,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Tools */}
-      <section id={ids.tools} className="bg-night scroll-mt-24 py-24 md:py-32">
+      <section id={ids.tools} className="section-light scroll-mt-24 py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.tools.eyebrow} title={t.tools.title} lead={t.tools.lead} />
           <ToolsGraphic t={t.tools} />
@@ -181,14 +179,14 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Control */}
-      <section id={ids.control} className="bg-deep scroll-mt-24 py-24 md:py-32">
+      <section id={ids.control} className="section-sky scroll-mt-24 py-24 md:py-32">
         <div className="container-content grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <Heading eyebrow={t.control.eyebrow} title={t.control.title} lead={t.control.lead} center={false} />
           <div className="grid gap-4 sm:grid-cols-2">
             {t.control.items.map((c) => (
               <div key={c.title} className="panel rounded-[24px] p-7">
                 <IconTile name={c.icon} />
-                <h3 className="mt-5 text-[17.5px] font-semibold text-white">{c.title}</h3>
+                <h3 className="mt-5 text-[17.5px] font-semibold text-fg">{c.title}</h3>
                 <p className="mt-2.5 text-[14.5px] leading-relaxed text-slate-600">{c.text}</p>
               </div>
             ))}
@@ -197,57 +195,17 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* What you can count on */}
-      <section className="bg-night py-24 md:py-32">
+      <section className="section-light py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.promises.eyebrow} title={t.promises.title} />
           <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {t.promises.items.map((p, i) => (
               <div key={p.title} className="glass rounded-[24px] p-7">
                 <span className="text-gold text-[2.2rem] font-semibold leading-none">0{i + 1}</span>
-                <h3 className="mt-5 text-[17px] font-semibold text-white">{p.title}</h3>
+                <h3 className="mt-5 text-[17px] font-semibold text-fg">{p.title}</h3>
                 <p className="mt-2.5 text-[14.5px] leading-relaxed text-slate-600">{p.text}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id={ids.pricing} className="bg-deep scroll-mt-24 py-24 md:py-32">
-        <div className="container-content grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <Heading eyebrow={t.pricing.eyebrow} title={t.pricing.title} lead={t.pricing.lead} center={false} />
-          <div className="relative overflow-hidden rounded-[28px] border border-[#d9a56c]/25 bg-[linear-gradient(160deg,rgba(217,165,108,0.10),rgba(255,255,255,0.02)_40%)] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]">
-            <div className="border-b border-white/[0.07] p-7 md:p-9">
-              <p className="text-[15px] font-medium text-white/80">{t.pricing.planName}</p>
-              <p className="mt-4 flex items-baseline gap-2">
-                <span className="text-[15px] text-slate-600">{t.pricing.from}</span>
-                <span className="text-gold text-[3.4rem] font-semibold leading-none tracking-[-0.03em]">{price(PRICING.monthlyFrom)}</span>
-                <span className="text-slate-600">{t.pricing.perMonth}</span>
-              </p>
-              <p className="mt-3 text-[15px] text-white/85">
-                {t.pricing.setup} {price(PRICING.setupFrom)}
-              </p>
-              <p className="mt-1 text-[13.5px] text-slate-600">{t.pricing.vat}</p>
-            </div>
-            <div className="p-7 md:p-9">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-white/70">{t.pricing.includesTitle}</p>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                {t.pricing.includes.map((inc) => (
-                  <li key={inc} className="flex gap-2.5 text-[14.5px] leading-snug text-white/85">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#d9a56c]/15 text-[#e8c08e]">
-                      <Check className="h-3 w-3" />
-                    </span>
-                    {inc}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-9">
-                <ButtonLink href={ui.bookHref} size="lg" arrow>
-                  {t.pricing.cta}
-                </ButtonLink>
-              </div>
-              <p className="mt-5 text-[13.5px] text-slate-600">{t.pricing.footnote}</p>
-            </div>
           </div>
         </div>
       </section>
@@ -258,8 +216,8 @@ export default function HomePage({ locale }: { locale: Locale }) {
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(700px_380px_at_50%_100%,rgba(196,222,255,0.35),transparent_70%)]" />
         <div className="container-content relative max-w-3xl text-center">
           <ElliotMark size={52} className="mx-auto" />
-          <h2 className="mt-8 text-[2.3rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white md:text-[3.4rem]">{t.cta.title}</h2>
-          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-white/75">{t.cta.lead}</p>
+          <h2 className="mt-8 text-[2.3rem] font-semibold leading-[1.08] tracking-[-0.035em] text-fg md:text-[3.4rem]">{t.cta.title}</h2>
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-slate-700">{t.cta.lead}</p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <ButtonLink href={ui.bookHref} size="lg" arrow>
               {t.cta.primary}
