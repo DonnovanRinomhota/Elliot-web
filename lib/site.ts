@@ -20,3 +20,6 @@ export const PRICING = {
 
 /** Date shown on the Privacy Policy and Terms. Update when you edit them. */
 export const LEGAL_UPDATED = { en: "12 November 2026", pl: "12 listopada 2026" };
+
+/** Where agencies sign in to their dashboard. */
+export const DASHBOARD_URL = "https://app.getelliot.eu";

@@ -120,7 +120,6 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         body: [
           "We do not use analytics or advertising cookies. The website keeps a few things in your browser's local storage, only on your device:",
           [
-            "your light or dark theme choice,",
             "the name, email and phone you gave the chat, so you don't have to type them again,",
             "if you signed up for the live demo, the demo you were given and the details you entered, so you can come back to it.",
           ],
@@ -246,7 +245,6 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
         body: [
           "Nie używamy analitycznych ani reklamowych plików cookie. Strona zapisuje w pamięci lokalnej Twojej przeglądarki kilka rzeczy, tylko na Twoim urządzeniu:",
           [
-            "wybrany motyw (jasny lub ciemny),",
             "imię, e-mail i telefon podane na czacie, abyś nie musiał(a) wpisywać ich ponownie,",
             "jeśli zapisałeś(-aś) się na demo na żywo, przydzielone demo i wpisane dane, abyś mógł(a) do niego wrócić.",
           ],

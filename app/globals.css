@@ -1,8 +1,10 @@
 /* Bundled fonts (no Google Fonts request). Default files include Latin
    Extended, so Polish characters render. */
-@import "@fontsource/ibm-plex-sans/400.css";
-@import "@fontsource/ibm-plex-sans/500.css";
-@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/300.css";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 
 @tailwind base;
@@ -10,34 +12,21 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Page background: cool grey, not warm paper */
-    --surface: 245 246 248;
-    --surface-dim: 236 239 243;
-    --surface-line: 221 226 233;
-    /* Elevated card surface (was literal white) */
-    --card: 255 255 255;
-    /* Primary heading/emphasis text (was literal ink) */
-    --fg: 19 34 58;
-    /* Body text hierarchy (navy-tinted greys) */
-    --slate-900: 19 34 58;
-    --slate-700: 52 64 84;
-    --slate-600: 84 96 116;
-    --slate-400: 125 139 163;
-    --slate-200: 201 209 222;
-  }
-
+  /* One look: deep navy and gold (November 2026 redesign). The site has no
+     light mode; <html> always carries the "dark" class so older dark:
+     classes keep working. */
+  :root,
   .dark {
-    --surface: 12 22 38;
-    --surface-dim: 17 29 49;
-    --surface-line: 38 54 80;
-    --card: 19 34 58;
-    --fg: 241 243 247;
-    --slate-900: 241 243 247;
-    --slate-700: 201 209 222;
-    --slate-600: 164 176 196;
-    --slate-400: 125 139 163;
-    --slate-200: 52 68 96;
+    --surface: 6 12 24;
+    --surface-dim: 10 19 36;
+    --surface-line: 33 46 70;
+    --card: 12 22 40;
+    --fg: 244 246 250;
+    --slate-900: 244 246 250;
+    --slate-700: 206 214 228;
+    --slate-600: 160 174 197;
+    --slate-400: 114 130 156;
+    --slate-200: 44 60 88;
   }
 
   html {
@@ -50,15 +39,16 @@
 
   h1, h2, h3, h4 {
     @apply font-display font-semibold;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 
   ::selection {
-    @apply bg-brass-soft text-ink;
+    background: #d9a56c;
+    color: #06101f;
   }
 
   :focus-visible {
-    outline: 2px solid #9A7328;
+    outline: 2px solid #e2b47e;
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -73,12 +63,60 @@
 
 @layer utilities {
 
-  /* Small section label: sentence case, brass, no mono/all-caps. */
+  /* Small section label: spaced capitals, with a short gold line before it. */
   .eyebrow {
-    @apply text-[13px] font-medium text-brass-dark;
+    @apply inline-flex items-center gap-4 text-[12.5px] font-medium uppercase tracking-[0.2em] text-slate-700;
   }
-  .dark .eyebrow {
-    @apply text-brass-light;
+  .eyebrow::before {
+    content: "";
+    width: 2.75rem;
+    height: 1px;
+    background: linear-gradient(90deg, #f3d4a4, #c9955a);
+  }
+  .eyebrow-center {
+    @apply justify-center;
+  }
+  .eyebrow-center::before {
+    display: none;
+  }
+
+  /* Gold, like the logo. */
+  .text-gold {
+    background: linear-gradient(100deg, #f6dcb0 0%, #e2b47e 35%, #c58d55 70%, #e8c08e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-gold {
+    background: linear-gradient(100deg, #f2d3a2 0%, #dfae76 45%, #c08650 100%);
+  }
+
+  /* Frosted glass panel. */
+  .glass {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  /* Dark card with a fine border, like a product screen. */
+  .panel {
+    background: linear-gradient(180deg, #0f1b30 0%, #0b1526 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.8);
+  }
+  .panel-inner {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  /* Section backgrounds. */
+  .bg-night {
+    background: radial-gradient(1200px 500px at 50% -10%, rgba(64, 110, 170, 0.18), transparent 60%), #060c18;
+  }
+  .bg-deep {
+    background: radial-gradient(900px 420px at 85% 0%, rgba(201, 149, 90, 0.08), transparent 60%),
+      linear-gradient(180deg, #08111f 0%, #0a1426 100%);
   }
 
   /* Small static "online" marker. */
@@ -108,7 +146,7 @@
     bottom: -2px;
     height: 1.5px;
     width: 0%;
-    background: #9A7328;
+    background: #e2b47e;
     transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .link-underline:hover::after {
