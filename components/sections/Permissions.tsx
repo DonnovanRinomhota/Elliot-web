@@ -6,13 +6,13 @@ import type { Locale } from "@/lib/i18n";
 export default function Permissions({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].permissions;
   return (
-    <section className="border-b border-surface-line bg-surface py-24">
+    <section className="bg-night py-24 md:py-32">
       <div className="container-content">
         <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {t.columns.map((col) => (
-            <div key={col.title} className="rounded-lg border border-surface-line bg-card p-6">
+            <div key={col.title} className="panel rounded-[24px] p-6">
               <p className="text-sm font-semibold text-fg">{col.title}</p>
               <ul className="mt-4 space-y-3">
                 {col.items.map((item) => (

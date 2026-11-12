@@ -43,7 +43,7 @@ export default function DemoWalkthrough() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <div className="flex h-[460px] flex-col rounded-lg border border-surface-line bg-card transition-shadow duration-500">
+      <div className="flex h-[460px] flex-col panel rounded-[24px] transition-shadow duration-500">
         <div className="flex items-center gap-2.5 border-b border-surface-line px-5 py-4">
           <span className="presence-dot" />
           <div>

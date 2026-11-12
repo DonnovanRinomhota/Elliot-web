@@ -5,8 +5,10 @@
 //            someone else, e.g. Meta's verification)
 //   planned  not built
 //
-// Both languages read their status from here, so English and Polish can never
-// disagree. To change a status, change it here and nowhere else.
+// This is our own record. Since the November 2026 redesign the website no
+// longer shows these statuses to visitors (no "Available now" / "In testing"
+// labels); what the site promises is decided in the page copy. Keep this
+// list current anyway: it is what we check before claiming something new.
 //
 // Rule: "live" means a real agency could use it today. Code that exists but
 // hasn't run for a real agency is "testing".
@@ -48,10 +50,10 @@ export const STATUS_LABEL: Record<Locale, Record<Status, string>> = {
   pl: { live: "Dostępne", testing: "W testach", planned: "Jeszcze nie" },
 };
 
-/** What follows a name in running text: nothing when live, otherwise the status in brackets. */
+/** What follows a name in running text. Empty: the site shows no statuses. */
 const SUFFIX: Record<Locale, Record<Status, string>> = {
-  en: { live: "", testing: " (in testing)", planned: " (planned)" },
-  pl: { live: "", testing: " (w testach)", planned: " (w planach)" },
+  en: { live: "", testing: "", planned: "" },
+  pl: { live: "", testing: "", planned: "" },
 };
 
 /**

@@ -7,13 +7,13 @@ import type { Locale } from "@/lib/i18n";
 export default function TrainTestDeploy({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].lifecycle;
   return (
-    <section className="border-b border-surface-line bg-surface py-24">
+    <section className="bg-night py-24 md:py-32">
       <div className="container-content">
         <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
 
         <div className="reveal mt-14 grid gap-4 md:grid-cols-4">
           {t.stages.map((s, i) => (
-            <div key={s.title} className="rounded-lg border border-surface-line bg-card p-6">
+            <div key={s.title} className="panel rounded-[24px] p-6">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ink font-mono text-xs text-white">
                 {`0${i + 1}`}
               </span>

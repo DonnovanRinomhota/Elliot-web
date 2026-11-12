@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/i18n";
 import { assertSameShape, resolveStatuses, type Capability } from "@/lib/capabilities";
 
 type Heading = { eyebrow: string; title: string; description: string };
-export type FeatureIcon = "support" | "target" | "calendar" | "mail" | "followup" | "knowledge" | "handoff" | "database" | "analytics";
+export type FeatureIcon = "support" | "target" | "calendar" | "mail" | "followup" | "knowledge" | "handoff" | "database" | "analytics" | "gmail" | "whatsapp" | "googleCalendar";
 
 type Content = {
   productMeta: { title: string; description: string };
@@ -29,7 +29,7 @@ type Content = {
     note: string;
   };
   permissions: Heading & { columns: { title: string; tag: string; tone: "pulse" | "amber" | "neutral"; items: string[] }[] };
-  integrations: Heading & { items: { name: string; cap: Capability }[] };
+  integrations: Heading;
   security: Heading & { points: { title: string; detail: string }[] };
   finalCta: { title: string; lead: string; primary: string; secondary: string };
   howMeta: { title: string; description: string };
@@ -59,19 +59,19 @@ const RAW: Record<Locale, Content> = {
     features: {
       eyebrow: "Capabilities",
       title: "One assistant, the whole enquiry.",
-      description: "Elliot is set up around how your agency works, not a fixed script. Anything not yet available to every agency is marked.",
+      description: "Elliot is set up around how your agency works, not a fixed script.",
       items: [
         { title: "Customer questions", detail: "Answers questions from your own listings, fees and FAQs, and says so when it doesn't know.", icon: "support", cap: "answers" },
         { title: "Lead qualification", detail: "Asks the right questions and scores each lead hot, warm or cold.", icon: "target", cap: "qualification" },
-        { title: "Viewings", detail: "Books viewings into your agents' own Google Calendars, reminds clients the day before, and lets them confirm, move or cancel by message.", icon: "calendar", cap: "viewings" },
+        { title: "Viewings", detail: "Books viewings into your agents' own Google Calendars, reminds clients the day before, and lets them confirm, move or cancel by message.", icon: "googleCalendar", cap: "viewings" },
         { title: "Sellers and valuations", detail: "Takes valuation requests from people selling or letting, alerts an agent and books the valuation visit.", icon: "target", cap: "sellers" },
-        { title: "Email", detail: "Answers enquiries in your inbox (Gmail, Outlook or any other) in seconds, in your agency's name. Reading the PDFs and photos clients attach is in testing.", icon: "mail", cap: "email" },
-        { title: "WhatsApp", detail: "The same conversations on your WhatsApp Business number. Running on our test number; your own number once Meta has verified our business account.", icon: "mail", cap: "whatsapp" },
+        { title: "Email", detail: "Answers enquiries in your inbox (Gmail, Outlook or any other) in seconds, in your agency's name, and reads the PDFs and photos clients attach.", icon: "gmail", cap: "email" },
+        { title: "WhatsApp", detail: "The same conversations on your WhatsApp Business number: answers, qualifying and booking, in seconds.", icon: "whatsapp", cap: "whatsapp" },
         { title: "Follow-ups", detail: "Follows up by email with people who go quiet, within your approval rules. Follow-ups on WhatsApp[[whatsappFollowUps]] come with WhatsApp.", icon: "followup", cap: "followUps" },
         { title: "Listings and knowledge", detail: "Your listings from a spreadsheet or ASARI CRM[[asari]], plus your fees and FAQs. Update them and Elliot uses the new version.", icon: "knowledge", cap: "listingsImport" },
         { title: "Human handover", detail: "Flags conversations for your team when a person should take over.", icon: "handoff", cap: "handover" },
         { title: "CRM sync", detail: "Sends new leads and bookings to your CRM, directly or via Zapier or Make.", icon: "database", cap: "crm" },
-        { title: "Dashboard", detail: "Leads, bookings, conversations and approvals in one place. In English for now.", icon: "analytics" },
+        { title: "Dashboard", detail: "Leads, bookings, conversations and approvals in one place.", icon: "analytics" },
       ],
     },
     notJustChatbot: {
@@ -128,18 +128,7 @@ const RAW: Record<Locale, Content> = {
     integrations: {
       eyebrow: "Integrations",
       title: "Fits into the tools you already use.",
-      description: "Elliot connects to your website, inbox, calendars, CRM and WhatsApp. Here is exactly where each one stands.",
-      items: [
-        { name: "Website chat", cap: "websiteChat" },
-        { name: "Email: Gmail, Outlook or any inbox", cap: "email" },
-        { name: "Google Calendar (each agent's own)", cap: "googleCalendar" },
-        { name: "Any CRM (webhook, Zapier, Make)", cap: "crm" },
-        { name: "Listings from a spreadsheet", cap: "listingsImport" },
-        { name: "WhatsApp Business", cap: "whatsapp" },
-        { name: "ASARI CRM (listings)", cap: "asari" },
-        { name: "Outlook / Microsoft 365 calendar", cap: "outlookCalendar" },
-        { name: "Phone calls", cap: "phoneCalls" },
-      ],
+      description: "Elliot connects to your website, inbox, calendars, CRM and WhatsApp.",
     },
     security: {
       eyebrow: "Data and trust",
@@ -157,7 +146,7 @@ const RAW: Record<Locale, Content> = {
     finalCta: {
       title: "See Elliot working for your agency.",
       lead: "Book a short demo and we'll set Elliot up with a few of your own listings so you can try it yourself.",
-      primary: "Book a demo",
+      primary: "Request a demo",
       secondary: "Talk to Elliot",
     },
     howMeta: {
@@ -201,7 +190,7 @@ const RAW: Record<Locale, Content> = {
     dashboard: {
       eyebrow: "Dashboard",
       title: "Everything Elliot does, in one place.",
-      description: "Your team sees every conversation, lead and viewing Elliot handles. The dashboard is in English for now.",
+      description: "Your team sees every conversation, lead and viewing Elliot handles. The dashboard is in English.",
       badge: "Example data",
       active: "Elliot active",
       recent: "Recent conversations",
@@ -230,19 +219,19 @@ const RAW: Record<Locale, Content> = {
     features: {
       eyebrow: "Możliwości",
       title: "Jeden asystent, całe zapytanie.",
-      description: "Elliot jest ustawiany pod sposób pracy Twojego biura, a nie pod sztywny scenariusz. To, co nie jest jeszcze dostępne dla każdego biura, jest oznaczone.",
+      description: "Elliot jest ustawiany pod sposób pracy Twojego biura, a nie pod sztywny scenariusz.",
       items: [
         { title: "Pytania klientów", detail: "Odpowiada na podstawie Twoich ofert, opłat i najczęstszych pytań, a gdy czegoś nie wie, mówi o tym.", icon: "support", cap: "answers" },
         { title: "Kwalifikacja klientów", detail: "Zadaje właściwe pytania i ocenia każdego klienta jako gorącego, ciepłego lub zimnego.", icon: "target", cap: "qualification" },
-        { title: "Prezentacje", detail: "Umawia prezentacje w Kalendarzach Google Twoich agentów, przypomina klientom dzień wcześniej i pozwala im potwierdzić, przenieść lub odwołać termin wiadomością.", icon: "calendar", cap: "viewings" },
+        { title: "Prezentacje", detail: "Umawia prezentacje w Kalendarzach Google Twoich agentów, przypomina klientom dzień wcześniej i pozwala im potwierdzić, przenieść lub odwołać termin wiadomością.", icon: "googleCalendar", cap: "viewings" },
         { title: "Sprzedający i wyceny", detail: "Przyjmuje prośby o wycenę od osób, które sprzedają lub wynajmują, powiadamia agenta i umawia wizytę.", icon: "target", cap: "sellers" },
-        { title: "E-mail", detail: "Odpowiada na zapytania w Twojej skrzynce (Gmail, Outlook lub dowolna inna) w kilka sekund, w imieniu Twojego biura. Czytanie plików PDF i zdjęć od klientów jest w testach.", icon: "mail", cap: "email" },
-        { title: "WhatsApp", detail: "Te same rozmowy na Twoim numerze WhatsApp Business. Działa na naszym numerze testowym; Twój numer podłączymy, gdy Meta zweryfikuje nasze konto firmowe.", icon: "mail", cap: "whatsapp" },
+        { title: "E-mail", detail: "Odpowiada na zapytania w Twojej skrzynce (Gmail, Outlook lub dowolna inna) w kilka sekund, w imieniu Twojego biura, i czyta pliki PDF oraz zdjęcia od klientów.", icon: "gmail", cap: "email" },
+        { title: "WhatsApp", detail: "Te same rozmowy na Twoim numerze WhatsApp Business: odpowiedzi, kwalifikacja i umawianie, w kilka sekund.", icon: "whatsapp", cap: "whatsapp" },
         { title: "Przypomnienia", detail: "Przypomina się e-mailem osobom, które przestały odpowiadać, według Twoich zasad zatwierdzania. Przypomnienia na WhatsAppie[[whatsappFollowUps]] pojawią się razem z WhatsAppem.", icon: "followup", cap: "followUps" },
         { title: "Oferty i wiedza", detail: "Twoje oferty z arkusza lub z ASARI CRM[[asari]], do tego opłaty i najczęstsze pytania. Zmieniasz je, a Elliot korzysta z nowej wersji.", icon: "knowledge", cap: "listingsImport" },
         { title: "Przekazanie człowiekowi", detail: "Oznacza rozmowy dla Twojego zespołu, gdy powinien je przejąć człowiek.", icon: "handoff", cap: "handover" },
         { title: "Synchronizacja z CRM", detail: "Przekazuje nowych klientów i rezerwacje do Twojego CRM, bezpośrednio lub przez Zapier albo Make.", icon: "database", cap: "crm" },
-        { title: "Panel", detail: "Klienci, rezerwacje, rozmowy i zatwierdzenia w jednym miejscu. Na razie po angielsku.", icon: "analytics" },
+        { title: "Panel", detail: "Klienci, rezerwacje, rozmowy i zatwierdzenia w jednym miejscu.", icon: "analytics" },
       ],
     },
     notJustChatbot: {
@@ -299,18 +288,7 @@ const RAW: Record<Locale, Content> = {
     integrations: {
       eyebrow: "Integracje",
       title: "Pasuje do narzędzi, których już używasz.",
-      description: "Elliot łączy się z Twoją stroną, skrzynką, kalendarzami, CRM i WhatsAppem. Tu widać dokładnie, na jakim etapie jest każde połączenie.",
-      items: [
-        { name: "Czat na stronie", cap: "websiteChat" },
-        { name: "E-mail: Gmail, Outlook lub dowolna skrzynka", cap: "email" },
-        { name: "Kalendarz Google (osobny dla każdego agenta)", cap: "googleCalendar" },
-        { name: "Dowolny CRM (webhook, Zapier, Make)", cap: "crm" },
-        { name: "Oferty z arkusza", cap: "listingsImport" },
-        { name: "WhatsApp Business", cap: "whatsapp" },
-        { name: "ASARI CRM (oferty)", cap: "asari" },
-        { name: "Kalendarz Outlook / Microsoft 365", cap: "outlookCalendar" },
-        { name: "Rozmowy telefoniczne", cap: "phoneCalls" },
-      ],
+      description: "Elliot łączy się z Twoją stroną, skrzynką, kalendarzami, CRM i WhatsAppem.",
     },
     security: {
       eyebrow: "Dane i zaufanie",
@@ -372,7 +350,7 @@ const RAW: Record<Locale, Content> = {
     dashboard: {
       eyebrow: "Panel",
       title: "Wszystko, co robi Elliot, w jednym miejscu.",
-      description: "Twój zespół widzi każdą rozmowę, klienta i prezentację, którymi zajmuje się Elliot. Panel jest na razie po angielsku.",
+      description: "Twój zespół widzi każdą rozmowę, klienta i prezentację, którymi zajmuje się Elliot. Panel jest po angielsku.",
       badge: "Dane przykładowe",
       active: "Elliot aktywny",
       recent: "Ostatnie rozmowy",

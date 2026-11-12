@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, ButtonLink } from "@/components/ui/Button";
+import PageHero from "@/components/sections/PageHero";
 import ActivityTimeline from "@/components/product/ActivityTimeline";
 import { useElliotChat } from "@/components/chat/ElliotChatProvider";
 import { UI, type Locale } from "@/lib/i18n";
@@ -39,7 +40,7 @@ const CONTENT = {
     ],
     ctaTitle: "Try it with your own listings.",
     ctaLead: "In a short demo we set Elliot up with a few of your properties and you ask it what your clients would ask.",
-    primary: "Book a demo",
+    primary: "Request a demo",
     secondary: "Talk to Elliot now",
   },
   pl: {
@@ -87,18 +88,12 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <section className="border-b border-surface-line bg-surface pt-14 pb-16 md:pt-20 md:pb-20">
-        <div className="container-content max-w-3xl">
-          <p className="eyebrow mb-3">{t.eyebrow}</p>
-          <h1 className="text-[2.4rem] leading-[1.1] text-fg md:text-[3rem]">{t.title}</h1>
-          <p className="mt-5 text-[17px] leading-relaxed text-slate-600">{t.lead}</p>
-        </div>
-      </section>
+      <PageHero eyebrow={t.eyebrow} title={t.title} description={t.lead} />
 
-      <section className="border-b border-surface-line bg-card py-20">
+      <section className="bg-deep py-24 md:py-28">
         <div className="container-content grid gap-6 lg:grid-cols-2 lg:items-start">
-          <figure className="rounded-lg border border-surface-line bg-surface">
-            <figcaption className="border-b border-surface-line px-5 py-3 text-sm text-slate-600">
+          <figure className="panel rounded-[24px]">
+            <figcaption className="border-b border-white/[0.07] px-6 py-4 text-sm text-slate-600">
               {t.convoLabel}
             </figcaption>
             <div className="space-y-3 p-5">
@@ -107,8 +102,8 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
                   key={i}
                   className={
                     m.from === "client"
-                      ? "ml-auto max-w-[85%] rounded-lg bg-ink px-4 py-2.5 dark:bg-ink-line text-[14px] leading-relaxed text-white"
-                      : "max-w-[90%] rounded-lg border border-surface-line bg-card px-4 py-2.5 text-[14px] leading-relaxed text-fg"
+                      ? "ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-[#2f6bff] px-4 py-2.5 text-[14px] leading-relaxed text-white"
+                      : "panel-inner max-w-[90%] rounded-2xl rounded-bl-md px-4 py-2.5 text-[14px] leading-relaxed text-white/90"
                   }
                 >
                   {m.text}
@@ -123,13 +118,14 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="border-b border-surface-line bg-surface py-20">
+      <section className="bg-night py-24 md:py-28">
         <div className="container-content">
-          <h2 className="text-[1.9rem] leading-[1.2] text-fg md:text-[2.25rem]">{t.gainsTitle}</h2>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {t.gains.map((g) => (
-              <div key={g.title} className="border-l-2 border-brass pl-4">
-                <h3 className="text-[16px] text-fg">{g.title}</h3>
+          <h2 className="text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white md:text-[3rem]">{t.gainsTitle}</h2>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {t.gains.map((g, i) => (
+              <div key={g.title} className="glass rounded-[24px] p-7">
+                <span className="text-gold text-[2.2rem] font-semibold leading-none">0{i + 1}</span>
+                <h3 className="mt-5 text-[17px] font-semibold text-white">{g.title}</h3>
                 <p className="mt-2 text-[14.5px] leading-relaxed text-slate-600">{g.text}</p>
               </div>
             ))}
@@ -137,15 +133,17 @@ export default function RealEstatePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="bg-ink py-20 text-white">
-        <div className="container-content max-w-3xl text-center">
-          <h2 className="text-[1.9rem] leading-[1.2] md:text-[2.4rem]">{t.ctaTitle}</h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-white/70">{t.ctaLead}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <ButtonLink href={ui.bookHref} variant="invert" size="lg">
+      <section className="relative overflow-hidden py-28 md:py-36">
+        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,#071631_0%,#14325c_60%,#2b4f82_100%)]" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(700px_380px_at_50%_100%,rgba(196,222,255,0.35),transparent_70%)]" />
+        <div className="container-content relative max-w-3xl text-center">
+          <h2 className="text-[2.3rem] font-semibold leading-[1.08] tracking-[-0.035em] text-white md:text-[3.4rem]">{t.ctaTitle}</h2>
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-white/75">{t.ctaLead}</p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <ButtonLink href={ui.bookHref} size="lg" arrow>
               {t.primary}
             </ButtonLink>
-            <Button variant="invertGhost" size="lg" onClick={openChat}>
+            <Button variant="secondary" size="lg" onClick={openChat}>
               {t.secondary}
             </Button>
           </div>

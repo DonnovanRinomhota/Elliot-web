@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/i18n";
 export default function Security({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].security;
   return (
-    <section className="border-b border-surface-line bg-surface py-24">
+    <section className="bg-night py-24 md:py-32">
       <div className="container-content">
         <SectionHeading
           eyebrow={t.eyebrow}
@@ -17,7 +17,7 @@ export default function Security({ locale = "en" }: { locale?: Locale }) {
           {t.points.map((p) => (
             <div
               key={p.title}
-              className="rounded-lg border border-surface-line bg-card p-6"
+              className="panel rounded-[24px] p-6"
             >
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-ink text-white">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

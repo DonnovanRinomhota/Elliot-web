@@ -19,7 +19,7 @@ export default function DemoPage() {
         description="Play a client of a sample Warsaw agency. Ask about flats, compare options and book a viewing, just as your clients would."
       />
 
-      <section className="border-b border-surface-line bg-surface pb-24">
+      <section className="bg-night pb-24 pt-4">
         <div className="container-content">
           <LiveDemo locale="en" />
 
@@ -31,7 +31,7 @@ export default function DemoPage() {
             <DemoWalkthrough />
           </div>
 
-          <div className="mt-14 rounded-lg border border-surface-line bg-surface-dim p-8 text-center">
+          <div className="mt-14 panel rounded-[24px] p-8 text-center">
             <h2 className="font-display text-xl text-fg">Want to see this for your business?</h2>
             <p className="mx-auto mt-2 max-w-md text-[14.5px] text-slate-600">
               Book a free call and we&apos;ll show you Elliot set up with
