@@ -256,7 +256,7 @@ const RAW: Record<Locale, Content> = {
         },
         {
           title: "A real person behind it",
-          text: "You deal directly with Donnovan, who sets Elliot up, watches how it performs and adjusts it with you.",
+          text: "You deal directly with the person who sets Elliot up, watches how it performs and adjusts it with you.",
         },
       ],
     },
@@ -431,7 +431,7 @@ const RAW: Record<Locale, Content> = {
         },
         {
           title: "Za Elliotem stoi człowiek",
-          text: "Współpracujesz bezpośrednio z Donnovanem, który konfiguruje Elliota, sprawdza, jak sobie radzi, i razem z Tobą go dopracowuje.",
+          text: "Współpracujesz bezpośrednio z osobą, która konfiguruje Elliota, sprawdza, jak sobie radzi, i razem z Tobą go dopracowuje.",
         },
       ],
     },

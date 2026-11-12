@@ -166,7 +166,7 @@ const RAW: Record<Locale, Content> = {
     howHero: {
       eyebrow: "How it works",
       title: "From first call to answering your clients.",
-      description: "Setting Elliot up is closer to onboarding a new colleague than installing software. Donnovan does it with you, and Elliot is usually ready within days.",
+      description: "Setting Elliot up is closer to onboarding a new colleague than installing software. We do it with you, and Elliot is usually ready within days.",
     },
     steps: {
       eyebrow: "How it works",
@@ -184,7 +184,7 @@ const RAW: Record<Locale, Content> = {
       title: "Set up. Try. Go live. Review.",
       description: "Elliot isn't switched on blind: you try it with your own listings first.",
       stages: [
-        { title: "Set up", detail: "Donnovan loads your listings, fees and FAQs and sets the rules with you." },
+        { title: "Set up", detail: "We load your listings, fees and FAQs and set the rules with you." },
         { title: "Try", detail: "You ask Elliot what your clients would ask, before any client talks to it." },
         { title: "Go live", detail: "Elliot is switched on for your website chat and email, and WhatsApp[[whatsapp]] where connected." },
         { title: "Review", detail: "Read any conversation, see the leads and viewings, and tell us what to adjust." },
@@ -335,7 +335,7 @@ const RAW: Record<Locale, Content> = {
     howHero: {
       eyebrow: "Jak to działa",
       title: "Od pierwszej rozmowy do odpowiadania Twoim klientom.",
-      description: "Wdrożenie Elliota bardziej przypomina wprowadzenie nowego pracownika niż instalację programu. Donnovan robi to razem z Tobą, a Elliot jest zwykle gotowy w kilka dni.",
+      description: "Wdrożenie Elliota bardziej przypomina wprowadzenie nowego pracownika niż instalację programu. Robimy to razem z Tobą, a Elliot jest zwykle gotowy w kilka dni.",
     },
     steps: {
       eyebrow: "Jak to działa",
@@ -353,7 +353,7 @@ const RAW: Record<Locale, Content> = {
       title: "Konfiguracja. Próba. Start. Przegląd.",
       description: "Elliot nie jest włączany w ciemno: najpierw wypróbujesz go na własnych ofertach.",
       stages: [
-        { title: "Konfiguracja", detail: "Donnovan wczytuje Twoje oferty, opłaty i najczęstsze pytania i ustala z Tobą zasady." },
+        { title: "Konfiguracja", detail: "Wczytujemy Twoje oferty, opłaty i najczęstsze pytania i ustalamy z Tobą zasady." },
         { title: "Próba", detail: "Zadajesz Elliotowi pytania, jakie zadają Twoi klienci, zanim porozmawia z nim jakikolwiek klient." },
         { title: "Start", detail: "Elliot zostaje włączony na czacie na stronie i w e-mailu, a tam, gdzie jest podłączony, także na WhatsAppie[[whatsapp]]." },
         { title: "Przegląd", detail: "Czytasz dowolną rozmowę, widzisz klientów i prezentacje i mówisz nam, co poprawić." },
