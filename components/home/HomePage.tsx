@@ -171,7 +171,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Tools */}
-      <section id={ids.tools} className="section-light scroll-mt-24 py-24 md:py-32">
+      <section id={ids.tools} className="section-night scroll-mt-24 py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.tools.eyebrow} title={t.tools.title} lead={t.tools.lead} />
           <ToolsGraphic t={t.tools} />
@@ -179,7 +179,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* Control */}
-      <section id={ids.control} className="section-sky scroll-mt-24 py-24 md:py-32">
+      <section id={ids.control} className="section-light scroll-mt-24 py-24 md:py-32">
         <div className="container-content grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <Heading eyebrow={t.control.eyebrow} title={t.control.title} lead={t.control.lead} center={false} />
           <div className="grid gap-4 sm:grid-cols-2">
@@ -195,7 +195,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* What you can count on */}
-      <section className="section-light py-24 md:py-32">
+      <section className="section-sky py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.promises.eyebrow} title={t.promises.title} />
           <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
