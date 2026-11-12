@@ -39,6 +39,16 @@ type Content = {
     stages: { title: string; detail: string }[];
     exampleLabel: string;
     example: { label: string; text: string }[];
+    /** Words inside the pictures of the example. */
+    exampleVisual: {
+      booking: string;
+      bookingValue: string;
+      calendar: string;
+      calendarValue: string;
+      from: string;
+      to: string;
+      notified: string;
+    };
   };
   dashboard: Heading & { badge: string; active: string; recent: string; metrics: string[]; rows: { name: string; note: string }[]; caption: string };
 };
@@ -186,6 +196,15 @@ const RAW: Record<Locale, Content> = {
         { label: "Elliot does", text: "moves the viewing to Friday 14:00, updates the calendar, tells the agent" },
         { label: "Elliot replies", text: "“Done. Your viewing is now on Friday at 14:00.”" },
       ],
+      exampleVisual: {
+        booking: "Booking",
+        bookingValue: "Thu 17:00 · ul. Puławska 145",
+        calendar: "Ola's calendar",
+        calendarValue: "Fri 14:00 is free",
+        from: "Thu 17:00",
+        to: "Fri 14:00",
+        notified: "Ola notified",
+      },
     },
     dashboard: {
       eyebrow: "Dashboard",
@@ -346,6 +365,15 @@ const RAW: Record<Locale, Content> = {
         { label: "Elliot robi", text: "przenosi prezentację na piątek 14:00, aktualizuje kalendarz, informuje agenta" },
         { label: "Elliot odpowiada", text: "„Gotowe. Prezentacja jest teraz w piątek o 14:00.”" },
       ],
+      exampleVisual: {
+        booking: "Rezerwacja",
+        bookingValue: "czw. 17:00 · ul. Puławska 145",
+        calendar: "Kalendarz Oli",
+        calendarValue: "pt. 14:00 jest wolne",
+        from: "czw. 17:00",
+        to: "pt. 14:00",
+        notified: "Ola powiadomiona",
+      },
     },
     dashboard: {
       eyebrow: "Panel",

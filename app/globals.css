@@ -129,6 +129,10 @@
       radial-gradient(900px 480px at 0% 100%, rgba(217, 165, 108, 0.09), transparent 60%),
       linear-gradient(180deg, #f6f8fc 0%, #ebf0f7 100%);
   }
+  /* The original deep navy, for the connected-tools picture. */
+  .section-night {
+    background: radial-gradient(1200px 500px at 50% -10%, rgba(64, 110, 170, 0.22), transparent 60%), #060c18;
+  }
   .section-sky {
     background:
       radial-gradient(900px 500px at 85% 0%, rgba(205, 225, 255, 0.28), transparent 62%),
