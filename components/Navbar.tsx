@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { localeFromPath, twinPath, UI } from "@/lib/i18n";
+import { DASHBOARD_URL } from "@/lib/site";
 import Logo from "@/components/Logo";
 import { ButtonLink, Button } from "@/components/ui/Button";
 import { useElliotChat } from "@/components/chat/ElliotChatProvider";
-import ThemeToggle from "@/components/ThemeToggle";
 
+// Sits over the top of each page (pages start with 6rem of room for it),
+// clear at first and frosted navy once you scroll.
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -25,7 +27,7 @@ export default function Navbar() {
   }, [locale]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -41,90 +43,84 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full border-b transition-colors duration-300 ${
-        scrolled
-          ? "border-surface-line bg-surface/85 backdrop-blur-md"
-          : "border-transparent bg-surface/0"
+      className={`sticky top-0 z-50 -mb-20 w-full transition-colors duration-300 md:-mb-24 ${
+        scrolled || open ? "border-b border-white/10 bg-[#07101f]/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="container-content flex h-16 items-center justify-between">
-        <Link href={t.home} aria-label="Elliot" className="group">
+      <div className="container-content flex h-20 items-center justify-between md:h-24">
+        <Link href={t.home} aria-label="Elliot" className="shrink-0">
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-10 lg:flex" aria-label="Primary">
           {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-sm font-medium text-slate-700 transition-colors hover:text-fg"
-            >
+            <Link key={l.href} href={l.href} className="text-[15px] font-medium text-white/85 transition-colors hover:text-white">
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-5 lg:flex">
           <Link
             href={twinPath(pathname, other)}
             hrefLang={other}
             aria-label={t.switchAria}
-            className="rounded-md px-2.5 py-2 text-sm text-slate-600 hover:bg-fg/[0.05] hover:text-fg"
+            className="text-[13px] font-semibold tracking-[0.12em] text-white/60 transition-colors hover:text-white"
           >
-            {t.switchLabel}
+            {other.toUpperCase()}
           </Link>
-          <ThemeToggle />
-          <Button variant="ghost" size="md" onClick={openChat}>
-            {t.talk}
-          </Button>
-          <ButtonLink href={t.bookHref} variant="primary" size="md">
+          <a href={`${DASHBOARD_URL}/login`} className="text-[15px] font-medium text-white/90 transition-colors hover:text-white">
+            {t.signIn}
+          </a>
+          <ButtonLink href={t.bookHref} variant="primary" size="md" arrow>
             {t.book}
           </ButtonLink>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <Link
             href={twinPath(pathname, other)}
             hrefLang={other}
             aria-label={t.switchAria}
-            className="rounded-md px-2 py-2 text-sm text-slate-600"
+            className="px-2 py-2 text-[13px] font-semibold tracking-[0.12em] text-white/70"
           >
             {other.toUpperCase()}
           </Link>
-          <ThemeToggle />
           <button
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-fg/10 active:scale-95 transition-transform"
+            className="glass flex h-11 w-11 items-center justify-center rounded-full transition-transform active:scale-95"
             aria-label={open ? t.menuClose : t.menuOpen}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
             <span className="relative block h-3 w-4">
-              <span
-                className={`absolute left-0 top-0 h-[1.5px] w-4 bg-fg transition-transform ${open ? "translate-y-[5px] rotate-45" : ""}`}
-              />
-              <span
-                className={`absolute left-0 bottom-0 h-[1.5px] w-4 bg-fg transition-transform ${open ? "-translate-y-[5px] -rotate-45" : ""}`}
-              />
+              <span className={`absolute left-0 top-0 h-[1.5px] w-4 bg-white transition-transform ${open ? "translate-y-[5px] rotate-45" : ""}`} />
+              <span className={`absolute bottom-0 left-0 h-[1.5px] w-4 bg-white transition-transform ${open ? "-translate-y-[5px] -rotate-45" : ""}`} />
             </span>
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="border-t border-surface-line bg-surface px-6 py-4 md:hidden">
-          <nav className="flex flex-col gap-1" aria-label="Mobile">
+        <div className="border-t border-white/10 px-6 pb-6 pt-3 lg:hidden">
+          <nav className="flex flex-col" aria-label="Mobile">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3.5 text-[15px] font-medium text-slate-700 active:bg-fg/[0.05]"
+                className="border-b border-white/[0.06] px-1 py-4 text-[16px] font-medium text-white/90"
               >
                 {l.label}
               </Link>
             ))}
+            <a href={`${DASHBOARD_URL}/login`} className="px-1 py-4 text-[16px] font-medium text-white/90">
+              {t.signIn}
+            </a>
           </nav>
-          <div className="mt-3 flex flex-col gap-2 border-t border-surface-line pt-4">
+          <div className="mt-3 flex flex-col gap-3">
+            <ButtonLink href={t.bookHref} variant="primary" size="lg" className="w-full" arrow onClick={() => setOpen(false)}>
+              {t.book}
+            </ButtonLink>
             <Button
               variant="secondary"
               size="lg"
@@ -136,9 +132,6 @@ export default function Navbar() {
             >
               {t.talk}
             </Button>
-            <ButtonLink href={t.bookHref} variant="primary" size="lg" className="w-full">
-              {t.book}
-            </ButtonLink>
           </div>
         </div>
       )}

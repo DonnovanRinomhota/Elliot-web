@@ -178,7 +178,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
     setError(t.failed);
   }
 
-  const box = "rounded-lg border border-surface-line bg-card p-5 md:p-6";
+  const box = "panel rounded-[24px] p-5 md:p-6";
   const label = "mb-1.5 block text-[13.5px] font-medium text-fg";
   const input =
     "w-full rounded-md border border-surface-line bg-surface px-3 py-2.5 text-base text-fg placeholder:text-slate-400 focus:border-violet focus:outline-none md:text-[15px]";

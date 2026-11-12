@@ -6,16 +6,16 @@ import type { Locale } from "@/lib/i18n";
 export default function HumanHandoff({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].handoff;
   return (
-    <section className="border-b border-surface-line bg-surface-dim py-24">
+    <section className="bg-deep py-24 md:py-32">
       <div className="container-content reveal grid gap-14 lg:grid-cols-2 lg:items-center">
         <div>
           <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
           <div className="mt-8 flex max-w-sm flex-col gap-3">
-            <div className="flex items-center gap-3 rounded-md border border-surface-line bg-card px-4 py-3 transition-all duration-300 hover:shadow-card">
+            <div className="flex items-center gap-3 panel-inner rounded-xl px-4 py-3 transition-all duration-300 hover:shadow-card">
               <span className="h-2 w-2 rounded-full bg-pulse animate-pulseDot" />
               <span className="text-sm text-fg">{t.simple}</span>
             </div>
-            <div className="flex items-center gap-3 rounded-md border border-surface-line bg-card px-4 py-3 transition-all duration-300 hover:shadow-card">
+            <div className="flex items-center gap-3 panel-inner rounded-xl px-4 py-3 transition-all duration-300 hover:shadow-card">
               <span className="h-2 w-2 rounded-full bg-amber" />
               <span className="text-sm text-fg">{t.complex}</span>
             </div>

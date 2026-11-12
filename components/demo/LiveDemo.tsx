@@ -177,13 +177,13 @@ export default function LiveDemo({ locale }: { locale: Locale }) {
   const label = "mb-1.5 block text-[13.5px] font-medium text-fg";
 
   if (!LIVE_BACKEND) {
-    return <p className="rounded-lg border border-surface-line bg-card p-6 text-[15px] text-slate-700">{t.unavailable}</p>;
+    return <p className="panel rounded-[24px] p-6 text-[15px] text-slate-700">{t.unavailable}</p>;
   }
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
       {!access ? (
-        <form onSubmit={submit} noValidate className="rounded-lg border border-surface-line bg-card p-5 md:p-7">
+        <form onSubmit={submit} noValidate className="panel rounded-[24px] p-5 md:p-7">
           <h2 className="font-display text-xl text-fg">{t.formTitle}</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{t.formLead}</p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -254,7 +254,7 @@ export default function LiveDemo({ locale }: { locale: Locale }) {
                     key={p}
                     type="button"
                     onClick={() => send(p)}
-                    className="rounded-md border border-surface-line bg-card px-3 py-2.5 text-left text-[14px] text-slate-700 transition-colors hover:text-violet-600"
+                    className="panel-inner rounded-xl px-3 py-2.5 text-left text-[14px] text-slate-700 transition-colors hover:text-violet-600"
                   >
                     {p}
                   </button>
@@ -266,7 +266,7 @@ export default function LiveDemo({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      <aside className="rounded-lg border border-surface-line bg-card p-5 md:p-6">
+      <aside className="panel rounded-[24px] p-5 md:p-6">
         <h3 className="text-[15px] font-semibold text-fg">{t.sideTitle}</h3>
         <ul className="mt-4 grid gap-4">
           {t.side.map(([title, text]) => (

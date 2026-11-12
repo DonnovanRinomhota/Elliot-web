@@ -1,54 +1,87 @@
-// Homepage copy in both languages.
+// Homepage copy in both languages (November 2026 redesign).
 //
-// How far each feature is (live / testing / planned) is NOT written here: every
-// item names a capability ("cap") and its status comes from lib/capabilities.ts,
-// so the two languages always agree. In running text, write the marker
-// "WhatsApp[[whatsapp]]": it adds "(in testing)" / "(w testach)" by itself for
-// as long as that capability isn't live.
+// Each feature item names its capability ("cap"), our own record in
+// lib/capabilities.ts; the site no longer shows statuses. "icon" picks the
+// picture: a product logo (lib/brands.ts) where the item is a real product,
+// otherwise one of our line icons. Both must be the same in both languages.
 
 import type { Locale } from "@/lib/i18n";
 import { assertSameShape, resolveStatuses, type Capability, type Status } from "@/lib/capabilities";
 
 export type { Status };
 
+export type IconName =
+  | "chat"
+  | "people"
+  | "calendar"
+  | "home"
+  | "inbox"
+  | "repeat"
+  | "handover"
+  | "mail"
+  | "whatsapp"
+  | "web"
+  | "gmail"
+  | "googleCalendar"
+  | "googleDrive"
+  | "asari"
+  | "zapier"
+  | "make"
+  | "shield"
+  | "bolt"
+  | "chart"
+  | "check"
+  | "eye"
+  | "book";
+
 type Content = {
   hero: {
     eyebrow: string;
-    title: string;
+    /** Three lines; the last one is gold. */
+    title: [string, string, string];
     lead: string;
     primary: string;
     secondary: string;
-    note: string;
-    sampleLabel: string;
-    sample: { from: "client" | "elliot"; text: string }[];
-    sampleFooter: string;
+    cards: { title: string; text: string; icon: IconName }[];
+    strip: { title: string; text: string; icon: IconName }[];
   };
   does: {
     eyebrow: string;
     title: string;
     lead: string;
-    /** `also`: a part of this item that is at a different stage, shown underneath with its own tag. */
-    items: { title: string; text: string; cap: Capability; also?: { cap: Capability; text: string } }[];
-    notYetTitle: string;
-    notYet: string;
+    /** `also`: a related part, shown underneath. */
+    items: { title: string; text: string; cap: Capability; icon: IconName; also?: { cap: Capability; text: string } }[];
   };
   flow: {
     eyebrow: string;
     title: string;
     lead: string;
     steps: { title: string; text: string }[];
+    /** Words inside the pictures of the five steps. */
+    visual: {
+      channels: string[];
+      clientMessage: string;
+      elliotReply: string;
+      questions: string[];
+      slot: string;
+      slotDay: string;
+      booked: string;
+      handover: string;
+      hot: string;
+    };
   };
   control: {
     eyebrow: string;
     title: string;
     lead: string;
-    items: { title: string; text: string }[];
+    items: { title: string; text: string; icon: IconName }[];
   };
   tools: {
     eyebrow: string;
     title: string;
     lead: string;
-    items: { name: string; text: string; cap: Capability }[];
+    connected: string;
+    items: { name: string; text: string; icon: IconName }[];
   };
   promises: {
     eyebrow: string;
@@ -75,83 +108,85 @@ type Content = {
 const RAW: Record<Locale, Content> = {
   en: {
     hero: {
-      eyebrow: "AI assistant for estate agencies",
-      title: "Answer every property enquiry. Book viewings around the clock.",
-      lead: "Elliot works on your website, WhatsApp[[whatsapp]] and email. It answers questions about your listings, asks buyers and renters the right questions, books viewings straight into your agents' Google Calendars, and turns sellers' valuation requests into visits. Your team sees every conversation and can step in at any time.",
-      primary: "Talk to Elliot",
-      secondary: "Book a demo",
-      note: "The chat in the corner of this page is Elliot. Ask it anything.",
-      sampleLabel: "Example conversation",
-      sample: [
-        { from: "client", text: "Hi, do you have 2-bedroom flats in Mokotów under €250,000?" },
-        {
-          from: "elliot",
-          text: "Yes, there are three that fit. Before I send them: are you buying with a mortgage, and when would you like to move?",
-        },
-        { from: "client", text: "Mortgage is approved. Ideally within two months." },
-        {
-          from: "elliot",
-          text: "Thanks. I can book you a viewing of the closest match on Thursday at 17:00 or Friday at 10:00. Which suits you?",
-        },
+      eyebrow: "AI for estate agencies",
+      title: ["More enquiries.", "More viewings.", "Less manual work."],
+      lead: "Elliot helps estate agencies respond to enquiries, qualify prospects and book viewings, around the clock.",
+      primary: "Request a demo",
+      secondary: "See how it works",
+      cards: [
+        { title: "Instant responses", text: "24/7 reply to every enquiry.", icon: "chat" },
+        { title: "Book viewings", text: "Automatically schedule appointments.", icon: "calendar" },
+        { title: "Qualify leads", text: "Focus on the right prospects.", icon: "people" },
       ],
-      sampleFooter: "Lead marked hot · viewing booked · agent notified",
+      strip: [
+        { title: "Always on", text: "Never miss an opportunity again.", icon: "bolt" },
+        { title: "Qualify leads", text: "Focus on the right opportunities.", icon: "people" },
+        { title: "Secure & reliable", text: "Your data, your control.", icon: "shield" },
+        { title: "Grow with you", text: "From one office to multiple locations.", icon: "chart" },
+      ],
     },
     does: {
       eyebrow: "What Elliot does",
       title: "The repetitive part of the job, handled.",
-      lead: "Everything marked “Available now” is built and working today. Where something is still being tested, we say so.",
+      lead: "Elliot takes the questions, the qualifying and the booking off your team's plate, and leaves the relationship to you.",
       items: [
         {
           title: "Answers enquiries",
           text: "Replies in seconds, day or night, using your listings, fees and FAQs. If it doesn't know an answer, it says so and passes the question to you.",
           cap: "answers",
+          icon: "chat",
         },
         {
           title: "Qualifies buyers and renters",
           text: "Asks about budget, area, size, timing and financing, then marks each lead hot, warm or cold so you know who to call first.",
           cap: "qualification",
+          icon: "people",
         },
         {
           title: "Books viewings",
           text: "Offers free slots from your agents' own Google Calendars, books the one the client picks with an agent who's free, and sends a confirmation email. Reminds the client the day before; they can reply to confirm, move or cancel, and Elliot updates the calendar and tells the agent.",
           cap: "viewings",
+          icon: "googleCalendar",
         },
         {
           title: "Wins sellers and landlords",
           text: "When someone wants to sell or let, or asks what their property is worth, Elliot never guesses a price. It asks about the property, alerts an agent and books a free valuation visit.",
           cap: "sellers",
+          icon: "home",
         },
         {
           title: "Captures every lead",
           text: "Contact details and what each person is looking for go into your dashboard, and into your CRM if you use one.",
           cap: "leadCapture",
+          icon: "inbox",
         },
         {
           title: "Follows up",
           text: "Follows up by email with people who go quiet. You approve each message before it goes out, or let them send automatically.",
           cap: "followUps",
+          icon: "repeat",
           also: { cap: "whatsappFollowUps", text: "Follow-ups on WhatsApp" },
         },
         {
           title: "Hands over to your team",
           text: "When a client asks for a person, or a question falls outside your rules, Elliot flags it in your dashboard straight away.",
           cap: "handover",
+          icon: "handover",
         },
         {
           title: "Email",
           text: "Answers the enquiries in your inbox (Gmail, Outlook or any other) in seconds, in the client's thread and in your agency's name. Enquiries from property portals included.",
           cap: "email",
+          icon: "gmail",
           also: { cap: "emailAttachments", text: "Reading the PDFs and photos clients attach" },
         },
         {
           title: "WhatsApp",
-          text: "The same conversations on your WhatsApp Business number. Today it runs on our test number; your own number can be connected once Meta has verified our business account.",
+          text: "The same conversations on your WhatsApp Business number: answers, qualifying and booking, in seconds.",
           cap: "whatsapp",
+          icon: "whatsapp",
         },
       ],
-      notYetTitle: "Not offered yet",
-      notYet:
-        "Answering phone calls, Outlook or Microsoft 365 calendars, and a Polish version of the team dashboard (it is in English today; Elliot answers clients in Polish and English).",
     },
     flow: {
       eyebrow: "How it works",
@@ -164,6 +199,17 @@ const RAW: Record<Locale, Content> = {
         { title: "It books the viewing", text: "With an agent who's free, in their calendar, with a confirmation email to the client." },
         { title: "Your team takes over", text: "The lead, the full conversation and the booking are waiting in your dashboard." },
       ],
+      visual: {
+        channels: ["Website", "Email", "WhatsApp"],
+        clientMessage: "Hi, is the 2-bed flat in Mokotów still available?",
+        elliotReply: "Yes, it is. Shall I book you a viewing this week?",
+        questions: ["Budget", "Area", "Move-in date", "Mortgage"],
+        slot: "Thu 17:00",
+        slotDay: "Viewing · ul. Puławska 145",
+        booked: "Booked with Ola",
+        handover: "Hot lead · Anna Kowalska",
+        hot: "Hot",
+      },
     },
     control: {
       eyebrow: "You stay in control",
@@ -172,18 +218,22 @@ const RAW: Record<Locale, Content> = {
       items: [
         {
           title: "Approval when it matters",
+          icon: "check",
           text: "Follow-ups wait for your approval unless you let them send. Viewings can wait for your confirmation too, if you prefer. You can pause Elliot on any conversation and reply yourself.",
         },
         {
           title: "A person when it's needed",
+          icon: "handover",
           text: "Clients can ask for a human at any point. Elliot passes the conversation on and tells them someone will be in touch.",
         },
         {
           title: "Everything on record",
+          icon: "eye",
           text: "Every conversation, lead, booking and email is saved in your dashboard, so you can check what was said.",
         },
         {
           title: "Your knowledge, your words",
+          icon: "book",
           text: "Elliot answers from information you give it. Update a price or a policy and it uses the new version straight away.",
         },
       ],
@@ -191,15 +241,18 @@ const RAW: Record<Locale, Content> = {
     tools: {
       eyebrow: "Works with your tools",
       title: "Fits into how you already work.",
-      lead: "No new system for your team to learn. Elliot connects to the tools you use.",
+      lead: "No new system for your team to learn.",
+      connected: "Connected",
       items: [
-        { name: "Your website", text: "A chat window added with one line of code.", cap: "websiteChat" },
-        { name: "WhatsApp Business", text: "Answers clients on your WhatsApp number, in seconds.", cap: "whatsapp" },
-        { name: "Google Calendar", text: "Each agent's own calendar: free slots, viewings and valuation visits.", cap: "googleCalendar" },
-        { name: "Your email", text: "Gmail, Outlook or any inbox: enquiries answered in your name, portal enquiries included.", cap: "email" },
-        { name: "ASARI CRM", text: "Your listings copied into Elliot every hour. Built; waiting for its first agency account to confirm every field.", cap: "asari" },
-        { name: "Your CRM", text: "New leads and bookings sent on, directly or through Zapier or Make.", cap: "crm" },
-        { name: "Outlook calendar", text: "Booking into Outlook and Microsoft 365 calendars.", cap: "outlookCalendar" },
+        { name: "Your website", text: "Chat on every page", icon: "web" },
+        { name: "WhatsApp Business", text: "Your own number", icon: "whatsapp" },
+        { name: "Gmail", text: "Replies in the same thread", icon: "gmail" },
+        { name: "Outlook or any inbox", text: "Through forwarding", icon: "mail" },
+        { name: "Google Calendar", text: "Each agent's calendar", icon: "googleCalendar" },
+        { name: "Google Drive", text: "Listing photos", icon: "googleDrive" },
+        { name: "ASARI CRM", text: "Listings every hour", icon: "asari" },
+        { name: "Zapier", text: "Leads to your CRM", icon: "zapier" },
+        { name: "Make", text: "Leads to your CRM", icon: "make" },
       ],
     },
     promises: {
@@ -244,96 +297,98 @@ const RAW: Record<Locale, Content> = {
         "CRM connection",
         "Monthly review and adjustments",
       ],
-      cta: "Book a demo",
+      cta: "Request a demo",
       footnote: "Not sure it fits? Ask Elliot in the chat. It knows what it can and can't do.",
     },
     cta: {
       title: "See Elliot working for your agency.",
       lead: "A short call where we set Elliot up with a few of your listings and you try it yourself.",
-      primary: "Book a demo",
+      primary: "Request a demo",
       secondary: "Talk to Elliot now",
     },
   },
 
   pl: {
     hero: {
-      eyebrow: "Asystent AI dla biur nieruchomości",
-      title: "Odpowiedź na każde zapytanie. Prezentacje umawiane o każdej porze.",
-      lead: "Elliot działa na Twojej stronie, w WhatsAppie[[whatsapp]] i w e-mailu. Odpowiada na pytania o oferty, zadaje kupującym i najemcom właściwe pytania, umawia prezentacje bezpośrednio w Kalendarzach Google Twoich agentów, a zapytania o wycenę od sprzedających zamienia w spotkania. Twój zespół widzi każdą rozmowę i może w każdej chwili przejąć klienta.",
-      primary: "Porozmawiaj z Elliotem",
-      secondary: "Umów prezentację",
-      note: "Czat w rogu tej strony to Elliot. Zapytaj go o cokolwiek.",
-      sampleLabel: "Przykładowa rozmowa",
-      sample: [
-        { from: "client", text: "Dzień dobry, czy macie mieszkania 2-pokojowe na Mokotowie do 1 mln zł?" },
-        {
-          from: "elliot",
-          text: "Tak, mamy trzy pasujące oferty. Zanim je wyślę: czy kupuje Pan z kredytem i kiedy chciałby się Pan przeprowadzić?",
-        },
-        { from: "client", text: "Kredyt mam już przyznany. Najlepiej w ciągu dwóch miesięcy." },
-        {
-          from: "elliot",
-          text: "Dziękuję. Mogę umówić prezentację najlepiej dopasowanego mieszkania w czwartek o 17:00 lub w piątek o 10:00. Który termin Panu odpowiada?",
-        },
+      eyebrow: "AI dla biur nieruchomości",
+      title: ["Więcej zapytań.", "Więcej prezentacji.", "Mniej ręcznej pracy."],
+      lead: "Elliot pomaga biurom nieruchomości odpowiadać na zapytania, kwalifikować klientów i umawiać prezentacje, przez całą dobę.",
+      primary: "Umów prezentację",
+      secondary: "Zobacz, jak to działa",
+      cards: [
+        { title: "Natychmiastowe odpowiedzi", text: "Odpowiedź na każde zapytanie, 24/7.", icon: "chat" },
+        { title: "Umawianie prezentacji", text: "Terminy same trafiają do kalendarza.", icon: "calendar" },
+        { title: "Kwalifikacja klientów", text: "Skup się na właściwych osobach.", icon: "people" },
       ],
-      sampleFooter: "Klient oznaczony jako gorący · prezentacja umówiona · agent powiadomiony",
+      strip: [
+        { title: "Zawsze włączony", text: "Żadna okazja już nie przepadnie.", icon: "bolt" },
+        { title: "Kwalifikuje klientów", text: "Skup się na właściwych okazjach.", icon: "people" },
+        { title: "Bezpieczny i niezawodny", text: "Twoje dane, Twoja kontrola.", icon: "shield" },
+        { title: "Rośnie razem z Tobą", text: "Od jednego biura do wielu oddziałów.", icon: "chart" },
+      ],
     },
     does: {
       eyebrow: "Co robi Elliot",
       title: "Powtarzalna część pracy, z głowy.",
-      lead: "Wszystko oznaczone jako „Dostępne” jest gotowe i działa już dziś. Jeśli coś jest jeszcze w testach, piszemy o tym wprost.",
+      lead: "Elliot zdejmuje z Twojego zespołu pytania, kwalifikowanie i umawianie terminów, a relację z klientem zostawia Tobie.",
       items: [
         {
           title: "Odpowiada na zapytania",
           text: "W kilka sekund, w dzień i w nocy, na podstawie Twoich ofert, opłat i najczęstszych pytań. Jeśli nie zna odpowiedzi, mówi o tym i przekazuje pytanie Tobie.",
           cap: "answers",
+          icon: "chat",
         },
         {
           title: "Kwalifikuje kupujących i najemców",
           text: "Pyta o budżet, lokalizację, metraż, termin i finansowanie, a potem oznacza klienta jako gorącego, ciepłego lub zimnego, żebyś wiedział, do kogo dzwonić najpierw.",
           cap: "qualification",
+          icon: "people",
         },
         {
           title: "Umawia prezentacje",
           text: "Proponuje wolne terminy z Kalendarzy Google Twoich agentów, rezerwuje wybrany u wolnego agenta i wysyła e-mail z potwierdzeniem. Dzień wcześniej przypomina klientowi o terminie; klient może odpisać, by potwierdzić, przenieść lub odwołać, a Elliot aktualizuje kalendarz i informuje agenta.",
           cap: "viewings",
+          icon: "googleCalendar",
         },
         {
           title: "Pozyskuje sprzedających i wynajmujących",
           text: "Gdy ktoś chce sprzedać lub wynająć nieruchomość albo pyta, ile jest warta, Elliot nigdy nie zgaduje ceny. Pyta o nieruchomość, powiadamia agenta i umawia bezpłatną wizytę w celu wyceny.",
           cap: "sellers",
+          icon: "home",
         },
         {
           title: "Zapisuje każdego klienta",
           text: "Dane kontaktowe i czego szuka każda osoba trafiają do Twojego panelu, a jeśli korzystasz z CRM, także tam.",
           cap: "leadCapture",
+          icon: "inbox",
         },
         {
           title: "Przypomina się klientom",
           text: "Przypomina się e-mailem osobom, które przestały odpowiadać. Zatwierdzasz każdą wiadomość przed wysłaniem albo pozwalasz, by wychodziły same.",
           cap: "followUps",
+          icon: "repeat",
           also: { cap: "whatsappFollowUps", text: "Przypomnienia na WhatsAppie" },
         },
         {
           title: "Przekazuje rozmowę zespołowi",
           text: "Gdy klient prosi o kontakt z człowiekiem albo pytanie wykracza poza Twoje zasady, Elliot od razu oznacza to w panelu.",
           cap: "handover",
+          icon: "handover",
         },
         {
           title: "E-mail",
           text: "Odpowiada na zapytania w Twojej skrzynce (Gmail, Outlook lub dowolna inna) w kilka sekund, w tym samym wątku i w imieniu Twojego biura. Także na zapytania z portali ogłoszeniowych.",
           cap: "email",
+          icon: "gmail",
           also: { cap: "emailAttachments", text: "Czytanie plików PDF i zdjęć załączanych przez klientów" },
         },
         {
           title: "WhatsApp",
-          text: "Te same rozmowy na Twoim numerze WhatsApp Business. Dziś działa na naszym numerze testowym; Twój numer podłączymy, gdy Meta zweryfikuje nasze konto firmowe.",
+          text: "Te same rozmowy na Twoim numerze WhatsApp Business: odpowiedzi, kwalifikacja i umawianie, w kilka sekund.",
           cap: "whatsapp",
+          icon: "whatsapp",
         },
       ],
-      notYetTitle: "Jeszcze niedostępne",
-      notYet:
-        "Odbieranie telefonów, kalendarze Outlook i Microsoft 365 oraz polska wersja panelu dla zespołu (dziś panel jest po angielsku; z klientami Elliot rozmawia po polsku i po angielsku).",
     },
     flow: {
       eyebrow: "Jak to działa",
@@ -346,6 +401,17 @@ const RAW: Record<Locale, Content> = {
         { title: "Umawia prezentację", text: "U wolnego agenta, w jego kalendarzu, z e-mailem potwierdzającym dla klienta." },
         { title: "Twój zespół przejmuje", text: "Klient, cała rozmowa i rezerwacja czekają w Twoim panelu." },
       ],
+      visual: {
+        channels: ["Strona", "E-mail", "WhatsApp"],
+        clientMessage: "Dzień dobry, czy mieszkanie 2-pokojowe na Mokotowie jest dostępne?",
+        elliotReply: "Tak. Czy umówić prezentację w tym tygodniu?",
+        questions: ["Budżet", "Lokalizacja", "Termin", "Kredyt"],
+        slot: "czw. 17:00",
+        slotDay: "Prezentacja · ul. Puławska 145",
+        booked: "Umówione z Olą",
+        handover: "Gorący klient · Anna Kowalska",
+        hot: "Gorący",
+      },
     },
     control: {
       eyebrow: "Masz kontrolę",
@@ -354,18 +420,22 @@ const RAW: Record<Locale, Content> = {
       items: [
         {
           title: "Zgoda tam, gdzie to ważne",
+          icon: "check",
           text: "Przypomnienia czekają na Twoje zatwierdzenie, chyba że pozwolisz im wychodzić same. Prezentacje też mogą czekać na Twoje potwierdzenie, jeśli wolisz. W każdej rozmowie możesz wstrzymać Elliota i odpowiedzieć sam.",
         },
         {
           title: "Człowiek, gdy jest potrzebny",
+          icon: "handover",
           text: "Klient może w każdej chwili poprosić o kontakt z człowiekiem. Elliot przekazuje rozmowę i informuje, że ktoś się odezwie.",
         },
         {
           title: "Wszystko zapisane",
+          icon: "eye",
           text: "Każda rozmowa, klient, rezerwacja i e-mail są zapisane w panelu, więc zawsze sprawdzisz, co zostało powiedziane.",
         },
         {
           title: "Twoja wiedza, Twoje słowa",
+          icon: "book",
           text: "Elliot odpowiada na podstawie informacji od Ciebie. Zmienisz cenę lub zasady, a od razu używa nowej wersji.",
         },
       ],
@@ -373,15 +443,18 @@ const RAW: Record<Locale, Content> = {
     tools: {
       eyebrow: "Współpracuje z Twoimi narzędziami",
       title: "Pasuje do tego, jak już pracujesz.",
-      lead: "Twój zespół nie musi uczyć się nowego systemu. Elliot łączy się z narzędziami, których używasz.",
+      lead: "Twój zespół nie musi uczyć się nowego systemu.",
+      connected: "Połączono",
       items: [
-        { name: "Twoja strona", text: "Okno czatu dodawane jedną linijką kodu.", cap: "websiteChat" },
-        { name: "WhatsApp Business", text: "Odpowiada klientom na Twoim numerze WhatsApp w kilka sekund.", cap: "whatsapp" },
-        { name: "Kalendarz Google", text: "Kalendarz każdego agenta: wolne terminy, prezentacje i wizyty w celu wyceny.", cap: "googleCalendar" },
-        { name: "Twoja poczta", text: "Gmail, Outlook lub dowolna skrzynka: odpowiedzi w Twoim imieniu, także na zapytania z portali.", cap: "email" },
-        { name: "ASARI CRM", text: "Twoje oferty kopiowane do Elliota co godzinę. Gotowe; czeka na pierwsze konto biura, by potwierdzić każde pole.", cap: "asari" },
-        { name: "Twój CRM", text: "Nowi klienci i rezerwacje przekazywane bezpośrednio lub przez Zapier albo Make.", cap: "crm" },
-        { name: "Kalendarz Outlook", text: "Rezerwacje w kalendarzach Outlook i Microsoft 365.", cap: "outlookCalendar" },
+        { name: "Twoja strona", text: "Czat na każdej podstronie", icon: "web" },
+        { name: "WhatsApp Business", text: "Twój własny numer", icon: "whatsapp" },
+        { name: "Gmail", text: "Odpowiedzi w tym samym wątku", icon: "gmail" },
+        { name: "Outlook lub inna skrzynka", text: "Przez przekierowanie", icon: "mail" },
+        { name: "Kalendarz Google", text: "Kalendarz każdego agenta", icon: "googleCalendar" },
+        { name: "Dysk Google", text: "Zdjęcia ofert", icon: "googleDrive" },
+        { name: "ASARI CRM", text: "Oferty co godzinę", icon: "asari" },
+        { name: "Zapier", text: "Klienci do Twojego CRM", icon: "zapier" },
+        { name: "Make", text: "Klienci do Twojego CRM", icon: "make" },
       ],
     },
     promises: {

@@ -79,7 +79,7 @@ function Field({
 }
 
 const inputClass =
-  "w-full rounded-md border border-surface-line bg-card px-3.5 py-2.5 text-base text-fg md:text-[14.5px] placeholder:text-slate-400 transition-colors duration-150 hover:border-slate-400 focus:border-ink focus:outline-none dark:focus:border-brass-light";
+  "w-full panel-inner rounded-xl px-3.5 py-2.5 text-base text-fg md:text-[14.5px] placeholder:text-slate-400 transition-colors duration-150 hover:border-slate-400 focus:border-ink focus:outline-none dark:focus:border-brass-light";
 
 export default function DemoRequestForm({ locale = "en" }: { locale?: Locale }) {
   const t = T[locale];
@@ -108,7 +108,7 @@ export default function DemoRequestForm({ locale = "en" }: { locale?: Locale }) 
 
   if (status === "sent") {
     return (
-      <div role="status" className="rounded-lg border border-surface-line bg-card p-8 text-center">
+      <div role="status" className="panel rounded-[24px] p-8 text-center">
         <p className="text-xl font-semibold text-fg">{t.doneTitle}</p>
         <p className="mt-2 text-[14.5px] text-slate-600">{t.doneText}</p>
       </div>

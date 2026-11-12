@@ -17,10 +17,10 @@ export default function Page() {
         title="Zobacz Elliota w akcji."
         description="Wciel się w klienta przykładowego biura z Warszawy. Zapytaj o mieszkania, porównaj oferty i umów prezentację, tak jak zrobiliby to Twoi klienci."
       />
-      <section className="border-b border-surface-line bg-surface pb-24">
+      <section className="bg-night pb-24 pt-4">
         <div className="container-content">
           <LiveDemo locale="pl" />
-          <div className="mt-14 rounded-lg border border-surface-line bg-surface-dim p-8 text-center">
+          <div className="mt-14 panel rounded-[24px] p-8 text-center">
             <h2 className="font-display text-xl text-fg">Chcesz to samo dla swojego biura?</h2>
             <p className="mx-auto mt-2 max-w-md text-[14.5px] text-slate-600">
               Umów bezpłatną rozmowę, a pokażemy Elliota skonfigurowanego z Twoimi ofertami.

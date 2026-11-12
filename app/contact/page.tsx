@@ -16,7 +16,7 @@ export default function ContactPage() {
         title="Write to us."
         description="Tell us a little about your agency and we'll get back to you. Prefer to pick a time yourself? Book a call on the booking page."
       />
-      <section className="border-b border-surface-line bg-surface pb-24">
+      <section className="bg-night pb-24 pt-4">
         <div className="container-content max-w-2xl">
           <DemoRequestForm />
         </div>

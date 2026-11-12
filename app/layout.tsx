@@ -5,12 +5,11 @@ import Footer from "@/components/Footer";
 import { ElliotChatProvider } from "@/components/chat/ElliotChatProvider";
 import ElliotChatLauncher from "@/components/chat/ElliotChatLauncher";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
-import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
 import { SITE_URL } from "@/lib/site";
 import { withStatus } from "@/lib/capabilities";
 
 
-// Fonts (IBM Plex Sans / Mono) are bundled via @fontsource in globals.css,
+// Fonts (Plus Jakarta Sans, IBM Plex Mono) are bundled via @fontsource in globals.css,
 // so there is no request to Google Fonts.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -65,26 +64,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body>
-        <ThemeProvider>
-          <ElliotChatProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-            >
-              Skip to content
-            </a>
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <Footer />
-            <ElliotChatLauncher />
-            <ScrollRevealInit />
-          </ElliotChatProvider>
-        </ThemeProvider>
+        <ElliotChatProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+          >
+            Skip to content
+          </a>
+          <Navbar />
+          <main id="main-content">{children}</main>
+          <Footer />
+          <ElliotChatLauncher />
+          <ScrollRevealInit />
+        </ElliotChatProvider>
       </body>
     </html>
   );
