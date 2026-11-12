@@ -31,6 +31,13 @@ npm run build      # production build (run before merging)
 `/solutions` and `/industries` redirect to `/product` and
 `/industries/real-estate` (`next.config.mjs`).
 
+## Checks
+
+Every pull request runs **Checks** on GitHub (`.github/workflows/checks.yml`):
+a scan for keys (this repository is public), ESLint and a production build.
+The build also fails if the English and Polish pages drift apart. Wait for the
+green tick before merging; Vercel deploys `main` by itself.
+
 ## Where the words live
 
 - **`lib/capabilities.ts`: how far each feature is** (`live`, `testing`,

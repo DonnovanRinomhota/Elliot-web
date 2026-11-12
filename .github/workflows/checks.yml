@@ -1,0 +1,39 @@
+# Runs on every pull request (and on main after a merge). A red cross on the
+# pull request means: don't merge until it's fixed. Vercel deploys main by
+# itself, so this is the last check before a change is on getelliot.eu.
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  website:
+    name: Website (keys, lint, build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: No keys in the repository
+        run: python3 scripts/check-secrets.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: ESLint
+        run: npm run lint
+      - name: Production build
+        # Also fails if the English and Polish pages drift apart
+        # (lib/capabilities.ts, assertSameShape).
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
