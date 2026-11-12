@@ -74,8 +74,9 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
             "n8n GmbH (workflow automation that receives form and chat submissions; EU, Germany)",
             "Supabase Inc. (database where submissions and conversations are stored)",
             "Anthropic PBC (the AI model that writes the chat replies)",
+            "Voyage AI (part of MongoDB, Inc.) (turns questions and our own help articles into search data, so Elliot can find the right answer)",
             "Resend (Plus Five Five, Inc.) (sending and receiving email)",
-            "Google (Google Calendar and Google Meet for booked calls)",
+            "Google (Gmail for email we send and receive, Google Calendar and Google Meet for booked calls)",
             "Meta Platforms Ireland Ltd (WhatsApp, if you write to us there)",
           ],
           "We may also disclose data where the law requires it, for example to a court or public authority.",
@@ -117,7 +118,13 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
       {
         h: "Cookies and browser storage",
         body: [
-          "We do not use analytics or advertising cookies. The website stores one thing in your browser's local storage: your light or dark theme choice. You can clear it at any time in your browser settings.",
+          "We do not use analytics or advertising cookies. The website keeps a few things in your browser's local storage, only on your device:",
+          [
+            "your light or dark theme choice,",
+            "the name, email and phone you gave the chat, so you don't have to type them again,",
+            "if you signed up for the live demo, the demo you were given and the details you entered, so you can come back to it.",
+          ],
+          "None of this is used to track you. You can clear it at any time in your browser settings.",
         ],
       },
       {
@@ -193,8 +200,9 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
             "n8n GmbH (automatyzacja, która odbiera zgłoszenia i wiadomości z czatu; UE, Niemcy)",
             "Supabase Inc. (baza danych, w której przechowywane są zgłoszenia i rozmowy)",
             "Anthropic PBC (model AI, który pisze odpowiedzi na czacie)",
+            "Voyage AI (część MongoDB, Inc.) (zamienia pytania i nasze artykuły pomocy na dane do wyszukiwania, aby Elliot znalazł właściwą odpowiedź)",
             "Resend (Plus Five Five, Inc.) (wysyłanie i odbieranie e-maili)",
-            "Google (Kalendarz Google i Google Meet dla umówionych rozmów)",
+            "Google (Gmail do wysyłanych i odbieranych e-maili, Kalendarz Google i Google Meet dla umówionych rozmów)",
             "Meta Platforms Ireland Ltd (WhatsApp, jeśli do nas tam napiszesz)",
           ],
           "Możemy też ujawnić dane, gdy wymaga tego prawo, np. sądowi lub organowi publicznemu.",
@@ -236,7 +244,13 @@ export const PRIVACY: { en: LegalDoc; pl: LegalDoc } = {
       {
         h: "Pliki cookie i pamięć przeglądarki",
         body: [
-          "Nie używamy analitycznych ani reklamowych plików cookie. Strona zapisuje w pamięci lokalnej Twojej przeglądarki jedną rzecz: wybrany motyw (jasny lub ciemny). Możesz ją w każdej chwili usunąć w ustawieniach przeglądarki.",
+          "Nie używamy analitycznych ani reklamowych plików cookie. Strona zapisuje w pamięci lokalnej Twojej przeglądarki kilka rzeczy, tylko na Twoim urządzeniu:",
+          [
+            "wybrany motyw (jasny lub ciemny),",
+            "imię, e-mail i telefon podane na czacie, abyś nie musiał(a) wpisywać ich ponownie,",
+            "jeśli zapisałeś(-aś) się na demo na żywo, przydzielone demo i wpisane dane, abyś mógł(a) do niego wrócić.",
+          ],
+          "Nic z tego nie służy do śledzenia Cię. Możesz to w każdej chwili usunąć w ustawieniach przeglądarki.",
         ],
       },
       {
