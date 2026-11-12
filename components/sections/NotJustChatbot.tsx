@@ -12,9 +12,9 @@ export default function NotJustChatbot({ locale = "en" }: { locale?: Locale }) {
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="glass rounded-[24px] p-8">
-            <p className="text-[13px] font-medium text-white/50">{t.chatbotLabel}</p>
+            <p className="text-[13px] font-medium text-white/75">{t.chatbotLabel}</p>
             <p className="mt-4 font-display text-2xl text-paper/80">{t.chatbotTitle}</p>
-            <p className="mt-3 text-sm leading-relaxed text-paper/50">{t.chatbotText}</p>
+            <p className="mt-3 text-sm leading-relaxed text-paper/80">{t.chatbotText}</p>
           </div>
 
           <div className="panel rounded-[24px] p-8">
@@ -25,11 +25,11 @@ export default function NotJustChatbot({ locale = "en" }: { locale?: Locale }) {
                   <span className="cursor-default rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[13px] font-medium text-paper transition-all duration-300">
                     {step}
                   </span>
-                  {i < t.steps.length - 1 && <span className="text-white/25">→</span>}
+                  {i < t.steps.length - 1 && <span className="text-white/55">→</span>}
                 </div>
               ))}
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-paper/60">{t.elliotText}</p>
+            <p className="mt-6 text-sm leading-relaxed text-paper/85">{t.elliotText}</p>
           </div>
         </div>
       </div>

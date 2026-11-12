@@ -14,7 +14,7 @@ export default function Page() {
       <PageHero
         eyebrow="Umów rozmowę"
         title="Sprawdź, czy Elliot pasuje do Twojego biura."
-        description="Bezpłatna rozmowa przez Google Meet z Donnovanem, który tworzy i prowadzi Elliota. Wybierz krótką rozmowę lub pełną prezentację, a potem dogodny termin."
+        description="Bezpłatna rozmowa przez Google Meet z zespołem, który tworzy Elliota. Wybierz krótką rozmowę lub pełną prezentację, a potem dogodny termin."
       />
       <section className="section-light pb-24 pt-14">
         <div className="container-content max-w-3xl">

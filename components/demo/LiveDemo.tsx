@@ -220,7 +220,7 @@ export default function LiveDemo({ locale }: { locale: Locale }) {
           >
             {busy ? t.sending : t.submit}
           </button>
-          <p className="mt-3 text-sm text-slate-500">
+          <p className="mt-3 text-sm text-slate-600">
             {t.privacy}
             <a href={t.privacyHref} className="underline">
               {t.privacyLink}
@@ -276,7 +276,7 @@ export default function LiveDemo({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-xs text-slate-500">{t.note}</p>
+        <p className="mt-5 text-xs text-slate-600">{t.note}</p>
       </aside>
     </div>
   );

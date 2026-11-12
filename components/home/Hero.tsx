@@ -56,9 +56,9 @@ export default function Hero({ t, bookHref, howHref }: { t: HeroText; bookHref: 
             <ButtonLink href={bookHref} size="lg" arrow>
               {t.primary}
             </ButtonLink>
-            <a href={howHref} className="group inline-flex items-center gap-3 text-[16px] font-medium text-white">
+            <a href={howHref} className="group inline-flex items-center gap-3 rounded-full bg-[#071a3a]/45 py-1.5 pl-5 pr-1.5 text-[16px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-[#071a3a]/60">
               {t.secondary}
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 transition-colors group-hover:bg-white/10">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-white/10">
                 <svg viewBox="0 0 20 20" className="ml-0.5 h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
                   <path d="M6 4.5v11l9-5.5z" />
                 </svg>

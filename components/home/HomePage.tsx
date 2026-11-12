@@ -97,7 +97,7 @@ function FlowVisual({ step, v }: { step: number; v: Flow["visual"] }) {
   return (
     <div className="panel-inner w-full max-w-[290px] rounded-2xl p-4">
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-[#f07167]/15 px-2 py-0.5 text-[11.5px] font-semibold text-[#f79a92]">{v.hot}</span>
+        <span className="rounded-full bg-[#f07167]/25 px-2 py-0.5 text-[11.5px] font-semibold text-[#ffc9c3]">{v.hot}</span>
         <span className="truncate text-[13.5px] text-fg">{v.handover}</span>
       </div>
       <div className="mt-3 flex items-center gap-2">

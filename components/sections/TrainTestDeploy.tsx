@@ -74,7 +74,7 @@ function StoryPicture({ step, t }: { step: number; t: Lifecycle }) {
     return (
       <div className="w-full">
         <div className="flex items-center gap-2.5">
-          <span className="rounded-lg border border-white/15 px-2.5 py-1.5 text-[13px] text-white/45 line-through decoration-[#f07167]">{v.from}</span>
+          <span className="rounded-lg border border-white/15 px-2.5 py-1.5 text-[13px] text-white/65 line-through decoration-[#f07167]">{v.from}</span>
           <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#e8c08e]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
             <path d="M4 12h15M14 6.5 19.5 12 14 17.5" />
           </svg>

@@ -28,7 +28,7 @@ export default function HumanHandoff({ locale = "en" }: { locale?: Locale }) {
             <div className="mt-4 space-y-4">
               {t.rows.map((row) => (
                 <div key={row.label} className="-mx-2 rounded-md px-2 py-1 transition-colors duration-200">
-                  <p className="text-[13px] font-medium text-slate-500">{row.label}</p>
+                  <p className="text-[13px] font-medium text-slate-600">{row.label}</p>
                   <p className="text-[14px] text-fg">{row.value}</p>
                 </div>
               ))}

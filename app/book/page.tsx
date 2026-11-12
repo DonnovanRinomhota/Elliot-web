@@ -14,7 +14,7 @@ export default function BookPage() {
       <PageHero
         eyebrow="Book a call"
         title="See if Elliot fits your agency."
-        description="A free call on Google Meet with Donnovan, who builds and runs Elliot. Pick a quick intro or a full live demo, then a time that suits you."
+        description="A free call on Google Meet with the team behind Elliot. Pick a quick intro or a full live demo, then a time that suits you."
       />
       <section className="section-light pb-24 pt-14">
         <div className="container-content max-w-3xl">

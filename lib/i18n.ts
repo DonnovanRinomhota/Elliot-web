@@ -75,7 +75,7 @@ export const UI = {
           ],
         },
       ],
-      operator: "Elliot is run by Donnovan Rinomhota, sole trader, Poland.",
+      operator: "Made in Poland.",
     },
   },
   pl: {
@@ -122,7 +122,7 @@ export const UI = {
           ],
         },
       ],
-      operator: "Elliota prowadzi Donnovan Rinomhota, jednoosobowa działalność, Polska.",
+      operator: "Stworzone w Polsce.",
     },
   },
 } as const;

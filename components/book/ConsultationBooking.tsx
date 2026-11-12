@@ -201,12 +201,12 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
         <p className="mt-1 text-[15px] text-slate-600">{t.types[type].title}</p>
         <dl className="mt-5 grid gap-3 text-[15px]">
           <div>
-            <dt className="text-sm text-slate-500">{t.doneWhen}</dt>
+            <dt className="text-sm text-slate-600">{t.doneWhen}</dt>
             <dd className="text-fg">{fmtFull(done.starts_at)}</dd>
           </div>
           {done.meet_link && (
             <div>
-              <dt className="text-sm text-slate-500">{t.doneMeet}</dt>
+              <dt className="text-sm text-slate-600">{t.doneMeet}</dt>
               <dd>
                 <a href={done.meet_link} className="break-all text-fg underline" target="_blank" rel="noreferrer">
                   {done.meet_link}
@@ -255,7 +255,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
             </button>
           ))}
         </div>
-        <p className="mt-3 text-sm text-slate-500">{t.meet}</p>
+        <p className="mt-3 text-sm text-slate-600">{t.meet}</p>
       </section>
 
       {/* 2. Time */}
@@ -264,7 +264,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
           <h2 id="book-step2" className="text-[15px] font-semibold text-fg">
             {t.step2}
           </h2>
-          <span className="text-sm text-slate-500">{t.tzNote}</span>
+          <span className="text-sm text-slate-600">{t.tzNote}</span>
         </div>
 
         {!slot && error && (
@@ -288,7 +288,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
             </button>
           </div>
         ) : !slots ? (
-          <p className="mt-4 text-[15px] text-slate-500" aria-live="polite">
+          <p className="mt-4 text-[15px] text-slate-600" aria-live="polite">
             {t.loading}
           </p>
         ) : !days.length ? (
@@ -396,7 +396,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
               >
                 {busy ? t.sending : t.submit}
               </button>
-              <p className="mt-3 text-sm text-slate-500">
+              <p className="mt-3 text-sm text-slate-600">
                 {t.privacy}
                 <a href={t.privacyHref} className="underline">
                   {t.privacyLink}
