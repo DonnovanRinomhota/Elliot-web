@@ -85,7 +85,7 @@ export default function DemoWalkthrough() {
         <ol className="mt-3 space-y-3">
           {visible.map((s, i) => (
             <li key={i} className="flex gap-3 animate-fadeUp">
-              <span className="w-5 shrink-0 text-white/35">{s.event.time}</span>
+              <span className="w-5 shrink-0 text-white/55">{s.event.time}</span>
               <div>
                 <p className="text-paper/90">{s.event.label}</p>
                 {s.event.detail && <p className="mt-0.5 text-violet">{s.event.detail}</p>}

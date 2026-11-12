@@ -27,7 +27,7 @@ export function Badge({
     violet: "bg-brass-soft text-brass-dark dark:bg-brass/20 dark:text-brass-light",
     sky: "bg-brass-soft text-brass-dark dark:bg-brass/20 dark:text-brass-light",
     amber: "gold-tile border border-[#d9a56c]/25 bg-[#d9a56c]/15 text-[#e8c08e]",
-    pulse: "bg-ink text-white dark:bg-white/10 dark:text-white",
+    pulse: "bg-[#14325c] text-white",
     neutral: "bg-surface-dim text-slate-600",
     coral: "bg-alert-soft text-alert dark:bg-alert/20 dark:text-[#F4A29A]",
   };

@@ -25,7 +25,7 @@ export default function HowItWorks({ locale = "en" }: { locale?: Locale }) {
               </h3>
               <p className="mt-2 text-[14.5px] leading-relaxed text-slate-600">{s.detail}</p>
               {i < steps.length - 1 && (
-                <span className="absolute -right-4 top-3 hidden text-slate-200 transition-transform duration-300 group-hover:translate-x-1 lg:block">
+                <span className="absolute -right-4 top-3 hidden text-slate-400 transition-transform duration-300 group-hover:translate-x-1 lg:block">
                   →
                 </span>
               )}

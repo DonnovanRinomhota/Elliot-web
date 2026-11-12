@@ -119,8 +119,10 @@
     --slate-900: 15 31 56;
     --slate-700: 46 62 88;
     --slate-600: 78 95 122;
-    --slate-400: 125 139 163;
+    --slate-400: 98 113 138;
     --slate-200: 214 222 234;
+    --surface: 255 255 255;
+    --surface-dim: 243 246 251;
     --surface-line: 218 226 237;
     --card: 255 255 255;
     color: rgb(var(--slate-900));
@@ -138,6 +140,10 @@
       radial-gradient(900px 500px at 85% 0%, rgba(205, 225, 255, 0.28), transparent 62%),
       radial-gradient(800px 420px at 10% 100%, rgba(255, 255, 255, 0.10), transparent 65%),
       linear-gradient(180deg, #0a1f42 0%, #173b6c 58%, #31598f 100%);
+    /* Brighter secondary text: the sky gets lighter towards the bottom. */
+    --slate-700: 226 233 244;
+    --slate-600: 204 215 233;
+    --slate-400: 172 187 211;
   }
   .section-light .panel {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.78));
