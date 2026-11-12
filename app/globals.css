@@ -110,13 +110,74 @@
     border: 1px solid rgba(255, 255, 255, 0.07);
   }
 
-  /* Section backgrounds. */
-  .bg-night {
-    background: radial-gradient(1200px 500px at 50% -10%, rgba(64, 110, 170, 0.18), transparent 60%), #060c18;
+  /* Section backgrounds, graded like the hero artwork: white with soft blue
+     light, and navy fading into blue with a white haze. Never one flat blue.
+     Text colours follow the section (text-fg, text-slate-*), so the same
+     component reads dark on light and light on navy. */
+  .section-light {
+    --fg: 15 31 56;
+    --slate-900: 15 31 56;
+    --slate-700: 46 62 88;
+    --slate-600: 78 95 122;
+    --slate-400: 125 139 163;
+    --slate-200: 214 222 234;
+    --surface-line: 218 226 237;
+    --card: 255 255 255;
+    color: rgb(var(--slate-900));
+    background:
+      radial-gradient(1000px 520px at 88% 0%, rgba(150, 190, 240, 0.32), transparent 62%),
+      radial-gradient(900px 480px at 0% 100%, rgba(217, 165, 108, 0.09), transparent 60%),
+      linear-gradient(180deg, #f6f8fc 0%, #ebf0f7 100%);
   }
-  .bg-deep {
-    background: radial-gradient(900px 420px at 85% 0%, rgba(201, 149, 90, 0.08), transparent 60%),
-      linear-gradient(180deg, #08111f 0%, #0a1426 100%);
+  .section-sky {
+    background:
+      radial-gradient(900px 500px at 85% 0%, rgba(205, 225, 255, 0.28), transparent 62%),
+      radial-gradient(800px 420px at 10% 100%, rgba(255, 255, 255, 0.10), transparent 65%),
+      linear-gradient(180deg, #0a1f42 0%, #173b6c 58%, #31598f 100%);
+  }
+  .section-light .panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.78));
+    border: 1px solid rgba(15, 31, 56, 0.08);
+    box-shadow: 0 26px 50px -34px rgba(15, 40, 80, 0.4), inset 0 1px 0 #fff;
+  }
+  .section-light .panel-inner {
+    background: #f3f6fb;
+    border: 1px solid rgba(15, 31, 56, 0.07);
+  }
+  .section-light .glass {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 24px 50px -30px rgba(15, 40, 80, 0.35);
+  }
+  .section-light .gold-tile {
+    color: #a06a33;
+    background-color: rgba(217, 165, 108, 0.16);
+    border-color: rgba(176, 122, 66, 0.3);
+  }
+  .section-light .ok-pill {
+    color: #15803d;
+    background-color: rgba(34, 197, 94, 0.1);
+    border-color: rgba(21, 128, 61, 0.25);
+  }
+  .section-light .ok-row {
+    background-color: #fff;
+    border-color: rgba(21, 128, 61, 0.16);
+  }
+  .section-light .text-brass-dark,
+  .section-light .text-brass-light,
+  .section-light .text-brass {
+    color: #a06a33;
+  }
+  .section-light .text-gold {
+    background: linear-gradient(100deg, #d9a056 0%, #b97e47 55%, #9c6634 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  /* On navy, cards are frosted glass with a little white in them. */
+  .section-sky .panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   /* Small static "online" marker. */

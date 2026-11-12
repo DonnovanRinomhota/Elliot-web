@@ -6,7 +6,7 @@ import type { Locale } from "@/lib/i18n";
 export default function Permissions({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].permissions;
   return (
-    <section className="bg-night py-24 md:py-32">
+    <section className="section-light py-24 md:py-32">
       <div className="container-content">
         <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
 

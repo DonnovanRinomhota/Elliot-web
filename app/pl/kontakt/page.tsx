@@ -16,7 +16,7 @@ export default function Page() {
         title="Napisz do nas."
         description="Napisz kilka słów o swoim biurze, a odezwiemy się. Wolisz od razu wybrać termin? Umów rozmowę na stronie rezerwacji."
       />
-      <section className="bg-night pb-24 pt-4">
+      <section className="section-light pb-24 pt-14">
         <div className="container-content max-w-2xl">
           <DemoRequestForm locale="pl" />
         </div>

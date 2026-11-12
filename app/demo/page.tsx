@@ -19,7 +19,7 @@ export default function DemoPage() {
         description="Play a client of a sample Warsaw agency. Ask about flats, compare options and book a viewing, just as your clients would."
       />
 
-      <section className="bg-night pb-24 pt-4">
+      <section className="section-light pb-24 pt-14">
         <div className="container-content">
           <LiveDemo locale="en" />
 

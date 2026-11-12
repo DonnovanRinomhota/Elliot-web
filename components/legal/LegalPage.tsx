@@ -28,7 +28,7 @@ export default function LegalPage({ doc }: { doc: LegalDoc }) {
         </div>
       </section>
 
-      <section className="bg-night py-16">
+      <section className="section-light py-16">
         <div className="container-content max-w-3xl">
           <ol className="space-y-10">
             {doc.sections.map((s, i) => (

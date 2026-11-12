@@ -37,7 +37,7 @@ const BRAND: Partial<Record<FeatureIcon, "gmail" | "whatsapp" | "googleCalendar"
 export default function FeatureGrid({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].features;
   return (
-    <section className="bg-night py-24 md:py-32">
+    <section className="section-light py-24 md:py-32">
       <div className="container-content">
         <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
 
@@ -51,12 +51,12 @@ export default function FeatureGrid({ locale = "en" }: { locale?: Locale }) {
                   <IconTile name={brand} />
                 ) : (
                   Icon && (
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#d9a56c]/25 bg-[#d9a56c]/[0.08] text-[#e8c08e]">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl gold-tile border border-[#d9a56c]/25 bg-[#d9a56c]/[0.08] text-[#e8c08e]">
                       <Icon className="h-5 w-5" />
                     </span>
                   )
                 )}
-                <h3 className="mt-6 text-[18.5px] font-semibold tracking-[-0.01em] text-white">{f.title}</h3>
+                <h3 className="mt-6 text-[18.5px] font-semibold tracking-[-0.01em] text-fg">{f.title}</h3>
                 <p className="mt-2.5 text-[14.5px] leading-relaxed text-slate-600">{f.detail}</p>
               </Card>
             );

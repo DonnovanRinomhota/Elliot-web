@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/i18n";
 export default function DashboardMockup({ locale = "en" }: { locale?: Locale }) {
   const t = PRODUCT[locale].dashboard;
   return (
-    <section className="bg-deep overflow-hidden py-24 md:py-32">
+    <section className="section-sky overflow-hidden py-24 md:py-32">
       <div className="container-content">
         <SectionHeading eyebrow={t.eyebrow} title={t.title} description={t.description} />
         <div className="relative mx-auto mt-16 max-w-[980px]">
