@@ -17,7 +17,7 @@ export default function Page() {
         description="Bezpłatna rozmowa przez Google Meet z zespołem, który tworzy Elliota. Wybierz krótką rozmowę lub pełną prezentację, a potem dogodny termin."
       />
       <section className="section-light pb-24 pt-14">
-        <div className="container-content max-w-3xl">
+        <div className="container-content max-w-4xl">
           <ConsultationBooking locale="pl" />
           <p className="mt-8 text-[15px] text-slate-600">
             Wolisz najpierw sam wypróbować?{" "}

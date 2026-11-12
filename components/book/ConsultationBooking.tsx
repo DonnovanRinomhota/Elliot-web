@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { bookConsultation, CallType, getConsultationSlots, LIVE_BACKEND, Slot } from "@/services/elliotApi";
 
@@ -18,7 +18,13 @@ const T = {
     meet: "On Google Meet. The link comes with the confirmation.",
     tzNote: "Times are in Warsaw time (CET).",
     loading: "Loading free times…",
-    noSlots: "No free times in the next two weeks. Write to hello@getelliot.eu and we'll find one.",
+    noSlots: "No free times this month. Try the next one, or write to hello@getelliot.eu and we'll find a time.",
+    noDay: "Pick a day with free times.",
+    prevMonth: "Previous month",
+    nextMonth: "Next month",
+    week: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+    freeTimes: (n: number) => (n === 1 ? "1 free time" : `${n} free times`),
+    horizon: "You can book up to three months ahead.",
     loadError: "Couldn't load free times. Please try again in a moment.",
     retry: "Try again",
     chosen: "Chosen:",
@@ -64,7 +70,13 @@ const T = {
     meet: "Przez Google Meet. Link przyjdzie z potwierdzeniem.",
     tzNote: "Godziny podane są w czasie warszawskim.",
     loading: "Wczytuję wolne terminy…",
-    noSlots: "Brak wolnych terminów w najbliższych dwóch tygodniach. Napisz na hello@getelliot.eu, a coś znajdziemy.",
+    noSlots: "Brak wolnych terminów w tym miesiącu. Sprawdź następny albo napisz na hello@getelliot.eu, a coś znajdziemy.",
+    noDay: "Wybierz dzień z wolnymi terminami.",
+    prevMonth: "Poprzedni miesiąc",
+    nextMonth: "Następny miesiąc",
+    week: ["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"],
+    freeTimes: (n: number) => (n === 1 ? "1 wolny termin" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? `${n} wolne terminy` : `${n} wolnych terminów`),
+    horizon: "Rezerwować można do trzech miesięcy naprzód.",
     loadError: "Nie udało się wczytać terminów. Spróbuj ponownie za chwilę.",
     retry: "Spróbuj ponownie",
     chosen: "Wybrano:",
@@ -104,54 +116,125 @@ const T = {
 const AGENTS = ["1", "2–5", "6–20", "21+"];
 const LISTINGS = ["< 50", "50–200", "200–1000", "1000+"];
 
-function dayKey(iso: string) {
+function dayKey(iso: string | Date) {
   return new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
+}
+
+/** How far ahead the calendar goes when the server doesn't say (workflow 35: HORIZON_DAYS). */
+const HORIZON_DAYS = 90;
+
+// Calendar dates as YYYY-MM-DD strings; arithmetic at noon UTC so no
+// timezone or daylight-saving change can move a date.
+const atNoon = (ymd: string) => new Date(`${ymd}T12:00:00Z`);
+const ymdOf = (d: Date) => d.toISOString().slice(0, 10);
+const addDays = (ymd: string, n: number) => ymdOf(new Date(atNoon(ymd).getTime() + n * 86400000));
+const monthStart = (ymd: string) => `${ymd.slice(0, 7)}-01`;
+const addMonths = (first: string, n: number) => {
+  const d = atNoon(first);
+  d.setUTCMonth(d.getUTCMonth() + n, 1);
+  return ymdOf(d);
+};
+const monthEnd = (first: string) => addDays(addMonths(first, 1), -1);
+/** The month's weeks, Monday first; null for the blanks around it. */
+function monthGrid(first: string): (string | null)[] {
+  const lead = (atNoon(first).getUTCDay() + 6) % 7;
+  const last = Number(monthEnd(first).slice(8));
+  const cells: (string | null)[] = Array(lead).fill(null);
+  for (let i = 0; i < last; i++) cells.push(addDays(first, i));
+  while (cells.length % 7) cells.push(null);
+  return cells;
 }
 
 export default function ConsultationBooking({ locale }: { locale: Locale }) {
   const t = T[locale];
   const intl = locale === "pl" ? "pl-PL" : "en-GB";
-  const fmtDay = (iso: string) =>
-    new Intl.DateTimeFormat(intl, { timeZone: TZ, weekday: "short", day: "numeric", month: "short" }).format(new Date(iso));
+  const fmtMonth = (first: string) => new Intl.DateTimeFormat(intl, { timeZone: "UTC", month: "long", year: "numeric" }).format(atNoon(first));
+  const fmtDate = (ymd: string) =>
+    new Intl.DateTimeFormat(intl, { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" }).format(atNoon(ymd));
   const fmtTime = (iso: string) => new Intl.DateTimeFormat(intl, { timeZone: TZ, hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
   const fmtFull = (iso: string) =>
     new Intl.DateTimeFormat(intl, { timeZone: TZ, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
 
   const [type, setType] = useState<CallType>("demo");
-  const [slots, setSlots] = useState<Slot[] | null>(null);
+  const today = useMemo(() => dayKey(new Date()), []);
+  const [month, setMonth] = useState(() => monthStart(dayKey(new Date())));
+  const [lastDate, setLastDate] = useState(() => addDays(dayKey(new Date()), HORIZON_DAYS));
+  // Days of the shown month with free times (null while loading).
+  const [monthDays, setMonthDays] = useState<Map<string, number> | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [day, setDay] = useState<string | null>(null);
+  const [daySlots, setDaySlots] = useState<Slot[] | null>(null);
+  const [dayError, setDayError] = useState(false);
   const [slot, setSlot] = useState<Slot | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "", agency: "", agents: "", listings: "", crm: "", message: "", website: "" });
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<{ starts_at: string; meet_link: string | null; sent_to: string | null } | null>(null);
 
-  const load = useCallback(async (which: CallType) => {
-    setSlots(null);
-    setLoadError(false);
+  // Times already fetched with the month, by day (only when the month came back complete).
+  const cache = useRef(new Map<string, Slot[]>());
+  const monthReq = useRef(0);
+  const dayReq = useRef(0);
+
+  const loadDay = useCallback(async (which: CallType, d: string) => {
+    const id = ++dayReq.current;
+    setDay(d);
     setSlot(null);
+    setDayError(false);
+    const cached = cache.current.get(d);
+    if (cached) {
+      setDaySlots(cached);
+      return;
+    }
+    setDaySlots(null);
     try {
-      const r = await getConsultationSlots(which);
-      setSlots(r.slots);
-      setDay(r.slots.length ? dayKey(r.slots[0].starts_at) : null);
+      const r = await getConsultationSlots(which, { from: d, to: d });
+      if (id !== dayReq.current) return;
+      const list = r.slots.filter((s) => dayKey(s.starts_at) === d);
+      cache.current.set(d, list);
+      setDaySlots(list);
     } catch {
-      setLoadError(true);
+      if (id === dayReq.current) setDayError(true);
     }
   }, []);
 
-  useEffect(() => {
-    if (LIVE_BACKEND) void load(type);
-  }, [type, load]);
+  const loadMonth = useCallback(
+    async (which: CallType, first: string, keepDay: string | null = null) => {
+      const id = ++monthReq.current;
+      dayReq.current++;
+      cache.current = new Map();
+      setMonthDays(null);
+      setLoadError(false);
+      setSlot(null);
+      setDay(null);
+      setDaySlots(null);
+      const from = first < today ? today : first;
+      try {
+        const r = await getConsultationSlots(which, { from, to: monthEnd(first) });
+        if (id !== monthReq.current) return;
+        if (r.lastDate) setLastDate(r.lastDate);
+        const days = new Map(r.days.filter((x) => x.count > 0 && x.date.slice(0, 7) === first.slice(0, 7)).map((x) => [x.date, x.count]));
+        if (!r.more) {
+          for (const s of r.slots) {
+            const k = dayKey(s.starts_at);
+            cache.current.set(k, [...(cache.current.get(k) || []), s]);
+          }
+        }
+        setMonthDays(days);
+        const pick = keepDay && days.has(keepDay) ? keepDay : Array.from(days.keys()).sort()[0];
+        if (pick) void loadDay(which, pick);
+      } catch {
+        if (id === monthReq.current) setLoadError(true);
+      }
+    },
+    [today, loadDay],
+  );
 
-  const days = useMemo(() => {
-    const map = new Map<string, Slot[]>();
-    for (const s of slots || []) {
-      const k = dayKey(s.starts_at);
-      map.set(k, [...(map.get(k) || []), s]);
-    }
-    return Array.from(map.entries());
-  }, [slots]);
+  useEffect(() => {
+    if (LIVE_BACKEND) void loadMonth(type, month);
+  }, [type, month, loadMonth]);
+
+  const reload = () => void loadMonth(type, month, day);
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -172,7 +255,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
     }
     if (r.taken) {
       setError(t.taken);
-      void load(type);
+      reload();
       return;
     }
     setError(t.failed);
@@ -221,7 +304,7 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
           onClick={() => {
             setDone(null);
             setSlot(null);
-            void load(type);
+            reload();
           }}
           className="mt-6 text-[14.5px] font-medium text-fg underline"
         >
@@ -280,52 +363,130 @@ export default function ConsultationBooking({ locale }: { locale: Locale }) {
               {t.change}
             </button>
           </div>
-        ) : loadError ? (
-          <div className="mt-4 text-[15px] text-slate-700">
-            {t.loadError}{" "}
-            <button type="button" onClick={() => load(type)} className="font-medium text-fg underline">
-              {t.retry}
-            </button>
-          </div>
-        ) : !slots ? (
-          <p className="mt-4 text-[15px] text-slate-600" aria-live="polite">
-            {t.loading}
-          </p>
-        ) : !days.length ? (
-          <p className="mt-4 text-[15px] text-slate-700">{t.noSlots}</p>
         ) : (
-          <>
-            <div className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-1">
-              {days.map(([k, list]) => (
+          <div className="mt-5 grid gap-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+            {/* The month */}
+            <div>
+              <div className="flex items-center justify-between">
                 <button
-                  key={k}
                   type="button"
-                  onClick={() => setDay(k)}
-                  aria-pressed={day === k}
-                  className={`shrink-0 rounded-md border px-3 py-2 text-[14px] ${
-                    day === k ? "border-fg bg-fg text-surface" : "border-surface-line bg-surface text-fg hover:border-slate-400"
-                  }`}
+                  onClick={() => setMonth((m) => addMonths(m, -1))}
+                  disabled={month <= monthStart(today)}
+                  aria-label={t.prevMonth}
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-fg transition-colors hover:bg-surface-dim disabled:pointer-events-none disabled:opacity-25"
                 >
-                  {fmtDay(list[0].starts_at)}
+                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <path d="M12.5 4.5 7 10l5.5 5.5" />
+                  </svg>
                 </button>
-              ))}
-            </div>
-            <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-5 md:grid-cols-6">
-              {(days.find(([k]) => k === day)?.[1] || []).map((s) => (
+                <p className="text-[15.5px] font-semibold text-fg first-letter:uppercase" aria-live="polite">
+                  {fmtMonth(month)}
+                </p>
                 <button
-                  key={s.starts_at}
                   type="button"
-                  onClick={() => {
-                    setError(null);
-                    setSlot(s);
-                  }}
-                  className="rounded-md border border-surface-line bg-surface px-2 py-2.5 text-[14.5px] text-fg hover:border-fg"
+                  onClick={() => setMonth((m) => addMonths(m, 1))}
+                  disabled={addMonths(month, 1) > lastDate}
+                  aria-label={t.nextMonth}
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-fg transition-colors hover:bg-surface-dim disabled:pointer-events-none disabled:opacity-25"
                 >
-                  {fmtTime(s.starts_at)}
+                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                    <path d="M7.5 4.5 13 10l-5.5 5.5" />
+                  </svg>
                 </button>
-              ))}
+              </div>
+              <div className="mt-3 grid grid-cols-7 gap-1.5 text-center">
+                {t.week.map((w) => (
+                  <span key={w} className="pb-1 text-[11.5px] font-medium uppercase tracking-[0.08em] text-slate-600">
+                    {w}
+                  </span>
+                ))}
+                {monthGrid(month).map((d, i) => {
+                  if (!d) return <span key={`b${i}`} aria-hidden="true" />;
+                  const count = monthDays?.get(d) || 0;
+                  const open = count > 0;
+                  const selected = d === day;
+                  return (
+                    <button
+                      key={d}
+                      type="button"
+                      disabled={!open}
+                      onClick={() => {
+                        setError(null);
+                        void loadDay(type, d);
+                      }}
+                      aria-pressed={selected}
+                      aria-label={`${fmtDate(d)}${open ? `, ${t.freeTimes(count)}` : ""}`}
+                      className={`relative flex aspect-square flex-col items-center justify-center rounded-xl border text-[14.5px] transition-colors md:aspect-[1/1.05] ${
+                        selected
+                          ? "border-transparent bg-gold font-semibold text-[#0b1426] shadow-[0_10px_24px_-14px_rgba(176,122,66,0.9)]"
+                          : open
+                            ? "border-surface-line bg-surface-dim font-medium text-fg hover:border-[#c99556]"
+                            : "border-transparent text-slate-400"
+                      } ${d === today && !selected ? "ring-1 ring-[#c99556]" : ""}`}
+                    >
+                      {Number(d.slice(8))}
+                      {open && !selected && <span className="absolute bottom-1.5 h-1 w-1 rounded-full bg-[#c99556]" aria-hidden="true" />}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-3 text-[13px] text-slate-600">{t.horizon}</p>
             </div>
-          </>
+
+            {/* The day's times */}
+            <div className="md:border-l md:border-surface-line md:pl-6">
+              {loadError ? (
+                <p className="text-[15px] text-slate-700">
+                  {t.loadError}{" "}
+                  <button type="button" onClick={reload} className="font-medium text-fg underline">
+                    {t.retry}
+                  </button>
+                </p>
+              ) : !monthDays ? (
+                <p className="text-[15px] text-slate-600" aria-live="polite">
+                  {t.loading}
+                </p>
+              ) : !monthDays.size ? (
+                <p className="text-[15px] text-slate-700">{t.noSlots}</p>
+              ) : !day ? (
+                <p className="text-[15px] text-slate-600">{t.noDay}</p>
+              ) : (
+                <>
+                  <p className="text-[15px] font-semibold text-fg first-letter:uppercase">{fmtDate(day)}</p>
+                  {dayError ? (
+                    <p className="mt-3 text-[15px] text-slate-700">
+                      {t.loadError}{" "}
+                      <button type="button" onClick={() => loadDay(type, day)} className="font-medium text-fg underline">
+                        {t.retry}
+                      </button>
+                    </p>
+                  ) : !daySlots ? (
+                    <p className="mt-3 text-[15px] text-slate-600" aria-live="polite">
+                      {t.loading}
+                    </p>
+                  ) : !daySlots.length ? (
+                    <p className="mt-3 text-[15px] text-slate-700">{t.noDay}</p>
+                  ) : (
+                    <div className="mt-3 grid grid-cols-3 gap-2 md:max-h-[340px] md:overflow-y-auto md:pr-1 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-3">
+                      {daySlots.map((s) => (
+                        <button
+                          key={s.starts_at}
+                          type="button"
+                          onClick={() => {
+                            setError(null);
+                            setSlot(s);
+                          }}
+                          className="rounded-lg border border-surface-line bg-surface px-2 py-2.5 text-[14.5px] font-medium text-fg transition-colors hover:border-[#c99556] hover:bg-surface-dim"
+                        >
+                          {fmtTime(s.starts_at)}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
         )}
       </section>
 
