@@ -17,7 +17,7 @@ export default function BookPage() {
         description="A free call on Google Meet with the team behind Elliot. Pick a quick intro or a full live demo, then a time that suits you."
       />
       <section className="section-light pb-24 pt-14">
-        <div className="container-content max-w-3xl">
+        <div className="container-content max-w-4xl">
           <ConsultationBooking locale="en" />
           <p className="mt-8 text-[15px] text-slate-600">
             Rather try it yourself first?{" "}

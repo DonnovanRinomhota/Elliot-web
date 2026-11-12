@@ -164,14 +164,46 @@ async function readJson(res: Response) {
   }
 }
 
-/** Free times for a call, from the owner's Google Calendar (workflow 35 → 11). */
-export async function getConsultationSlots(type: CallType): Promise<{ slots: Slot[]; timezone: string }> {
+export interface SlotsResult {
+  slots: Slot[];
+  /** Days with at least one free time (YYYY-MM-DD, Warsaw) and how many. */
+  days: { date: string; count: number }[];
+  /** Last bookable day (YYYY-MM-DD), or null if the server doesn't say. */
+  lastDate: string | null;
+  /** True when there were more times than came back in `slots`. */
+  more: boolean;
+  timezone: string;
+}
+
+/**
+ * Free times for a call, from the owner's Google Calendar (workflow 35 → 11).
+ * With a range (YYYY-MM-DD, inclusive) the booking calendar asks for a month
+ * or a single day; without one, the next two weeks.
+ */
+export async function getConsultationSlots(type: CallType, range?: { from: string; to: string }): Promise<SlotsResult> {
   const url = webhookUrl("consultation-slots");
   if (!LIVE_BACKEND || !url) throw new Error("not_configured");
-  const res = await fetch(`${url}?type=${type}`, { cache: "no-store" });
+  const q = new URLSearchParams({ type });
+  if (range) {
+    q.set("from", range.from);
+    q.set("to", range.to);
+  }
+  const res = await fetch(`${url}?${q.toString()}`, { cache: "no-store" });
   const data = await readJson(res);
   if (!res.ok || !data?.success) throw new Error(data?.error || `HTTP ${res.status}`);
-  return { slots: data.slots || [], timezone: data.timezone || "Europe/Warsaw" };
+  const timezone: string = data.timezone || "Europe/Warsaw";
+  const slots: Slot[] = Array.isArray(data.slots) ? data.slots : [];
+  // An older workflow 35 sends only slots: work the days out from them.
+  let days: { date: string; count: number }[] = Array.isArray(data.days) ? data.days : [];
+  if (!Array.isArray(data.days)) {
+    const counts = new Map<string, number>();
+    for (const s of slots) {
+      const k = new Intl.DateTimeFormat("en-CA", { timeZone: timezone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(s.starts_at));
+      counts.set(k, (counts.get(k) || 0) + 1);
+    }
+    days = Array.from(counts, ([date, count]) => ({ date, count }));
+  }
+  return { slots, days, lastDate: typeof data.last_date === "string" ? data.last_date : null, more: !!data.more || !Array.isArray(data.days), timezone };
 }
 
 export interface BookingPayload {
