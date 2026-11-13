@@ -243,6 +243,48 @@
   }
 }
 
+/* ── Motion: the hero's glass cards ── */
+@keyframes hero-card-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -9px, 0); }
+}
+@keyframes hero-float-side {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(3px, -7px, 0) rotate(-0.6deg); }
+}
+.hero-card-in { opacity: 0; animation: hero-card-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.hero-float-a { animation: hero-float-side 6.5s ease-in-out 1s infinite; will-change: transform; }
+.hero-float-b { animation: hero-float 7.5s ease-in-out 1.4s infinite; will-change: transform; }
+.hero-float-c { animation: hero-float-side 8.5s ease-in-out 0.6s infinite reverse; will-change: transform; }
+
+/* ── Motion: "Fits into how you already work" ── */
+@keyframes tools-flow { to { stroke-dashoffset: -32; } }
+@keyframes tools-spin { to { transform: rotate(360deg); } }
+@keyframes tools-pulse {
+  0% { transform: scale(0.55); opacity: 0.55; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+@keyframes tools-glow {
+  0%, 100% { box-shadow: 0 0 50px 10px rgba(70, 130, 255, 0.35); }
+  50% { box-shadow: 0 0 70px 18px rgba(217, 165, 108, 0.42); }
+}
+@keyframes tools-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes tools-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.tools-flow { animation: tools-flow 1.6s linear infinite; }
+.tools-spin { animation: tools-spin 60s linear infinite; }
+.tools-spin-back { animation: tools-spin 90s linear infinite reverse; }
+.tools-pulse { animation: tools-pulse 3.2s ease-out infinite; }
+.tools-glow { animation: tools-glow 5s ease-in-out infinite; }
+.tools-bob { animation: tools-bob 4.5s ease-in-out infinite; }
+.tools-dot { animation: tools-dot 2.4s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -253,5 +295,8 @@
   .reveal {
     opacity: 1;
     transform: none;
+  }
+  .hero-card-in {
+    opacity: 1;
   }
 }
