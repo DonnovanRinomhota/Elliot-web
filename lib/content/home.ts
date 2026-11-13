@@ -34,6 +34,8 @@ export type IconName =
   | "eye"
   | "book";
 
+type HeroCard = { title: string; text: string; icon: IconName };
+
 type Content = {
   hero: {
     eyebrow: string;
@@ -44,6 +46,8 @@ type Content = {
     secondary: string;
     /** Describes the hero picture for screen readers. */
     sceneAlt: string;
+    /** The three glass cards floating over the picture (left, top, right). */
+    floating: [HeroCard, HeroCard, HeroCard];
     strip: { title: string; text: string; icon: IconName }[];
   };
   does: {
@@ -101,6 +105,11 @@ const RAW: Record<Locale, Content> = {
       primary: "Request a demo",
       secondary: "See how it works",
       sceneAlt: "A laptop showing Elliot's dashboard overview: conversations this week, chats handled by Elliot, leads received and viewings booked.",
+      floating: [
+        { title: "Qualify leads", text: "Focus on the right prospects.", icon: "people" },
+        { title: "Instant responses", text: "24/7 reply to every enquiry.", icon: "chat" },
+        { title: "Book viewings", text: "Automatically schedule appointments.", icon: "calendar" },
+      ],
       strip: [
         { title: "Always on", text: "Never miss an opportunity again.", icon: "bolt" },
         { title: "Qualify leads", text: "Focus on the right opportunities.", icon: "people" },
@@ -276,6 +285,11 @@ const RAW: Record<Locale, Content> = {
       primary: "Umów prezentację",
       secondary: "Zobacz, jak to działa",
       sceneAlt: "Laptop z panelem Elliota: rozmowy w tym tygodniu, rozmowy obsłużone przez Elliota, nowi klienci i umówione prezentacje.",
+      floating: [
+        { title: "Kwalifikuje klientów", text: "Skup się na właściwych osobach.", icon: "people" },
+        { title: "Natychmiastowe odpowiedzi", text: "Odpowiedź na każde zapytanie, 24/7.", icon: "chat" },
+        { title: "Umawia prezentacje", text: "Terminy ustalane automatycznie.", icon: "calendar" },
+      ],
       strip: [
         { title: "Zawsze włączony", text: "Żadna okazja już nie przepadnie.", icon: "bolt" },
         { title: "Kwalifikuje klientów", text: "Skup się na właściwych okazjach.", icon: "people" },
