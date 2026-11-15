@@ -14,7 +14,7 @@ export default function HowItWorks({ locale = "en" }: { locale?: Locale }) {
           description={t.description}
         />
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <div key={s.n} className="group relative rounded-lg p-2 -m-2">
               <p className="inline-block font-mono text-sm font-semibold text-brass-dark dark:text-brass-light">
@@ -24,7 +24,7 @@ export default function HowItWorks({ locale = "en" }: { locale?: Locale }) {
                 {s.title}
               </h3>
               <p className="mt-2 text-[14.5px] leading-relaxed text-slate-600">{s.detail}</p>
-              {i < steps.length - 1 && (
+              {i < steps.length - 1 && i % 4 !== 3 && (
                 <span className="absolute -right-4 top-3 hidden text-slate-400 transition-transform duration-300 group-hover:translate-x-1 lg:block">
                   →
                 </span>

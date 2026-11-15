@@ -2,15 +2,21 @@
 // Statuses come from lib/capabilities.ts (see lib/content/home.ts for how).
 
 import type { Locale } from "@/lib/i18n";
-import { assertSameShape, resolveStatuses, type Capability } from "@/lib/capabilities";
+import { assertSameShape, resolveStatuses } from "@/lib/capabilities";
+import type { ScreenKey } from "@/lib/content/screens";
 
 type Heading = { eyebrow: string; title: string; description: string };
-export type FeatureIcon = "support" | "target" | "calendar" | "mail" | "followup" | "knowledge" | "handoff" | "database" | "analytics" | "gmail" | "whatsapp" | "googleCalendar";
 
 type Content = {
   productMeta: { title: string; description: string };
   productHero: Heading;
-  features: Heading & { items: { title: string; detail: string; icon: FeatureIcon; cap?: Capability }[] };
+  /** The platform story: each part of the enquiry, what Elliot automates and what your team controls. */
+  platform: Heading & {
+    automatesLabel: string;
+    controlsLabel: string;
+    chapters: { title: string; text: string; screen: ScreenKey; screenAlt: string; automates: string[]; controls: string[] }[];
+    roadmap: string;
+  };
   notJustChatbot: {
     eyebrow: string;
     title: string;
@@ -50,7 +56,7 @@ type Content = {
       notified: string;
     };
   };
-  dashboard: Heading & { badge: string; active: string; recent: string; metrics: string[]; rows: { name: string; note: string }[]; caption: string };
+  dashboard: Heading & { screenAlt: string; caption: string };
 };
 
 const RAW: Record<Locale, Content> = {
@@ -58,31 +64,63 @@ const RAW: Record<Locale, Content> = {
     productMeta: {
       title: "Product",
       description:
-        "Elliot answers estate agencies' enquiries on the website, by email and on WhatsApp[[whatsapp]], qualifies buyers, renters and sellers, and books viewings and valuations with your agents.",
+        "How Elliot runs the operational side of every property enquiry: capture, qualification, listing matching, viewings, follow-ups and handover to your agents, in one dashboard.",
     },
     productHero: {
       eyebrow: "Product",
-      title: "Your agency's front office, always on.",
+      title: "The operational side of every enquiry, handled.",
       description:
-        "Elliot answers buyers, renters, sellers and landlords on your website, by email and on WhatsApp[[whatsapp]], books viewings and valuations with your agents, and brings in a person when it matters.",
+        "Elliot captures each enquiry, understands it, qualifies the client, matches your listings, books the viewing and follows up, then hands the opportunity to the right person. Your agents see all of it in one dashboard.",
     },
-    features: {
-      eyebrow: "Capabilities",
-      title: "One assistant, the whole enquiry.",
-      description: "Elliot is set up around how your agency works, not a fixed script.",
-      items: [
-        { title: "Customer questions", detail: "Answers questions from your own listings, fees and FAQs, and says so when it doesn't know.", icon: "support", cap: "answers" },
-        { title: "Lead qualification", detail: "Asks the right questions and scores each lead hot, warm or cold.", icon: "target", cap: "qualification" },
-        { title: "Viewings", detail: "Books viewings into your agents' own Google Calendars, reminds clients the day before, and lets them confirm, move or cancel by message.", icon: "googleCalendar", cap: "viewings" },
-        { title: "Sellers and valuations", detail: "Takes valuation requests from people selling or letting, alerts an agent and books the valuation visit.", icon: "target", cap: "sellers" },
-        { title: "Email", detail: "Answers enquiries in your inbox (Gmail, Outlook or any other) in seconds, in your agency's name, and reads the PDFs and photos clients attach.", icon: "gmail", cap: "email" },
-        { title: "WhatsApp", detail: "The same conversations on your WhatsApp Business number: answers, qualifying and booking, in seconds.", icon: "whatsapp", cap: "whatsapp" },
-        { title: "Follow-ups", detail: "Follows up by email with people who go quiet, within your approval rules. Follow-ups on WhatsApp[[whatsappFollowUps]] come with WhatsApp.", icon: "followup", cap: "followUps" },
-        { title: "Listings and knowledge", detail: "Your listings from a spreadsheet or ASARI CRM[[asari]], plus your fees and FAQs. Update them and Elliot uses the new version.", icon: "knowledge", cap: "listingsImport" },
-        { title: "Human handover", detail: "Flags conversations for your team when a person should take over.", icon: "handoff", cap: "handover" },
-        { title: "CRM sync", detail: "Sends new leads and bookings to your CRM, directly or via Zapier or Make.", icon: "database", cap: "crm" },
-        { title: "Dashboard", detail: "Leads, bookings, conversations and approvals in one place.", icon: "analytics" },
+    platform: {
+      eyebrow: "The platform",
+      title: "Every part of the enquiry, connected.",
+      description: "Elliot does the operational work at each stage. Your team keeps the decisions, the relationship and the deal.",
+      automatesLabel: "Elliot automates",
+      controlsLabel: "Your team controls",
+      chapters: [
+        {
+          title: "Capture and understand",
+          text: "Every enquiry from your website chat, your inbox and WhatsApp[[whatsapp]] lands in one place. Elliot works out what the client wants, buying, renting, selling or letting, and answers from your own listings, fees and FAQs.",
+          screen: "conversations",
+          screenAlt: "The Elliot dashboard's conversations view, with sample data",
+          automates: ["Replies in seconds, day and night", "Answers from your listings, fees and FAQs", "Says so when it doesn't know, and passes the question on"],
+          controls: ["What Elliot knows and how it answers", "Reading any conversation and stepping in", "Pausing Elliot on a conversation"],
+        },
+        {
+          title: "Qualify and match",
+          text: "Elliot asks what matters in a natural way, then searches your listings for what fits and shares up to three, with an honest word on how each one differs. It never invents a property.",
+          screen: "listings",
+          screenAlt: "The Elliot dashboard's listings view, with sample data",
+          automates: ["Questions about budget, area, size, timing and financing", "A hot, warm or cold score for each lead", "Matching listings from your own stock"],
+          controls: ["Which questions matter to your agency", "Your listings, from a spreadsheet or ASARI CRM[[asari]]", "Who gets called first"],
+        },
+        {
+          title: "Book viewings with the right agent",
+          text: "Elliot offers free slots from your agents' own Google Calendars, books the one the client picks with an agent who's free and confirms it by email. Clients can move or cancel by message.",
+          screen: "calendar",
+          screenAlt: "The Elliot dashboard's calendar view, with sample data",
+          automates: ["Booking into the agent's Google Calendar", "Confirmation email and a reminder the day before", "Moving or cancelling when the client asks", "Valuation visits for sellers and landlords"],
+          controls: ["Which agents and calendars take viewings", "Confirming bookings first, if you prefer", "The viewing itself, and everything after it"],
+        },
+        {
+          title: "Follow up and hand over",
+          text: "Clients who go quiet get a follow-up email within your approval rules. When someone asks for a person, or a question falls outside your rules, Elliot hands the conversation to your team with everything attached.",
+          screen: "leads",
+          screenAlt: "The Elliot dashboard's leads view, with sample data",
+          automates: ["Follow-up emails, with your approval or automatically", "Handover with the whole conversation and the lead's details", "New leads and bookings sent to your CRM"],
+          controls: ["Approving follow-ups before they go", "Offers, negotiation and every decision that matters", "When to take a conversation over"],
+        },
+        {
+          title: "See and manage everything",
+          text: "The dashboard shows what's waiting for a person, today's viewings and how the week is going, with every conversation, lead and booking on record.",
+          screen: "overview",
+          screenAlt: "The Elliot dashboard's overview, with sample data",
+          automates: ["A daily view of what needs you", "Every message, booking and handover saved", "Weekly numbers: conversations, leads, viewings"],
+          controls: ["Your rules and approvals", "Reviewing any conversation", "Telling us what to adjust"],
+        },
       ],
+      roadmap: "Next on our roadmap: tracking offers, negotiations and completed transactions in Elliot. Today those stay with your agents and your own tools.",
     },
     notJustChatbot: {
       eyebrow: "The difference",
@@ -170,13 +208,17 @@ const RAW: Record<Locale, Content> = {
     },
     steps: {
       eyebrow: "How it works",
-      title: "Four steps, done with you.",
-      description: "Once it is live, Elliot answers around the clock.",
+      title: "Eight steps, done with you.",
+      description: "We set Elliot up with you, and once it is live it answers around the clock.",
       items: [
-        { title: "Connect", detail: "Your website chat, email inbox and your agents' calendars. WhatsApp[[whatsapp]] and ASARI[[asari]] if you use them." },
-        { title: "Teach", detail: "Your listings, fees, areas and the questions clients ask most." },
-        { title: "Set the rules", detail: "What Elliot does on its own, what waits for approval, who gets which leads and when to hand over." },
-        { title: "Go live", detail: "After you've tried it yourself, Elliot starts answering your clients." },
+        { title: "Map your workflow", detail: "How enquiries reach you today, who handles what, and where they get stuck." },
+        { title: "Connect your channels", detail: "Your website chat and email inbox, and WhatsApp[[whatsapp]] if you use it." },
+        { title: "Import and check listings", detail: "From a spreadsheet or ASARI CRM[[asari]]. We check prices, areas and availability come through correctly." },
+        { title: "Set knowledge and rules", detail: "Your fees, areas and FAQs, what Elliot does on its own and what waits for your approval." },
+        { title: "Connect calendars and owners", detail: "Your agents' Google Calendars, who takes viewings and who gets which leads." },
+        { title: "Test the whole journey", detail: "You try it as a client would, from the first message to a booked viewing, before any client talks to Elliot." },
+        { title: "Go live", detail: "Elliot starts answering your clients on the channels you've chosen." },
+        { title: "Monitor and improve", detail: "We review conversations with you and adjust answers and rules as you go." },
       ],
     },
     lifecycle: {
@@ -207,19 +249,11 @@ const RAW: Record<Locale, Content> = {
       },
     },
     dashboard: {
-      eyebrow: "Dashboard",
+      eyebrow: "After go-live",
       title: "Everything Elliot does, in one place.",
       description: "Your team sees every conversation, lead and viewing Elliot handles. The dashboard is in English.",
-      badge: "Example data",
-      active: "Elliot active",
-      recent: "Recent conversations",
-      metrics: ["Conversations", "New leads", "Hot leads", "Viewings booked"],
-      rows: [
-        { name: "Anna K.", note: "2-bedroom flat enquiry" },
-        { name: "Marek W.", note: "Moved a viewing" },
-        { name: "Website visitor", note: "Question about fees" },
-      ],
-      caption: "Illustrative mockup with example data.",
+      screenAlt: "The Elliot dashboard's overview, with sample data",
+      caption: "Real Elliot dashboard, shown with sample data.",
     },
   },
 
@@ -227,31 +261,63 @@ const RAW: Record<Locale, Content> = {
     productMeta: {
       title: "Produkt",
       description:
-        "Elliot odpowiada na zapytania do biur nieruchomości na stronie, w e-mailu i na WhatsAppie[[whatsapp]], kwalifikuje kupujących, najemców i sprzedających oraz umawia prezentacje i wyceny z Twoimi agentami.",
+        "Jak Elliot prowadzi operacyjną stronę każdego zapytania o nieruchomość: przyjęcie, kwalifikacja, dopasowanie ofert, prezentacje, przypomnienia i przekazanie agentom, w jednym panelu.",
     },
     productHero: {
       eyebrow: "Produkt",
-      title: "Recepcja Twojego biura, czynna zawsze.",
+      title: "Operacyjna strona każdego zapytania, załatwiona.",
       description:
-        "Elliot odpowiada kupującym, najemcom, sprzedającym i wynajmującym na Twojej stronie, w e-mailu i na WhatsAppie[[whatsapp]], umawia prezentacje i wyceny z Twoimi agentami i włącza człowieka, gdy to ważne.",
+        "Elliot przyjmuje każde zapytanie, rozumie je, kwalifikuje klienta, dopasowuje oferty, umawia prezentację i przypomina się, a potem przekazuje szansę właściwej osobie. Agenci widzą to wszystko w jednym panelu.",
     },
-    features: {
-      eyebrow: "Możliwości",
-      title: "Jeden asystent, całe zapytanie.",
-      description: "Elliot jest ustawiany pod sposób pracy Twojego biura, a nie pod sztywny scenariusz.",
-      items: [
-        { title: "Pytania klientów", detail: "Odpowiada na podstawie Twoich ofert, opłat i najczęstszych pytań, a gdy czegoś nie wie, mówi o tym.", icon: "support", cap: "answers" },
-        { title: "Kwalifikacja klientów", detail: "Zadaje właściwe pytania i ocenia każdego klienta jako gorącego, ciepłego lub zimnego.", icon: "target", cap: "qualification" },
-        { title: "Prezentacje", detail: "Umawia prezentacje w Kalendarzach Google Twoich agentów, przypomina klientom dzień wcześniej i pozwala im potwierdzić, przenieść lub odwołać termin wiadomością.", icon: "googleCalendar", cap: "viewings" },
-        { title: "Sprzedający i wyceny", detail: "Przyjmuje prośby o wycenę od osób, które sprzedają lub wynajmują, powiadamia agenta i umawia wizytę.", icon: "target", cap: "sellers" },
-        { title: "E-mail", detail: "Odpowiada na zapytania w Twojej skrzynce (Gmail, Outlook lub dowolna inna) w kilka sekund, w imieniu Twojego biura, i czyta pliki PDF oraz zdjęcia od klientów.", icon: "gmail", cap: "email" },
-        { title: "WhatsApp", detail: "Te same rozmowy na Twoim numerze WhatsApp Business: odpowiedzi, kwalifikacja i umawianie, w kilka sekund.", icon: "whatsapp", cap: "whatsapp" },
-        { title: "Przypomnienia", detail: "Przypomina się e-mailem osobom, które przestały odpowiadać, według Twoich zasad zatwierdzania. Przypomnienia na WhatsAppie[[whatsappFollowUps]] pojawią się razem z WhatsAppem.", icon: "followup", cap: "followUps" },
-        { title: "Oferty i wiedza", detail: "Twoje oferty z arkusza lub z ASARI CRM[[asari]], do tego opłaty i najczęstsze pytania. Zmieniasz je, a Elliot korzysta z nowej wersji.", icon: "knowledge", cap: "listingsImport" },
-        { title: "Przekazanie człowiekowi", detail: "Oznacza rozmowy dla Twojego zespołu, gdy powinien je przejąć człowiek.", icon: "handoff", cap: "handover" },
-        { title: "Synchronizacja z CRM", detail: "Przekazuje nowych klientów i rezerwacje do Twojego CRM, bezpośrednio lub przez Zapier albo Make.", icon: "database", cap: "crm" },
-        { title: "Panel", detail: "Klienci, rezerwacje, rozmowy i zatwierdzenia w jednym miejscu.", icon: "analytics" },
+    platform: {
+      eyebrow: "Platforma",
+      title: "Każdy etap zapytania, połączony.",
+      description: "Elliot wykonuje pracę operacyjną na każdym etapie. Decyzje, relacja z klientem i transakcja zostają przy Twoim zespole.",
+      automatesLabel: "Elliot automatyzuje",
+      controlsLabel: "Twój zespół decyduje",
+      chapters: [
+        {
+          title: "Przyjęcie i zrozumienie",
+          text: "Każde zapytanie z czatu na stronie, skrzynki e-mail i WhatsAppa[[whatsapp]] trafia w jedno miejsce. Elliot ustala, czego chce klient: kupić, wynająć, sprzedać czy oddać w najem, i odpowiada na podstawie Twoich ofert, opłat i najczęstszych pytań.",
+          screen: "conversations",
+          screenAlt: "Widok rozmów w panelu Elliota, na danych przykładowych",
+          automates: ["Odpowiedź w kilka sekund, w dzień i w nocy", "Odpowiedzi z Twoich ofert, opłat i FAQ", "Mówi, gdy czegoś nie wie, i przekazuje pytanie dalej"],
+          controls: ["Co Elliot wie i jak odpowiada", "Wgląd w każdą rozmowę i możliwość przejęcia", "Wstrzymanie Elliota w danej rozmowie"],
+        },
+        {
+          title: "Kwalifikacja i dopasowanie",
+          text: "Elliot w naturalny sposób pyta o to, co ważne, a potem szuka w Twoich ofertach tego, co pasuje, i pokazuje do trzech, uczciwie opisując, czym się różnią. Nigdy nie wymyśla nieruchomości.",
+          screen: "listings",
+          screenAlt: "Widok ofert w panelu Elliota, na danych przykładowych",
+          automates: ["Pytania o budżet, lokalizację, metraż, termin i finansowanie", "Ocena każdego klienta: gorący, ciepły lub zimny", "Dopasowanie ofert z Twojej bazy"],
+          controls: ["Które pytania są ważne dla Twojego biura", "Twoje oferty, z arkusza lub z ASARI CRM[[asari]]", "Do kogo zadzwonić najpierw"],
+        },
+        {
+          title: "Prezentacje z właściwym agentem",
+          text: "Elliot proponuje wolne terminy z kalendarzy Google Twoich agentów, rezerwuje wybrany z wolnym agentem i potwierdza go e-mailem. Klient może przenieść lub odwołać prezentację wiadomością.",
+          screen: "calendar",
+          screenAlt: "Widok kalendarza w panelu Elliota, na danych przykładowych",
+          automates: ["Rezerwacja w kalendarzu Google agenta", "E-mail z potwierdzeniem i przypomnienie dzień wcześniej", "Przeniesienie lub odwołanie na prośbę klienta", "Wizyty wyceniające dla sprzedających i wynajmujących"],
+          controls: ["Którzy agenci i kalendarze przyjmują prezentacje", "Potwierdzanie rezerwacji, jeśli wolisz", "Sama prezentacja i wszystko, co po niej"],
+        },
+        {
+          title: "Kontakt i przekazanie",
+          text: "Klienci, którzy przestali odpisywać, dostają e-mail przypominający zgodnie z Twoimi zasadami akceptacji. Gdy ktoś prosi o człowieka albo pytanie wykracza poza Twoje zasady, Elliot przekazuje rozmowę zespołowi z kompletem informacji.",
+          screen: "leads",
+          screenAlt: "Widok klientów w panelu Elliota, na danych przykładowych",
+          automates: ["E-maile przypominające, za Twoją zgodą lub automatycznie", "Przekazanie z całą rozmową i danymi klienta", "Nowi klienci i rezerwacje wysyłani do Twojego CRM"],
+          controls: ["Akceptacja przypomnień przed wysłaniem", "Oferty, negocjacje i każda ważna decyzja", "Kiedy przejąć rozmowę"],
+        },
+        {
+          title: "Wszystko pod kontrolą",
+          text: "Panel pokazuje, co czeka na człowieka, dzisiejsze prezentacje i jak mija tydzień, a każda rozmowa, klient i rezerwacja są zapisane.",
+          screen: "overview",
+          screenAlt: "Przegląd w panelu Elliota, na danych przykładowych",
+          automates: ["Codzienny widok tego, co wymaga Twojej uwagi", "Zapis każdej wiadomości, rezerwacji i przekazania", "Tygodniowe liczby: rozmowy, klienci, prezentacje"],
+          controls: ["Twoje zasady i akceptacje", "Wgląd w dowolną rozmowę", "Wskazanie nam, co poprawić"],
+        },
       ],
+      roadmap: "Następne w planach: śledzenie ofert, negocjacji i zamkniętych transakcji w Elliocie. Dziś te etapy zostają przy Twoich agentach i Twoich narzędziach.",
     },
     notJustChatbot: {
       eyebrow: "Różnica",
@@ -339,13 +405,17 @@ const RAW: Record<Locale, Content> = {
     },
     steps: {
       eyebrow: "Jak to działa",
-      title: "Cztery kroki, razem z Tobą.",
-      description: "Po uruchomieniu Elliot odpowiada przez całą dobę.",
+      title: "Osiem kroków, razem z Tobą.",
+      description: "Konfigurujemy Elliota razem z Tobą, a po uruchomieniu odpowiada przez całą dobę.",
       items: [
-        { title: "Podłączenie", detail: "Czat na stronie, skrzynka e-mail i kalendarze Twoich agentów. WhatsApp[[whatsapp]] i ASARI[[asari]], jeśli z nich korzystasz." },
-        { title: "Nauka", detail: "Twoje oferty, opłaty, lokalizacje i pytania, które klienci zadają najczęściej." },
-        { title: "Zasady", detail: "Co Elliot robi sam, co czeka na zgodę, kto dostaje których klientów i kiedy przekazać rozmowę." },
-        { title: "Start", detail: "Gdy sam go wypróbujesz, Elliot zaczyna odpowiadać Twoim klientom." },
+        { title: "Mapa procesu", detail: "Jak dziś trafiają do Ciebie zapytania, kto czym się zajmuje i gdzie sprawy utykają." },
+        { title: "Podłączenie kanałów", detail: "Czat na stronie i skrzynka e-mail, a także WhatsApp[[whatsapp]], jeśli z niego korzystasz." },
+        { title: "Import i sprawdzenie ofert", detail: "Z arkusza lub z ASARI CRM[[asari]]. Sprawdzamy, czy ceny, lokalizacje i dostępność wczytują się poprawnie." },
+        { title: "Wiedza i zasady", detail: "Twoje opłaty, lokalizacje i FAQ, co Elliot robi sam, a co czeka na Twoją zgodę." },
+        { title: "Kalendarze i opiekunowie", detail: "Kalendarze Google agentów, kto prowadzi prezentacje i kto dostaje których klientów." },
+        { title: "Test całej ścieżki", detail: "Sprawdzasz Elliota jak klient, od pierwszej wiadomości po umówioną prezentację, zanim porozmawia z nim jakikolwiek klient." },
+        { title: "Start", detail: "Elliot zaczyna odpowiadać Twoim klientom w wybranych kanałach." },
+        { title: "Obserwacja i poprawki", detail: "Razem przeglądamy rozmowy i na bieżąco poprawiamy odpowiedzi i zasady." },
       ],
     },
     lifecycle: {
@@ -376,19 +446,11 @@ const RAW: Record<Locale, Content> = {
       },
     },
     dashboard: {
-      eyebrow: "Panel",
+      eyebrow: "Po starcie",
       title: "Wszystko, co robi Elliot, w jednym miejscu.",
       description: "Twój zespół widzi każdą rozmowę, klienta i prezentację, którymi zajmuje się Elliot. Panel jest po angielsku.",
-      badge: "Dane przykładowe",
-      active: "Elliot aktywny",
-      recent: "Ostatnie rozmowy",
-      metrics: ["Rozmowy", "Nowi klienci", "Gorący klienci", "Umówione prezentacje"],
-      rows: [
-        { name: "Anna K.", note: "Zapytanie o mieszkanie 2-pokojowe" },
-        { name: "Marek W.", note: "Przeniesiona prezentacja" },
-        { name: "Gość ze strony", note: "Pytanie o opłaty" },
-      ],
-      caption: "Poglądowa makieta z przykładowymi danymi.",
+      screenAlt: "Przegląd w panelu Elliota, na danych przykładowych",
+      caption: "Prawdziwy panel Elliota, na danych przykładowych.",
     },
   },
 };

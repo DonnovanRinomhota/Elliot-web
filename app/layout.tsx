@@ -14,14 +14,15 @@ import { withStatus } from "@/lib/capabilities";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Elliot: AI assistant for estate agencies",
+    default: "Elliot: revenue operations for real estate agencies",
     template: "%s · Elliot",
   },
   description: withStatus(
-    "Elliot answers property enquiries on your website, by email and on WhatsApp[[whatsapp]], qualifies buyers and renters, books viewings into your calendar and hands over to your team when it should. Built for estate agencies.",
+    "Elliot keeps every property enquiry moving: it answers on your website, by email and on WhatsApp[[whatsapp]], qualifies buyers and renters, matches your listings, books viewings and hands over to your agents. Built for real estate agencies.",
     "en",
   ),
   keywords: [
+    "revenue operations for real estate agencies",
     "AI assistant for estate agents",
     "real estate chatbot",
     "AI lead qualification",
@@ -33,9 +34,9 @@ export const metadata: Metadata = {
     languages: { en: "/", pl: "/pl" },
   },
   openGraph: {
-    title: "Elliot: AI assistant for estate agencies",
+    title: "Elliot: keep every property enquiry moving",
     description:
-      "Answers enquiries, qualifies buyers and books viewings, around the clock. You approve what matters.",
+      "Revenue operations for real estate agencies. Elliot answers enquiries, qualifies buyers, matches listings and books viewings. Your agents close the deals.",
     url: SITE_URL,
     siteName: "Elliot",
     type: "website",
@@ -46,8 +47,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     images: ["/og.png"],
-    title: "Elliot: AI assistant for estate agencies",
-    description: "Answers enquiries, qualifies buyers and books viewings, around the clock.",
+    title: "Elliot: keep every property enquiry moving",
+    description: "Revenue operations for real estate agencies. AI handles the operational workload; your agents close the deals.",
   },
   icons: {
     icon: [
@@ -58,6 +59,30 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured data: who we are and what the site is. No address, registration
+// number or ratings, because none of those are published.
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Elliot",
+      url: SITE_URL,
+      logo: `${SITE_URL}/apple-touch-icon.png`,
+      description: "Revenue operations for real estate agencies.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: "Elliot",
+      url: SITE_URL,
+      inLanguage: ["en", "pl"],
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -66,6 +91,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
         <ElliotChatProvider>
           <a
             href="#main-content"

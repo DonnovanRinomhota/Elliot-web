@@ -3,15 +3,15 @@ import HomePage from "@/components/home/HomePage";
 import { withStatus } from "@/lib/capabilities";
 
 export const metadata: Metadata = {
-  title: { absolute: "Elliot: asystent AI dla biur nieruchomości" },
+  title: { absolute: "Elliot: obsługa sprzedaży dla biur nieruchomości" },
   description: withStatus(
-    "Elliot odpowiada na zapytania o nieruchomości na Twojej stronie, w e-mailu i na WhatsAppie[[whatsapp]], kwalifikuje kupujących i najemców, umawia prezentacje w Twoim kalendarzu i przekazuje rozmowę zespołowi, gdy trzeba.",
+    "Elliot prowadzi każde zapytanie o nieruchomość: odpowiada na Twojej stronie, w e-mailu i na WhatsAppie[[whatsapp]], kwalifikuje kupujących i najemców, dopasowuje oferty, umawia prezentacje i przekazuje klienta agentom.",
     "pl",
   ),
   alternates: { canonical: "/pl", languages: { en: "/", pl: "/pl" } },
   openGraph: {
-    title: "Elliot: asystent AI dla biur nieruchomości",
-    description: "Odpowiada na zapytania, kwalifikuje klientów i umawia prezentacje, o każdej porze.",
+    title: "Elliot: żadne zapytanie o nieruchomość nie utknie",
+    description: "Obsługa sprzedaży dla biur nieruchomości. AI przejmuje pracę operacyjną, a agenci zamykają transakcje.",
     locale: "pl_PL",
     url: "/pl",
   },

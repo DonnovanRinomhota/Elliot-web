@@ -52,7 +52,7 @@ export default function Navbar() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-10 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-7 lg:flex xl:gap-10" aria-label="Primary">
           {links.map((l) => (
             <Link key={l.href} href={l.href} className="text-[15px] font-medium text-white/85 transition-colors hover:text-white">
               {l.label}

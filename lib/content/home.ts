@@ -32,7 +32,12 @@ export type IconName =
   | "chart"
   | "check"
   | "eye"
-  | "book";
+  | "book"
+  | "target"
+  | "megaphone"
+  | "pen"
+  | "search"
+  | "key";
 
 type HeroCard = { title: string; text: string; icon: IconName };
 
@@ -93,15 +98,32 @@ type Content = {
     title: string;
     items: { title: string; text: string }[];
   };
+  /** What goes wrong without Elliot. */
+  problem: { eyebrow: string; title: string; lead: string; items: { title: string; text: string; icon: IconName }[] };
+  /** The whole customer journey, and who leads each stage. */
+  journey: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    legend: { elliot: string; together: string; agent: string };
+    stages: { name: string; owner: "elliot" | "together" | "agent" }[];
+    note: string;
+  };
+  /** People and Elliot: who does what. */
+  people: { eyebrow: string; title: string; lead: string; photoAlt: string; elliotTitle: string; elliotItems: string[]; agentTitle: string; agentItems: string[] };
+  /** The dashboard screenshots (lib/content/screens.ts holds the screens). */
+  showcase: { eyebrow: string; title: string; lead: string };
+  realEstate: { eyebrow: string; title: string; text: string; photoAlt: string; points: string[]; link: string };
+  advertising: { eyebrow: string; title: string; text: string; points: string[]; link: string };
   cta: { title: string; lead: string; primary: string; secondary: string };
 };
 
 const RAW: Record<Locale, Content> = {
   en: {
     hero: {
-      eyebrow: "AI for estate agencies",
-      title: ["More enquiries.", "More viewings.", "Less manual work."],
-      lead: "Elliot helps estate agencies respond to enquiries, qualify prospects and book viewings, around the clock.",
+      eyebrow: "Revenue operations for real estate agencies",
+      title: ["Keep every", "property enquiry", "moving."],
+      lead: "From the first customer enquiry to property matching, viewing appointments and agent follow-ups, Elliot connects the work that keeps your agency's opportunities moving.",
       primary: "Request a demo",
       secondary: "See how it works",
       sceneAlt: "A laptop showing Elliot's dashboard overview: conversations this week, chats handled by Elliot, leads received and viewings booked.",
@@ -111,10 +133,10 @@ const RAW: Record<Locale, Content> = {
         { title: "Book viewings", text: "Automatically schedule appointments.", icon: "calendar" },
       ],
       strip: [
-        { title: "Always on", text: "Never miss an opportunity again.", icon: "bolt" },
-        { title: "Qualify leads", text: "Focus on the right opportunities.", icon: "people" },
-        { title: "Secure & reliable", text: "Your data, your control.", icon: "shield" },
-        { title: "Grow with you", text: "From one office to multiple locations.", icon: "chart" },
+        { title: "Always on", text: "Replies in seconds, day and night.", icon: "bolt" },
+        { title: "Agents in control", text: "People lead the relationship and the deal.", icon: "people" },
+        { title: "One connected record", text: "Enquiries, leads and viewings together.", icon: "chart" },
+        { title: "Your data, your rules", text: "Approval rules you set.", icon: "shield" },
       ],
     },
     does: {
@@ -133,6 +155,12 @@ const RAW: Record<Locale, Content> = {
           text: "Asks about budget, area, size, timing and financing, then marks each lead hot, warm or cold so you know who to call first.",
           cap: "qualification",
           icon: "people",
+        },
+        {
+          title: "Matches your listings",
+          text: "Searches your own listings for what the client asked for and shares up to three that fit, with an honest word on how each one differs. It never invents a property.",
+          cap: "answers",
+          icon: "eye",
         },
         {
           title: "Books viewings",
@@ -157,26 +185,12 @@ const RAW: Record<Locale, Content> = {
           text: "Follows up by email with people who go quiet. You approve each message before it goes out, or let them send automatically.",
           cap: "followUps",
           icon: "repeat",
-          also: { cap: "whatsappFollowUps", text: "Follow-ups on WhatsApp" },
         },
         {
           title: "Hands over to your team",
           text: "When a client asks for a person, or a question falls outside your rules, Elliot flags it in your dashboard straight away.",
           cap: "handover",
           icon: "handover",
-        },
-        {
-          title: "Email",
-          text: "Answers the enquiries in your inbox (Gmail, Outlook or any other) in seconds, in the client's thread and in your agency's name. Enquiries from property portals included.",
-          cap: "email",
-          icon: "gmail",
-          also: { cap: "emailAttachments", text: "Reading the PDFs and photos clients attach" },
-        },
-        {
-          title: "WhatsApp",
-          text: "The same conversations on your WhatsApp Business number: answers, qualifying and booking, in seconds.",
-          cap: "whatsapp",
-          icon: "whatsapp",
         },
       ],
     },
@@ -269,6 +283,72 @@ const RAW: Record<Locale, Content> = {
         },
       ],
     },
+    problem: {
+      eyebrow: "The problem",
+      title: "Enquiries don't wait. Neither do buyers.",
+      lead: "Agencies rarely lose clients for lack of good listings. They lose them in the gaps between messages, tools and people.",
+      items: [
+        { title: "Enquiries at all hours", text: "People browse listings in the evening and at weekends. By the next morning, they have written to three other agencies.", icon: "chat" },
+        { title: "Slow first replies", text: "Agents are out on viewings. Questions about price, fees and availability wait hours for an answer.", icon: "bolt" },
+        { title: "Disconnected tools", text: "Portals, the inbox, WhatsApp, calendars and the CRM each hold part of the story. Nobody sees all of it.", icon: "inbox" },
+        { title: "Follow-ups that slip", text: "A promising client goes quiet after a viewing, and nobody writes back in time.", icon: "repeat" },
+      ],
+    },
+    journey: {
+      eyebrow: "The customer journey",
+      title: "Every stage of the enquiry, connected.",
+      lead: "Elliot carries the operational work from the first message to the agent's handover and the follow-ups. Your agents lead the relationship and the deal.",
+      legend: { elliot: "Elliot handles", together: "Elliot and your agent", agent: "Your agent leads" },
+      stages: [
+        { name: "Property discovery", owner: "agent" },
+        { name: "Enquiry", owner: "elliot" },
+        { name: "Qualification", owner: "elliot" },
+        { name: "Property matching", owner: "elliot" },
+        { name: "Viewing", owner: "together" },
+        { name: "Agent handover", owner: "together" },
+        { name: "Follow-up", owner: "elliot" },
+        { name: "Offer and negotiation", owner: "agent" },
+        { name: "Completion", owner: "agent" },
+      ],
+      note: "Tracking offers, negotiations and completed transactions in Elliot is on our product roadmap. Today these stages stay with your agents and your own tools.",
+    },
+    people: {
+      eyebrow: "People and Elliot",
+      title: "AI handles the operational workload. Your agents close the deals.",
+      lead: "Elliot doesn't negotiate, make offers or give legal or financial advice. It prepares the ground, so your agents arrive at every viewing knowing who they're meeting and what that person needs.",
+      photoAlt: "An estate agent showing a bright apartment to a couple.",
+      elliotTitle: "Elliot handles",
+      elliotItems: [
+        "First replies, day and night",
+        "Questions about listings, fees and availability",
+        "Qualifying questions and lead scores",
+        "Matching enquiries to your listings",
+        "Booking, moving and confirming viewings",
+        "Follow-ups within your approval rules",
+      ],
+      agentTitle: "Your agents own",
+      agentItems: ["The relationship with every client", "Viewings and advice on the property", "Offers and negotiation", "Contracts, closing and every consequential decision"],
+    },
+    showcase: {
+      eyebrow: "The product",
+      title: "One place for every enquiry, lead and viewing.",
+      lead: "This is the Elliot dashboard your team works in every day.",
+    },
+    realEstate: {
+      eyebrow: "Built for real estate",
+      title: "Made for the way agencies actually work.",
+      text: "Sales and rentals, buyers and renters, sellers and landlords. Elliot knows the difference between a viewing and a valuation, and answers your clients in Polish or English.",
+      photoAlt: "A bright, modern apartment living room with large windows over the city.",
+      points: ["Residential sales and rentals", "Buyer, renter, seller and landlord enquiries", "Independent agencies and growing teams"],
+      link: "Elliot for real estate agencies",
+    },
+    advertising: {
+      eyebrow: "Optional service",
+      title: "Need more enquiries, too? We can run your ads.",
+      text: "Managed Google and Meta advertising is a separate service with its own agreement. Elliot works fully without it.",
+      points: ["Your ad accounts stay in your name", "You set the budget and pay the platforms directly", "Our campaign management is quoted separately"],
+      link: "About managed advertising",
+    },
     cta: {
       title: "See Elliot working for your agency.",
       lead: "A short call where we set Elliot up with a few of your listings and you try it yourself.",
@@ -279,9 +359,9 @@ const RAW: Record<Locale, Content> = {
 
   pl: {
     hero: {
-      eyebrow: "AI dla biur nieruchomości",
-      title: ["Więcej zapytań.", "Więcej prezentacji.", "Mniej ręcznej pracy."],
-      lead: "Elliot pomaga biurom nieruchomości odpowiadać na zapytania, kwalifikować klientów i umawiać prezentacje, przez całą dobę.",
+      eyebrow: "Obsługa sprzedaży dla biur nieruchomości",
+      title: ["Żadne zapytanie", "o nieruchomość", "nie utknie."],
+      lead: "Od pierwszego zapytania, przez dopasowanie ofert i umawianie prezentacji, po kolejne kontakty agentów: Elliot łączy pracę, dzięki której szanse sprzedaży Twojego biura nie stoją w miejscu.",
       primary: "Umów prezentację",
       secondary: "Zobacz, jak to działa",
       sceneAlt: "Laptop z panelem Elliota: rozmowy w tym tygodniu, rozmowy obsłużone przez Elliota, nowi klienci i umówione prezentacje.",
@@ -291,10 +371,10 @@ const RAW: Record<Locale, Content> = {
         { title: "Umawia prezentacje", text: "Terminy ustalane automatycznie.", icon: "calendar" },
       ],
       strip: [
-        { title: "Zawsze włączony", text: "Żadna okazja już nie przepadnie.", icon: "bolt" },
-        { title: "Kwalifikuje klientów", text: "Skup się na właściwych okazjach.", icon: "people" },
-        { title: "Bezpieczny i niezawodny", text: "Twoje dane, Twoja kontrola.", icon: "shield" },
-        { title: "Rośnie razem z Tobą", text: "Od jednego biura do wielu oddziałów.", icon: "chart" },
+        { title: "Zawsze włączony", text: "Odpowiedź w kilka sekund, w dzień i w nocy.", icon: "bolt" },
+        { title: "Agenci decydują", text: "Relację i transakcję prowadzą ludzie.", icon: "people" },
+        { title: "Wszystko w jednym miejscu", text: "Zapytania, klienci i prezentacje razem.", icon: "chart" },
+        { title: "Twoje dane, Twoje zasady", text: "Zasady zatwierdzania ustalasz Ty.", icon: "shield" },
       ],
     },
     does: {
@@ -313,6 +393,12 @@ const RAW: Record<Locale, Content> = {
           text: "Pyta o budżet, lokalizację, metraż, termin i finansowanie, a potem oznacza klienta jako gorącego, ciepłego lub zimnego, żebyś wiedział, do kogo dzwonić najpierw.",
           cap: "qualification",
           icon: "people",
+        },
+        {
+          title: "Dopasowuje Twoje oferty",
+          text: "Przeszukuje Twoje oferty pod kątem tego, o co pytał klient, i pokazuje do trzech pasujących, uczciwie mówiąc, czym każda się różni. Nigdy nie wymyśla nieruchomości.",
+          cap: "answers",
+          icon: "eye",
         },
         {
           title: "Umawia prezentacje",
@@ -337,26 +423,12 @@ const RAW: Record<Locale, Content> = {
           text: "Przypomina się e-mailem osobom, które przestały odpowiadać. Zatwierdzasz każdą wiadomość przed wysłaniem albo pozwalasz, by wychodziły same.",
           cap: "followUps",
           icon: "repeat",
-          also: { cap: "whatsappFollowUps", text: "Przypomnienia na WhatsAppie" },
         },
         {
           title: "Przekazuje rozmowę zespołowi",
           text: "Gdy klient prosi o kontakt z człowiekiem albo pytanie wykracza poza Twoje zasady, Elliot od razu oznacza to w panelu.",
           cap: "handover",
           icon: "handover",
-        },
-        {
-          title: "E-mail",
-          text: "Odpowiada na zapytania w Twojej skrzynce (Gmail, Outlook lub dowolna inna) w kilka sekund, w tym samym wątku i w imieniu Twojego biura. Także na zapytania z portali ogłoszeniowych.",
-          cap: "email",
-          icon: "gmail",
-          also: { cap: "emailAttachments", text: "Czytanie plików PDF i zdjęć załączanych przez klientów" },
-        },
-        {
-          title: "WhatsApp",
-          text: "Te same rozmowy na Twoim numerze WhatsApp Business: odpowiedzi, kwalifikacja i umawianie, w kilka sekund.",
-          cap: "whatsapp",
-          icon: "whatsapp",
         },
       ],
     },
@@ -448,6 +520,72 @@ const RAW: Record<Locale, Content> = {
           text: "Współpracujesz bezpośrednio z osobą, która konfiguruje Elliota, sprawdza, jak sobie radzi, i razem z Tobą go dopracowuje.",
         },
       ],
+    },
+    problem: {
+      eyebrow: "Problem",
+      title: "Zapytania nie czekają. Kupujący też nie.",
+      lead: "Biura rzadko tracą klientów z braku dobrych ofert. Tracą ich w lukach między wiadomościami, narzędziami i ludźmi.",
+      items: [
+        { title: "Zapytania o każdej porze", text: "Ludzie przeglądają oferty wieczorami i w weekendy. Zanim nadejdzie ranek, napisali już do trzech innych biur.", icon: "chat" },
+        { title: "Wolne pierwsze odpowiedzi", text: "Agenci są na prezentacjach. Pytania o cenę, opłaty i dostępność czekają godzinami na odpowiedź.", icon: "bolt" },
+        { title: "Rozproszone narzędzia", text: "Portale, skrzynka, WhatsApp, kalendarze i CRM mają po kawałku historii. Nikt nie widzi całości.", icon: "inbox" },
+        { title: "Gubione kontakty", text: "Obiecujący klient milknie po prezentacji, a nikt nie odezwie się do niego na czas.", icon: "repeat" },
+      ],
+    },
+    journey: {
+      eyebrow: "Ścieżka klienta",
+      title: "Każdy etap zapytania, połączony.",
+      lead: "Elliot przejmuje pracę operacyjną od pierwszej wiadomości po przekazanie klienta agentowi i kolejne kontakty. Relację i transakcję prowadzą Twoi agenci.",
+      legend: { elliot: "Zajmuje się Elliot", together: "Elliot i agent", agent: "Prowadzi agent" },
+      stages: [
+        { name: "Wybór nieruchomości", owner: "agent" },
+        { name: "Zapytanie", owner: "elliot" },
+        { name: "Kwalifikacja", owner: "elliot" },
+        { name: "Dopasowanie ofert", owner: "elliot" },
+        { name: "Prezentacja", owner: "together" },
+        { name: "Przekazanie agentowi", owner: "together" },
+        { name: "Ponowny kontakt", owner: "elliot" },
+        { name: "Oferta i negocjacje", owner: "agent" },
+        { name: "Finalizacja", owner: "agent" },
+      ],
+      note: "Śledzenie ofert, negocjacji i zakończonych transakcji w Elliocie jest w naszych planach rozwoju. Dziś te etapy prowadzą Twoi agenci w Twoich narzędziach.",
+    },
+    people: {
+      eyebrow: "Ludzie i Elliot",
+      title: "AI przejmuje pracę operacyjną. Agenci zamykają transakcje.",
+      lead: "Elliot nie negocjuje, nie składa ofert i nie udziela porad prawnych ani finansowych. Przygotowuje grunt, żeby Twoi agenci przychodzili na każdą prezentację, wiedząc, z kim się spotykają i czego ta osoba potrzebuje.",
+      photoAlt: "Agentka nieruchomości pokazuje parze jasne mieszkanie.",
+      elliotTitle: "Elliot zajmuje się",
+      elliotItems: [
+        "Pierwszymi odpowiedziami, w dzień i w nocy",
+        "Pytaniami o oferty, opłaty i dostępność",
+        "Pytaniami kwalifikującymi i oceną klientów",
+        "Dopasowaniem zapytań do Twoich ofert",
+        "Umawianiem, przesuwaniem i potwierdzaniem prezentacji",
+        "Ponownym kontaktem według Twoich zasad zatwierdzania",
+      ],
+      agentTitle: "Twoi agenci odpowiadają za",
+      agentItems: ["Relację z każdym klientem", "Prezentacje i doradztwo w sprawie nieruchomości", "Oferty i negocjacje", "Umowy, finalizację i każdą ważną decyzję"],
+    },
+    showcase: {
+      eyebrow: "Produkt",
+      title: "Jedno miejsce na każde zapytanie, klienta i prezentację.",
+      lead: "Tak wygląda panel Elliota, w którym Twój zespół pracuje na co dzień.",
+    },
+    realEstate: {
+      eyebrow: "Stworzony dla nieruchomości",
+      title: "Zbudowany wokół tego, jak naprawdę pracują biura.",
+      text: "Sprzedaż i najem, kupujący i najemcy, sprzedający i wynajmujący. Elliot odróżnia prezentację od wyceny i odpowiada Twoim klientom po polsku lub po angielsku.",
+      photoAlt: "Jasny, nowoczesny salon z dużymi oknami z widokiem na miasto.",
+      points: ["Sprzedaż i najem mieszkań", "Zapytania kupujących, najemców, sprzedających i wynajmujących", "Niezależne biura i rosnące zespoły"],
+      link: "Elliot dla biur nieruchomości",
+    },
+    advertising: {
+      eyebrow: "Usługa dodatkowa",
+      title: "Potrzebujesz też więcej zapytań? Poprowadzimy Twoje reklamy.",
+      text: "Obsługa kampanii w Google i Meta to osobna usługa na podstawie osobnej umowy. Elliot działa w pełni bez niej.",
+      points: ["Konta reklamowe pozostają na Ciebie", "Ty ustalasz budżet i płacisz platformom bezpośrednio", "Prowadzenie kampanii wyceniamy osobno"],
+      link: "Więcej o obsłudze reklam",
     },
     cta: {
       title: "Zobacz Elliota w pracy dla Twojego biura.",

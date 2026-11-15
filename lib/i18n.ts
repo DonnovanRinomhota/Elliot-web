@@ -15,6 +15,7 @@ export const PAGE_TWINS: [en: string, pl: string][] = [
   ["/product", "/pl/produkt"],
   ["/how-it-works", "/pl/jak-to-dziala"],
   ["/industries/real-estate", "/pl/nieruchomosci"],
+  ["/managed-advertising", "/pl/obsluga-reklam"],
   ["/contact", "/pl/kontakt"],
   ["/book", "/pl/rezerwacja"],
   ["/demo", "/pl/demo"],
@@ -36,6 +37,7 @@ export const UI = {
       { href: "/product", label: "Product" },
       { href: "/how-it-works", label: "How it works" },
       { href: "/industries/real-estate", label: "Real estate" },
+      { href: "/managed-advertising", label: "Advertising" },
       { href: "/contact", label: "Contact" },
     ],
     talk: "Talk to Elliot",
@@ -49,7 +51,7 @@ export const UI = {
     switchAria: "Przełącz na język polski",
     footer: {
       tagline:
-        "An AI assistant for estate agencies: it answers enquiries, qualifies buyers and books viewings, around the clock.",
+        "Revenue operations for real estate agencies: Elliot keeps every enquiry moving, from the first message to the viewing and the agent's follow-up.",
       columns: [
         {
           title: "Product",
@@ -57,6 +59,7 @@ export const UI = {
             { href: "/product", label: "Overview" },
             { href: "/how-it-works", label: "How it works" },
             { href: "/industries/real-estate", label: "Real estate" },
+            { href: "/managed-advertising", label: "Managed advertising" },
           ],
         },
         {
@@ -83,6 +86,7 @@ export const UI = {
       { href: "/pl/produkt", label: "Produkt" },
       { href: "/pl/jak-to-dziala", label: "Jak to działa" },
       { href: "/pl/nieruchomosci", label: "Nieruchomości" },
+      { href: "/pl/obsluga-reklam", label: "Reklamy" },
       { href: "/pl/kontakt", label: "Kontakt" },
     ],
     talk: "Porozmawiaj z Elliotem",
@@ -96,7 +100,7 @@ export const UI = {
     switchAria: "Switch to English",
     footer: {
       tagline:
-        "Asystent AI dla biur nieruchomości: odpowiada na zapytania, kwalifikuje klientów i umawia prezentacje, o każdej porze.",
+        "Obsługa sprzedaży dla biur nieruchomości: Elliot prowadzi każde zapytanie, od pierwszej wiadomości po prezentację i kontakt agenta.",
       columns: [
         {
           title: "Produkt",
@@ -104,6 +108,7 @@ export const UI = {
             { href: "/pl/produkt", label: "Przegląd" },
             { href: "/pl/jak-to-dziala", label: "Jak to działa" },
             { href: "/pl/nieruchomosci", label: "Nieruchomości" },
+            { href: "/pl/obsluga-reklam", label: "Obsługa reklam" },
           ],
         },
         {

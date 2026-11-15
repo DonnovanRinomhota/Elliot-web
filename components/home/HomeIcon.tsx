@@ -99,6 +99,38 @@ const LINE: Partial<Record<IconName, JSX.Element>> = {
       <path d="M9 8h6" />
     </>
   ),
+  target: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="4.5" />
+      <circle cx="12" cy="12" r="1" />
+    </>
+  ),
+  megaphone: (
+    <>
+      <path d="M4 10v4a1 1 0 0 0 1 1h2l8 4.5v-15L7 9H5a1 1 0 0 0-1 1Z" />
+      <path d="M7.5 15 9 20h2.5" />
+      <path d="M18.5 9.5a3.5 3.5 0 0 1 0 5" />
+    </>
+  ),
+  pen: (
+    <>
+      <path d="m14.5 5.5 4 4L9 19H5v-4Z" />
+      <path d="m12.5 7.5 4 4" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6" />
+      <path d="m15 15 4.5 4.5" />
+    </>
+  ),
+  key: (
+    <>
+      <circle cx="8" cy="14" r="3.5" />
+      <path d="m10.5 11.5 8-8M15.5 6.5l2.5 2.5M13.5 8.5l2 2" />
+    </>
+  ),
 };
 
 const BRAND_OF: Partial<Record<IconName, BrandName>> = {
