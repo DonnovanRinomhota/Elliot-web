@@ -292,7 +292,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 </li>
               ))}
             </ul>
-            <a href={LINKS[locale].realEstate} className="mt-8 inline-flex items-center gap-2 text-[15px] font-semibold text-gold">
+            <a href={LINKS[locale].realEstate} className="mt-8 inline-flex items-center gap-2 text-[15px] font-semibold text-[#8a5a2b] underline-offset-4 hover:underline">
               {t.realEstate.link} <Arrow />
             </a>
           </PhotoSplit>
