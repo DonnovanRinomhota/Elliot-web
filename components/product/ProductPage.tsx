@@ -1,5 +1,5 @@
 import PageHero from "@/components/sections/PageHero";
-import FeatureGrid from "@/components/sections/FeatureGrid";
+import PlatformStory from "@/components/product/PlatformStory";
 import NotJustChatbot from "@/components/sections/NotJustChatbot";
 import HumanHandoff from "@/components/sections/HumanHandoff";
 import Permissions from "@/components/sections/Permissions";
@@ -15,7 +15,7 @@ export default function ProductPage({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHero eyebrow={hero.eyebrow} title={hero.title} description={hero.description} />
-      <FeatureGrid locale={locale} />
+      <PlatformStory locale={locale} />
       <NotJustChatbot locale={locale} />
       <HumanHandoff locale={locale} />
       <Permissions locale={locale} />
