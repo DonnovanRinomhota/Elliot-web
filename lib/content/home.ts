@@ -32,7 +32,12 @@ export type IconName =
   | "chart"
   | "check"
   | "eye"
-  | "book";
+  | "book"
+  | "target"
+  | "megaphone"
+  | "pen"
+  | "search"
+  | "key";
 
 type HeroCard = { title: string; text: string; icon: IconName };
 

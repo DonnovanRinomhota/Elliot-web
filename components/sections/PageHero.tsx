@@ -3,10 +3,12 @@ export default function PageHero({
   eyebrow,
   title,
   description,
+  children,
 }: {
   eyebrow: string;
   title: string;
   description: string;
+  children?: React.ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden pb-20 pt-36 md:pb-24 md:pt-44">
@@ -20,6 +22,7 @@ export default function PageHero({
         <p className="eyebrow">{eyebrow}</p>
         <h1 className="mt-6 text-[2.6rem] font-medium leading-[1.06] text-white md:text-[3.6rem]">{title}</h1>
         <p className="mt-6 max-w-2xl text-[17.5px] leading-relaxed text-white/75">{description}</p>
+        {children}
       </div>
     </section>
   );
