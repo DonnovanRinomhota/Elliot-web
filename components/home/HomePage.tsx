@@ -8,12 +8,35 @@ import Hero from "@/components/home/Hero";
 import { HomeIcon, IconTile } from "@/components/home/HomeIcon";
 import { ElliotMark } from "@/components/ElliotLogoArt";
 import ToolsGraphic from "@/components/sections/ToolsGraphic";
+import ProductShowcase from "@/components/showcase/ProductShowcase";
+import PhotoSplit from "@/components/showcase/PhotoSplit";
+import agentViewing from "@/public/images/photos/agent-viewing.webp";
+import apartment from "@/public/images/photos/apartment-interior.webp";
 
 // Section ids are localized (Polish page, Polish anchors).
 const IDS = {
-  en: { does: "what-it-does", flow: "how-it-works", control: "control", tools: "tools" },
-  pl: { does: "co-robi", flow: "jak-dziala", control: "kontrola", tools: "narzedzia" },
+  en: { does: "what-it-does", flow: "how-it-works", control: "control", tools: "tools", product: "product", ads: "advertising" },
+  pl: { does: "co-robi", flow: "jak-dziala", control: "kontrola", tools: "narzedzia", product: "produkt", ads: "reklamy" },
 };
+
+const LINKS = {
+  en: { realEstate: "/industries/real-estate", ads: "/managed-advertising" },
+  pl: { realEstate: "/pl/nieruchomosci", ads: "/pl/obsluga-reklam" },
+};
+
+const OWNER_STYLE = {
+  elliot: "border-transparent bg-gold text-[#0b1426]",
+  together: "border-[#e8c08e]/60 bg-[#d9a56c]/15 text-[#f3d4a4]",
+  agent: "border-white/25 bg-white/[0.06] text-white/85",
+} as const;
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 10h11M11 5.5 15.5 10 11 14.5" />
+    </svg>
+  );
+}
 
 function Heading({ eyebrow, title, lead, center = true }: { eyebrow: string; title: string; lead?: string; center?: boolean }) {
   return (
@@ -125,35 +148,51 @@ export default function HomePage({ locale }: { locale: Locale }) {
     <>
       <Hero t={t.hero} bookHref={ui.bookHref} howHref={`#${ids.flow}`} />
 
-      {/* What Elliot does */}
-      <section id={ids.does} className="section-light scroll-mt-24 py-24 md:py-32">
+      {/* The problem */}
+      <section className="section-light py-24 md:py-32">
         <div className="container-content">
-          <Heading eyebrow={t.does.eyebrow} title={t.does.title} lead={t.does.lead} />
-          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {t.does.items.map((item) => (
-              <article key={item.title} className="panel flex flex-col rounded-[24px] p-7 transition-colors hover:border-white/15">
+          <Heading eyebrow={t.problem.eyebrow} title={t.problem.title} lead={t.problem.lead} />
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {t.problem.items.map((item, i) => (
+              <article key={item.title} className="reveal panel flex flex-col rounded-[24px] p-7" style={{ transitionDelay: `${i * 80}ms` }}>
                 <IconTile name={item.icon} />
-                <h3 className="mt-6 text-[19px] font-semibold tracking-[-0.01em] text-fg">{item.title}</h3>
+                <h3 className="mt-6 text-[18px] font-semibold tracking-[-0.01em] text-fg">{item.title}</h3>
                 <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600">{item.text}</p>
-                {item.also && (
-                  <p className="mt-auto flex items-center gap-2 pt-5 text-[13.5px] text-slate-700">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full gold-tile bg-[#d9a56c]/15 text-[#e8c08e]">
-                      <Check className="h-3 w-3" />
-                    </span>
-                    {item.also.text}
-                  </p>
-                )}
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* First message to booked viewing */}
+      {/* The customer journey, then the first five steps in pictures */}
       <section id={ids.flow} className="section-sky scroll-mt-24 py-24 md:py-32">
         <div className="container-content">
-          <Heading eyebrow={t.flow.eyebrow} title={t.flow.title} lead={t.flow.lead} />
-          <ol className="mt-16 grid gap-4 md:grid-cols-6">
+          <Heading eyebrow={t.journey.eyebrow} title={t.journey.title} lead={t.journey.lead} />
+          <div className="reveal mx-auto mt-12 max-w-5xl">
+            <ol className="flex flex-wrap items-center justify-center gap-2">
+              {t.journey.stages.map((st, i) => (
+                <li key={st.name} className="flex items-center gap-2">
+                  <span className={`rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium ${OWNER_STYLE[st.owner]}`}>{st.name}</span>
+                  {i < t.journey.stages.length - 1 && <span aria-hidden="true" className="text-white/40">→</span>}
+                </li>
+              ))}
+            </ol>
+            <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-slate-700">
+              {(["elliot", "together", "agent"] as const).map((k) => (
+                <li key={k} className="flex items-center gap-2">
+                  <span aria-hidden="true" className={`h-3 w-3 rounded-full border ${OWNER_STYLE[k]}`} />
+                  {t.journey.legend[k]}
+                </li>
+              ))}
+            </ul>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-[13px] leading-relaxed text-slate-600">{t.journey.note}</p>
+          </div>
+
+          <div className="mx-auto mt-20 max-w-3xl text-center">
+            <h3 className="text-[1.6rem] font-semibold leading-tight tracking-[-0.02em] text-fg md:text-[2rem]">{t.flow.title}</h3>
+            <p className="mx-auto mt-3 max-w-2xl text-[16px] leading-relaxed text-slate-600">{t.flow.lead}</p>
+          </div>
+          <ol className="mt-12 grid gap-4 md:grid-cols-6">
             {t.flow.steps.map((s, i) => (
               <li key={s.title} className={`panel flex flex-col overflow-hidden rounded-[24px] ${i < 3 ? "md:col-span-2" : "md:col-span-3"}`}>
                 <div className="flex h-56 items-center justify-center border-b border-fg/[0.06] bg-[radial-gradient(400px_200px_at_50%_0%,rgba(110,155,255,0.10),transparent_70%)] px-6">
@@ -161,7 +200,7 @@ export default function HomePage({ locale }: { locale: Locale }) {
                 </div>
                 <div className="p-7">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-[13px] text-slate-700">{i + 1}</span>
-                  <h3 className="mt-5 text-[19px] font-semibold tracking-[-0.01em] text-fg">{s.title}</h3>
+                  <h4 className="mt-5 text-[19px] font-semibold tracking-[-0.01em] text-fg">{s.title}</h4>
                   <p className="mt-2.5 text-[14.5px] leading-relaxed text-slate-600">{s.text}</p>
                 </div>
               </li>
@@ -170,11 +209,119 @@ export default function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
+      {/* What Elliot does */}
+      <section id={ids.does} className="section-light scroll-mt-24 py-24 md:py-32">
+        <div className="container-content">
+          <Heading eyebrow={t.does.eyebrow} title={t.does.title} lead={t.does.lead} />
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {t.does.items.map((item) => (
+              <article key={item.title} className="panel flex flex-col rounded-[24px] p-7 transition-colors hover:border-white/15">
+                <IconTile name={item.icon} />
+                <h3 className="mt-6 text-[18px] font-semibold tracking-[-0.01em] text-fg">{item.title}</h3>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-slate-600">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* People and Elliot */}
+      <section className="section-night py-24 md:py-32">
+        <div className="container-content">
+          <PhotoSplit src={agentViewing} alt={t.people.photoAlt} imageClassName="aspect-[4/3] lg:aspect-[1/1.02]">
+            <Heading eyebrow={t.people.eyebrow} title={t.people.title} lead={t.people.lead} center={false} />
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[22px] border border-[#d9a56c]/35 bg-[#d9a56c]/[0.07] p-6">
+                <p className="flex items-center gap-2 text-[15px] font-semibold text-[#f3d4a4]">
+                  <ElliotMark size={16} /> {t.people.elliotTitle}
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {t.people.elliotItems.map((x) => (
+                    <li key={x} className="flex gap-2.5 text-[14px] leading-snug text-slate-700">
+                      <span className="mt-0.5 text-[#e8c08e]">
+                        <Check />
+                      </span>
+                      {x}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-[22px] border border-white/15 bg-white/[0.04] p-6">
+                <p className="flex items-center gap-2 text-[15px] font-semibold text-white">
+                  <HomeIcon name="people" className="h-4 w-4" /> {t.people.agentTitle}
+                </p>
+                <ul className="mt-4 space-y-2.5">
+                  {t.people.agentItems.map((x) => (
+                    <li key={x} className="flex gap-2.5 text-[14px] leading-snug text-slate-700">
+                      <span className="mt-0.5 text-white/70">
+                        <Check />
+                      </span>
+                      {x}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </PhotoSplit>
+        </div>
+      </section>
+
+      {/* The product, in real screenshots */}
+      <ProductShowcase locale={locale} id={ids.product} eyebrow={t.showcase.eyebrow} title={t.showcase.title} lead={t.showcase.lead} sectionClass="section-sky" />
+
       {/* Tools */}
       <section id={ids.tools} className="section-night scroll-mt-24 py-24 md:py-32">
         <div className="container-content">
           <Heading eyebrow={t.tools.eyebrow} title={t.tools.title} lead={t.tools.lead} />
           <ToolsGraphic t={t.tools} />
+        </div>
+      </section>
+
+      {/* Real estate */}
+      <section className="section-light py-24 md:py-32">
+        <div className="container-content">
+          <PhotoSplit src={apartment} alt={t.realEstate.photoAlt} reverse imageClassName="aspect-[16/11]">
+            <Heading eyebrow={t.realEstate.eyebrow} title={t.realEstate.title} lead={t.realEstate.text} center={false} />
+            <ul className="mt-8 space-y-3">
+              {t.realEstate.points.map((x) => (
+                <li key={x} className="flex items-center gap-3 text-[15px] text-fg">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full gold-tile bg-[#d9a56c]/15 text-[#e8c08e]">
+                    <Check className="h-3 w-3" />
+                  </span>
+                  {x}
+                </li>
+              ))}
+            </ul>
+            <a href={LINKS[locale].realEstate} className="mt-8 inline-flex items-center gap-2 text-[15px] font-semibold text-gold">
+              {t.realEstate.link} <Arrow />
+            </a>
+          </PhotoSplit>
+        </div>
+      </section>
+
+      {/* Managed advertising: a separate, optional service */}
+      <section id={ids.ads} className="section-sky scroll-mt-24 py-20 md:py-24">
+        <div className="container-content">
+          <div className="glass grid gap-8 rounded-[28px] p-8 md:p-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+            <div>
+              <p className="eyebrow text-white/85">{t.advertising.eyebrow}</p>
+              <h2 className="mt-4 text-[1.9rem] font-semibold leading-[1.1] tracking-[-0.03em] text-fg md:text-[2.4rem]">{t.advertising.title}</h2>
+              <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-slate-600">{t.advertising.text}</p>
+              <a href={LINKS[locale].ads} className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-gold">
+                {t.advertising.link} <Arrow />
+              </a>
+            </div>
+            <ul className="space-y-3">
+              {t.advertising.points.map((x) => (
+                <li key={x} className="flex items-center gap-3 rounded-2xl border border-white/12 bg-white/[0.05] px-4 py-3.5 text-[14.5px] text-fg">
+                  <span className="text-[#e8c08e]">
+                    <Check />
+                  </span>
+                  {x}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
